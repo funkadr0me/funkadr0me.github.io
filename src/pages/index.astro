@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { settings, projects, writing, experience, awards, links } from '../data/site';
+
+const headline = settings.headline;
+const headlineWords = headline.split(' ');
+const roles = settings.roles.length ? settings.roles : [settings.label];
+const rolesSentence = roles.length > 1 ? `${roles.slice(0, -1).join(', ')} and ${roles.at(-1)}` : roles[0];
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="container hero">
+    <p class="body-sm muted" data-intro style="--intro-delay: 0s">
+      <span class="sr-only">{settings.label}: {rolesSentence}, based in {settings.location}</span>
+      <span aria-hidden="true">{settings.label} · <span class="typing" data-typing={JSON.stringify(roles)}><span class="typing-text">{roles[0]}</span><span class="typing-caret"></span></span> · {settings.location}</span>
+    </p>
+    <h1 class="headline-display" aria-label={headline}>
+      {headlineWords.map((word, i) => (
+        <><span class="hero-word" aria-hidden="true" style={`--i: ${i}`}>{word}</span>{i < headlineWords.length - 1 ? ' ' : ''}</>
+      ))}
+    </h1>
+    <div class="hero-foot">
+      <p class="body-lg intro" data-intro style="--intro-delay: 0.75s">
+        {settings.intro}
+      </p>
+      <div class="actions" data-intro style="--intro-delay: 0.9s">
+        <Button href="#work">See the work</Button>
+        <Button href="#contact" variant="secondary">Give me a shout</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="container section" id="work">
+    <SectionHeader title="Carefully curated">Selected work, 2008 — present</SectionHeader>
+    <div class="grid">
+      {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
+    </div>
+  </section>
+
+  <!-- About band -->
+  <section class="about" data-wipe>
+    <div class="container about-inner">
+      <p class="body-sm">{settings.aboutLabel}</p>
+      <p class="headline-md about-text">
+        {settings.about}
+      </p>
+    </div>
+  </section>
+
+  <!-- Writing -->
+  <section class="container section top" id="writing">
+    <SectionHeader title="I think, therefore I write">Writings &amp; other documented blabbers</SectionHeader>
+    <div>
+      {writing.map((post) => (
+        <a class="post" href={post.href} data-reveal>
+          <span class="headline-sm">{post.title}</span>
+          <span class="body-sm muted">{post.source}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="container section top" id="experience">
+    <SectionHeader title="The road so far"><a class="u-draw" href={links.resume}>Full resume</a></SectionHeader>
+    <div>
+      {experience.map((job, i) => (
+        <div class="job" data-reveal style={`--d: ${i * 0.05}s`}>
+          <span class="body-sm muted years">{job.years}</span>
+          <span class="role">{job.role}</span>
+          <span class="org muted">{job.org}</span>
+        </div>
+      ))}
+    </div>
+    <div class="awards">
+      {awards.map((award, i) => (
+        <div class="award" data-reveal style={`--d: ${i * 0.08}s`}>
+          <span class="award-name">{award.name}</span>
+          <span class="body-sm muted">{award.detail}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="container section contact" id="contact">
+    <h2 class="headline-display" data-reveal>{settings.contactHeadline}</h2>
+    <p class="body-lg intro" data-reveal style="--d: 0.1s">
+      {settings.contactText}
+    </p>
+    <div class="contact-links" data-reveal style="--d: 0.2s">
+      <Button href={`mailto:${links.email}`}>{links.email}</Button>
+      <a class="u-draw" href={links.linkedin}>LinkedIn</a>
+      <a class="u-draw" href={links.twitter}>Twitter</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .hero h1 { max-width: 1180px; }
+  .hero-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .intro { max-width: 560px; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+
+  .section {
+    padding-bottom: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .section.top { padding-top: var(--space-xl); padding-bottom: 0; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-gutter);
+  }
+
+  .about { background: var(--claret); color: var(--background); }
+  .about-inner {
+    padding-block: var(--space-lg);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    justify-content: space-between;
+  }
+  .about-text { flex: 1 1 560px; max-width: 940px; }
+
+  .post {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-sm) var(--space-md);
+    padding-block: var(--space-gutter);
+    border-bottom: 1px solid var(--tertiary);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .post:hover .headline-sm { color: var(--claret); }
+  .post .headline-sm { flex: 1 1 520px; }
+
+  .job {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px var(--space-gutter);
+    padding-block: var(--space-sm);
+    border-bottom: 1px solid var(--tertiary);
+  }
+  .years { flex: 0 0 200px; }
+  .role { flex: 1 1 320px; }
+  .org { flex: 1 1 240px; }
+
+  .awards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-gutter);
+    padding-top: var(--space-md);
+  }
+  .award { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .award-name {
+    font-family: var(--font-display);
+    font-size: 45px;
+    line-height: 54px;
+    letter-spacing: -0.36px;
+  }
+
+  .contact { padding-top: var(--space-xl); }
+  .contact h2 { max-width: 1100px; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-md); align-items: center; }
+</style>

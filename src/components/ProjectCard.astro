@@ -1,0 +1,76 @@
+---
+import Tag from './Tag.astro';
+import type { Project } from '../data/site';
+
+interface Props {
+  project: Project;
+  index?: number;
+}
+
+const { project, index = 0 } = Astro.props;
+const blockColor = {
+  claret: 'var(--claret)',
+  oxford: 'var(--oxford)',
+  teal: 'var(--teal)',
+  ink: 'var(--primary)',
+}[project.tone];
+---
+
+<div class="reveal-wrap" data-reveal style={`--d: ${index * 0.08}s`}>
+<article class="card">
+  {project.image ? (
+    <img class="media" src={project.image} alt={project.imageAlt ?? ''} />
+  ) : (
+    <div class:list={['media', 'block', { display: Boolean(project.blockText) }]} style={`background: ${blockColor}`}>
+      {project.blockText ?? '[PROJECT IMAGE]'}
+    </div>
+  )}
+  <div class="text">
+    <p class="client label-sm muted">{project.client}</p>
+    <h3 class="headline-sm">{project.title}</h3>
+    <p class="body-sm muted">{project.summary}</p>
+  </div>
+  <div class="tags">
+    {project.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
+  </div>
+  <a class="u-draw link" href={project.href}>{project.linkLabel ?? 'View project'}</a>
+</article>
+</div>
+
+<style>
+  .reveal-wrap { display: flex; }
+  .card {
+    flex: 1;
+    border: 1px solid var(--tertiary);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    background: var(--surface);
+  }
+  .media {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+  .block {
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-sm);
+    color: var(--background);
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .block.display {
+    color: var(--neutral);
+    font-family: var(--font-display);
+    font-size: 45px;
+    line-height: 54px;
+    letter-spacing: -0.36px;
+  }
+  .text { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .link { align-self: flex-start; }
+</style>

@@ -1,0 +1,54 @@
+---
+interface Props {
+  current?: string;
+}
+
+const { current = '#work' } = Astro.props;
+
+const links = [
+  { href: '#work', label: 'Work' },
+  { href: '#writing', label: 'Writing' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="site-header">
+  <nav aria-label="Main" class="container">
+    <a class="name" href="#top">Purna Anantha</a>
+    <div class="links">
+      {links.map((link) => (
+        <a
+          class="item"
+          href={link.href}
+          aria-current={link.href === current ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header { border-bottom: 1px solid var(--tertiary); }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+  a { color: var(--text); text-decoration: none; }
+  .name { padding: 12px 0; }
+  .links { display: flex; flex-wrap: wrap; }
+  .item {
+    padding: 12px 16px;
+    border-bottom: 2px solid transparent;
+  }
+  .item:hover { border-bottom-color: var(--tertiary); color: var(--text); }
+  @media (max-width: 640px) {
+    .links { margin-inline: -16px; }
+  }
+  .item[aria-current='page'] { color: var(--accent); border-bottom-color: var(--claret); }
+</style>

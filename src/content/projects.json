@@ -1,0 +1,94 @@
+[
+  {
+    "client": "Bukalapak",
+    "title": "Product Tone & Voice",
+    "summary": "Led the creation of Bukalapak’s product tone and voice, with the principles and guidelines that grew from it — maintained as part of the design system.",
+    "href": "https://brand.bukalapak.design/brand-elements#tone_and_voice-overview",
+    "linkLabel": "",
+    "tone": "claret",
+    "image": "",
+    "imageAlt": "",
+    "blockText": "",
+    "tags": [
+      {
+        "label": "Content strategy",
+        "tone": "oxford"
+      },
+      {
+        "label": "Design system",
+        "tone": "claret"
+      },
+      {
+        "label": "Design lead",
+        "tone": "claret"
+      }
+    ]
+  },
+  {
+    "client": "Bukalapak",
+    "title": "Career website",
+    "summary": "[ONE-LINE PROJECT SUMMARY]",
+    "href": "https://careers.bukalapak.com/",
+    "linkLabel": "",
+    "tone": "oxford",
+    "image": "",
+    "imageAlt": "",
+    "blockText": "",
+    "tags": [
+      {
+        "label": "Content strategy",
+        "tone": "oxford"
+      },
+      {
+        "label": "UX copywriting",
+        "tone": "teal"
+      }
+    ]
+  },
+  {
+    "client": "Mitra Bukalapak",
+    "title": "Year End Review 2018",
+    "summary": "[ONE-LINE PROJECT SUMMARY]",
+    "href": "#work",
+    "linkLabel": "",
+    "tone": "teal",
+    "image": "",
+    "imageAlt": "",
+    "blockText": "",
+    "tags": [
+      {
+        "label": "Content strategy",
+        "tone": "oxford"
+      },
+      {
+        "label": "UX copywriting",
+        "tone": "teal"
+      }
+    ]
+  },
+  {
+    "client": "Archive",
+    "title": "Advertising & scriptwriting",
+    "summary": "Ten years of traditional and digital campaigns, plus scripts and lyrics for Jalan Sesama.",
+    "href": "https://theworkssofar.tumblr.com/",
+    "linkLabel": "View the archive",
+    "tone": "ink",
+    "image": "",
+    "imageAlt": "",
+    "blockText": "2008–2018",
+    "tags": [
+      {
+        "label": "Traditional advertising",
+        "tone": "ink"
+      },
+      {
+        "label": "Digital advertising",
+        "tone": "ink"
+      },
+      {
+        "label": "Scriptwriting",
+        "tone": "ink"
+      }
+    ]
+  }
+]

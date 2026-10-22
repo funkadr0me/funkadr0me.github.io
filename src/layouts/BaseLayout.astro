@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+import '../styles/motion.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Purna Anantha — Multi-platform writer',
+  description = 'Purna Anantha is a multi-platform writer based in Jakarta, leading the UX Writer Hub at Telkom Indonesia.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/Novela-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/BasierCircle-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <title>{title}</title>
+    <script is:inline>
+      // Turn motion on before first paint, unless the visitor prefers reduced motion.
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+    </script>
+  </head>
+  <body>
+    <Nav />
+    <main id="top">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+# Pages CMS configuration — https://pagescms.org/docs/configuration/
+# Every save in the CMS is a commit to this repo; GitHub Actions then rebuilds the site.
+
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: settings
+    label: Site text
+    type: file
+    path: src/content/settings.json
+    format: json
+    fields:
+      - name: label
+        label: Label above the headline
+        type: string
+        required: true
+      - name: roles
+        label: Typed roles (cycle in the label)
+        type: string
+        list: { min: 1, max: 6 }
+      - name: location
+        type: string
+      - name: headline
+        label: Hero headline
+        type: text
+        required: true
+      - name: intro
+        label: Hero intro
+        type: text
+      - name: aboutLabel
+        label: About band — small label
+        type: string
+      - name: about
+        label: About band — text
+        type: text
+      - name: contactHeadline
+        label: Contact headline
+        type: string
+      - name: contactText
+        label: Contact text
+        type: text
+      - name: email
+        type: string
+      - name: linkedin
+        label: LinkedIn URL
+        type: string
+      - name: twitter
+        label: Twitter URL
+        type: string
+      - name: resume
+        label: Resume URL
+        type: string
+
+  - name: projects
+    label: Projects
+    type: file
+    path: src/content/projects.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: client
+        type: string
+      - name: summary
+        type: text
+      - name: href
+        label: Project link
+        type: string
+      - name: linkLabel
+        label: Link text (default "View project")
+        type: string
+      - name: image
+        type: image
+      - name: imageAlt
+        label: Image description (alt text)
+        type: string
+      - name: tone
+        label: Colour block (when there's no image)
+        type: select
+        options:
+          values:
+            - { name: claret, label: Claret }
+            - { name: oxford, label: Oxford }
+            - { name: teal, label: Teal }
+            - { name: ink, label: Ink }
+      - name: blockText
+        label: Big text on the colour block (optional)
+        type: string
+      - name: tags
+        type: object
+        list: true
+        fields:
+          - name: label
+            type: string
+          - name: tone
+            type: select
+            options:
+              values:
+                - { name: claret, label: Claret }
+                - { name: oxford, label: Oxford }
+                - { name: teal, label: Teal }
+                - { name: ink, label: Ink }
+
+  - name: writing
+    label: Writing
+    type: file
+    path: src/content/writing.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: source
+        label: Where it was published
+        type: string
+      - name: href
+        label: Link
+        type: string
+
+  - name: experience
+    label: Experience
+    type: file
+    path: src/content/experience.json
+    format: json
+    list: true
+    fields:
+      - name: years
+        type: string
+      - name: role
+        type: string
+      - name: org
+        label: Organisation
+        type: string
+
+  - name: awards
+    label: Awards
+    type: file
+    path: src/content/awards.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        type: string
+      - name: detail
+        type: string

@@ -1,0 +1,26 @@
+---
+import type { TagTone } from '../data/site';
+
+interface Props {
+  tone?: TagTone;
+}
+
+const { tone = 'ink' } = Astro.props;
+---
+
+<span class:list={['tag', tone]}><slot /></span>
+
+<style>
+  .tag {
+    display: inline-flex;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-full);
+    padding: 2px 10px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .ink { color: var(--text); }
+  .claret { color: var(--claret); }
+  .oxford { color: var(--oxford); }
+  .teal { color: var(--teal); }
+</style>
