@@ -3,7 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import { settings, projects, writing, experience, awards, links } from '../data/site';
+import { settings, getProjects, getWriting, experience, awards, links } from '../data/site';
+
+const projects = await getProjects();
+const writing = await getWriting();
 
 const headline = settings.headline;
 const headlineWords = headline.split(' ');

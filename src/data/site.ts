@@ -1,23 +1,26 @@
-// Page content comes from the JSON files in src/content/.
-// Edit them in Pages CMS (see .pages.yml) or by hand — this file only adds types and tidies empty fields.
+// Site content.
+// - Projects and writing are Markdown collections (src/content/projects, src/content/writing — see src/content.config.ts).
+// - Site text, experience and awards are JSON files in src/content/.
+// All of it is editable in Pages CMS (see .pages.yml).
+import { getCollection, type CollectionEntry } from 'astro:content';
 import settingsJson from '../content/settings.json';
-import projectsJson from '../content/projects.json';
-import writingJson from '../content/writing.json';
 import experienceJson from '../content/experience.json';
 import awardsJson from '../content/awards.json';
 
 export type TagTone = 'claret' | 'oxford' | 'teal' | 'ink';
 
+/** Shape the project card needs. */
 export interface Project {
   client: string;
   title: string;
   summary: string;
-  href: string;
+  href: string;             // the write-up page, or the external link
   linkLabel?: string;
-  tone: TagTone;            // colour of the image block when there's no image
-  image?: string;           // e.g. '/images/bukalapak-tone.jpg' (uploaded via the CMS into public/images)
+  hasWriteUp: boolean;
+  tone: TagTone;
+  image?: string;
   imageAlt?: string;
-  blockText?: string;       // large text shown on the block instead of an image
+  blockText?: string;
   tags: { label: string; tone: TagTone }[];
 }
 
@@ -37,27 +40,7 @@ export interface Settings {
   resume: string;
 }
 
-const tones: TagTone[] = ['claret', 'oxford', 'teal', 'ink'];
-const tone = (value: unknown): TagTone => (tones.includes(value as TagTone) ? (value as TagTone) : 'ink');
-// The CMS saves cleared fields as "" — treat those as "not set".
-const optional = (value: unknown) => (typeof value === 'string' && value.trim() !== '' ? value : undefined);
-
 export const settings = settingsJson as Settings;
-
-export const projects: Project[] = projectsJson.map((p) => ({
-  client: p.client,
-  title: p.title,
-  summary: p.summary,
-  href: optional(p.href) ?? '#work',
-  linkLabel: optional(p.linkLabel),
-  tone: tone(p.tone),
-  image: optional(p.image),
-  imageAlt: optional(p.imageAlt),
-  blockText: optional(p.blockText),
-  tags: (p.tags ?? []).map((t) => ({ label: t.label, tone: tone(t.tone) })),
-}));
-
-export const writing: { title: string; source: string; href: string }[] = writingJson;
 export const experience: { years: string; role: string; org: string }[] = experienceJson;
 export const awards: { name: string; detail: string }[] = awardsJson;
 
@@ -67,3 +50,48 @@ export const links = {
   twitter: settings.twitter,
   resume: settings.resume,
 };
+
+/** An entry gets its own page when there's text below its frontmatter. */
+export const hasWriteUp = (entry: { body?: string }) => Boolean(entry.body && entry.body.trim() !== '');
+
+export const workUrl = (id: string) => `/work/${id}/`;
+export const writingUrl = (id: string) => `/writing/${id}/`;
+
+export async function getProjectEntries(): Promise<CollectionEntry<'projects'>[]> {
+  const entries = await getCollection('projects', ({ data }) => !data.draft);
+  return entries.sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
+}
+
+export async function getProjects(): Promise<Project[]> {
+  return (await getProjectEntries()).map((entry) => {
+    const { data } = entry;
+    const writeUp = hasWriteUp(entry);
+    return {
+      client: data.client,
+      title: data.title,
+      summary: data.summary,
+      href: writeUp ? workUrl(entry.id) : (data.link ?? '#work'),
+      linkLabel: data.linkLabel ?? (writeUp ? 'Read the case study' : undefined),
+      hasWriteUp: writeUp,
+      tone: data.tone,
+      image: data.image,
+      imageAlt: data.imageAlt,
+      blockText: data.blockText,
+      tags: data.tags,
+    };
+  });
+}
+
+export async function getWritingEntries(): Promise<CollectionEntry<'writing'>[]> {
+  const entries = await getCollection('writing', ({ data }) => !data.draft);
+  // Newest first; undated entries keep file-name order at the end.
+  return entries.sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+}
+
+export async function getWriting() {
+  return (await getWritingEntries()).map((entry) => ({
+    title: entry.data.title,
+    source: entry.data.source ?? '',
+    href: hasWriteUp(entry) ? writingUrl(entry.id) : (entry.data.link ?? '#writing'),
+  }));
+}

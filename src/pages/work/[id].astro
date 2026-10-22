@@ -1,0 +1,44 @@
+---
+// One page per project that has a write-up (text below its frontmatter) → /work/<file-name>/
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Tag from '../../components/Tag.astro';
+import { getProjectEntries, hasWriteUp } from '../../data/site';
+
+export async function getStaticPaths() {
+  const entries = await getProjectEntries();
+  return entries.filter(hasWriteUp).map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+---
+
+<ArticleLayout
+  title={data.title}
+  kicker={data.client}
+  description={data.summary}
+  backHref="/#work"
+  backLabel="All work"
+  externalLink={data.link}
+  externalLabel={data.linkLabel ?? 'See it live'}
+>
+  <div slot="meta" class="tags" data-intro style="--intro-delay: 0.3s">
+    {data.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
+  </div>
+  {data.image && (
+    <img slot="media" class="cover" src={data.image} alt={data.imageAlt ?? ''} />
+  )}
+  <Content />
+</ArticleLayout>
+
+<style>
+  .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .cover {
+    width: 100%;
+    max-height: 640px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+</style>

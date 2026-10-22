@@ -3,19 +3,21 @@ interface Props {
   current?: string;
 }
 
-const { current = '#work' } = Astro.props;
+// Highlight Writing on /writing/... pages, Work everywhere else.
+const path = Astro.url.pathname;
+const { current = path.startsWith('/writing') ? '/#writing' : '/#work' } = Astro.props;
 
 const links = [
-  { href: '#work', label: 'Work' },
-  { href: '#writing', label: 'Writing' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#work', label: 'Work' },
+  { href: '/#writing', label: 'Writing' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#contact', label: 'Contact' },
 ];
 ---
 
 <header class="site-header">
   <nav aria-label="Main" class="container">
-    <a class="name" href="#top">Purna Anantha</a>
+    <a class="name" href="/">Purna Anantha</a>
     <div class="links">
       {links.map((link) => (
         <a

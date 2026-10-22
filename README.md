@@ -20,16 +20,22 @@ public/
   fonts/              Novela + Basier Circle webfonts (licensed for this one website only)
   favicon.svg
 src/
-  content/*.json      ALL page copy: site text, projects, writing, experience, awards (edited via Pages CMS)
-  data/site.ts        loads the JSON and adds types
+  content/projects/   one Markdown file per project (frontmatter = card; text below = case study page)
+  content/writing/    one Markdown file per article (text below = article page; empty = link out)
+  content/*.json      site text, experience, awards
+  content.config.ts   the Markdown collections' fields (schema)
+  data/site.ts        loads everything for the pages
   styles/tokens.css   design tokens (mirror of the design system's tokens.json)
   styles/global.css   base styles
   layouts/BaseLayout.astro
   components/         Nav, Button, Tag, ProjectCard, SectionHeader, Footer
   pages/index.astro   the home page → "/"
+  pages/work/[id].astro     case study pages → /work/<file-name>/
+  pages/writing/[id].astro  article pages → /writing/<file-name>/
 ```
 
-- Edit copy in Pages CMS (below) or directly in `src/content/*.json`.
+- Edit copy in Pages CMS (below) or directly in `src/content/`.
+- A project or article with text below its frontmatter gets its own page; with no text it links to `link` instead.
 - Project images go in `public/images/` (the CMS uploads them there).
 - A new file in `src/pages/` becomes a new page (`about.astro` → `/about`).
 

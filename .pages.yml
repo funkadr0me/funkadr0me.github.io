@@ -55,10 +55,17 @@ content:
 
   - name: projects
     label: Projects
-    type: file
-    path: src/content/projects.json
-    format: json
-    list: true
+    type: collection
+    path: src/content/projects
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, client, order]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
     fields:
       - name: title
         type: string
@@ -67,12 +74,9 @@ content:
         type: string
       - name: summary
         type: text
-      - name: href
-        label: Project link
-        type: string
-      - name: linkLabel
-        label: Link text (default "View project")
-        type: string
+      - name: order
+        label: Order on the home page (1 = first)
+        type: number
       - name: image
         type: image
       - name: imageAlt
@@ -104,23 +108,54 @@ content:
                 - { name: oxford, label: Oxford }
                 - { name: teal, label: Teal }
                 - { name: ink, label: Ink }
+      - name: link
+        label: External link (used when there's no case study)
+        type: string
+      - name: linkLabel
+        label: Link text (optional)
+        type: string
+      - name: draft
+        label: Hide from the site
+        type: boolean
+      - name: body
+        label: Case study (leave empty to link out instead)
+        type: rich-text
+        options:
+          format: markdown
 
   - name: writing
     label: Writing
-    type: file
-    path: src/content/writing.json
-    format: json
-    list: true
+    type: collection
+    path: src/content/writing
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, source, date]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
     fields:
       - name: title
         type: string
         required: true
       - name: source
-        label: Where it was published
+        label: Where it was published (optional)
         type: string
-      - name: href
-        label: Link
+      - name: date
+        type: date
+      - name: link
+        label: External link (used when there's no text below)
         type: string
+      - name: draft
+        label: Hide from the site
+        type: boolean
+      - name: body
+        label: Article (leave empty to link out instead)
+        type: rich-text
+        options:
+          format: markdown
 
   - name: experience
     label: Experience

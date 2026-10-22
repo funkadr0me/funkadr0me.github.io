@@ -1,0 +1,28 @@
+---
+// One page per writing piece that has text below its frontmatter → /writing/<file-name>/
+import { render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getWritingEntries, hasWriteUp } from '../../data/site';
+
+export async function getStaticPaths() {
+  const entries = await getWritingEntries();
+  return entries.filter(hasWriteUp).map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+const dateLabel = data.date?.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const kicker = [data.source, dateLabel].filter(Boolean).join(' · ');
+---
+
+<ArticleLayout
+  title={data.title}
+  kicker={kicker || undefined}
+  backHref="/#writing"
+  backLabel="All writing"
+  externalLink={data.link}
+  externalLabel="Also published here"
+>
+  <Content />
+</ArticleLayout>
