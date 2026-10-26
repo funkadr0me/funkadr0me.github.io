@@ -69,10 +69,9 @@
   vertical-align: text-bottom;
   background: currentColor;
 }
-.motion .typing-caret {
-  display: inline-block;
-  animation: caret-blink 1s step-end infinite;
-}
+.motion .typing-caret { display: inline-block; }
+/* Solid while typing; a few beats of blink while the role rests, then solid again. */
+.motion .is-holding .typing-caret { animation: caret-blink 1s step-end 3; }
 
 /* 3 · Scroll reveals -------------------------------------------------------- */
 
@@ -191,7 +190,34 @@ html.motion [data-wipe] {
   transform-origin: 50% 55%;
 }
 .flip-ready .flip-txt { white-space: pre; }
-.flip-ready .flip-caret { animation: caret-blink 1s step-end infinite; }
+
+/* Each word is a button over its slot: click turns that wheel. The cue is a claret hairline under the word. */
+.flip-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.flip-hit::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 0.035em;
+  background: var(--claret);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.flip-hit:hover::after, .flip-hit:focus-visible::after { transform: scaleX(1); }
+.flip-hit:focus-visible { outline: 2px solid var(--claret); outline-offset: -4px; }
+/* No hover on a touchscreen: show the hairline faintly so the words read as touchable. */
+@media (hover: none) { .flip-hit::after { transform: scaleX(1); background: var(--tertiary); } }
+.flip-ready .flip-caret { animation: caret-blink 1s step-end 4 forwards; } /* four beats, then it rests hidden until the next change */
 .flip-ready .flip-caret.typing { animation: none; }
 .flip-measure { position: absolute; visibility: hidden; white-space: nowrap; pointer-events: none; }
 

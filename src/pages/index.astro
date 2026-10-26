@@ -23,9 +23,9 @@ const parts = (value: string) => value.split(' · ');
   <!-- Hero -->
   <section class="container hero">
     <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify(pairs)}>
-      <span class="flip-line" aria-hidden="true" style="--i: 0">
-        <span class="flip-slot" data-flip-verb><span class="flip-word"><span class="flip-txt">{first.verb}</span><span class="flip-caret"></span></span></span>
-        <span class="flip-slot" data-flip-noun><span class="flip-word">{first.noun}</span></span>
+      <span class="flip-line" style="--i: 0">
+        <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true"><span class="flip-txt">{first.verb}</span><span class="flip-caret"></span></span></span>
+        <span class="flip-slot" data-flip-noun><span class="flip-word" aria-hidden="true">{first.noun}</span></span>
       </span>
       <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>
     </h1>
@@ -36,6 +36,7 @@ const parts = (value: string) => value.split(' · ');
       <div class="actions" data-intro style="--intro-delay: 0.9s">
         <Button href="#work">See the work</Button>
         <Button href="#contact" variant="secondary">Give me a shout</Button>
+        <button class="loop-toggle" type="button" data-loop-toggle hidden>Pause motion</button>
       </div>
     </div>
   </section>

@@ -71,6 +71,27 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .hero-foot .intro { grid-column: 1 / span 5; max-width: 36rem; font-size: var(--text-lead); line-height: 1.45; }
 .hero-foot .actions { grid-column: 6 / -1; display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: flex-start; }
 
+/* The pause control for the text loops: quiet, but a real 44px target. */
+.loop-toggle {
+  align-self: center;
+  margin-left: auto;
+  min-height: 44px;
+  padding: 0 var(--space-sm);
+  border: 0;
+  background: none;
+  color: var(--color-ink-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--dur-short) var(--ease-out);
+}
+.loop-toggle:hover { color: var(--color-accent); }
+.loop-toggle:active { color: var(--color-ink); }
+.loop-toggle:disabled { opacity: 0.55; cursor: not-allowed; }
+@media (max-width: 60rem) { .loop-toggle { margin-left: 0; padding-left: 0; } }
+
 /* 2 · Sections ----------------------------------------------------------------- */
 
 .section { padding-bottom: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }

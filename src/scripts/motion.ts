@@ -6,12 +6,16 @@
 // The `motion` class on <html> (set in BaseLayout) is the on-switch; with reduced motion it's never set.
 
 import { initFlipHeadline } from './flip-headline';
+import { initLoopToggle, loopGate } from './loop-control';
 
 const root = document.documentElement;
 const motionOn = root.classList.contains('motion');
 
 // Flipping headline ------------------------------------------------------------
-if (motionOn) initFlipHeadline();
+if (motionOn) {
+  initLoopToggle();
+  initFlipHeadline();
+}
 
 // Scroll reveals (also drives the claret band's wipe) -------------------------
 const revealTargets = document.querySelectorAll<HTMLElement>('[data-reveal], [data-wipe]');
@@ -43,39 +47,35 @@ if (header && hero && 'IntersectionObserver' in window) {
 }
 
 // Typing roles -------------------------------------------------------------------
+// Runs while the line is on screen and motion is not paused (loop-control.ts); a role change always finishes.
 const typing = document.querySelector<HTMLElement>('[data-typing]');
 const typed = typing?.querySelector<HTMLElement>('.typing-text');
 if (motionOn && typing && typed) {
   const roles: string[] = JSON.parse(typing.dataset.typing ?? '[]');
   const TYPE_MS = 70;
   const DELETE_MS = 35;
-  const HOLD_MS = 1800;
-  let roleIndex = 0;
-  let charIndex = roles[0]?.length ?? 0; // first role starts fully written
-  let deleting = true;
+  const HOLD_MS = 2800;
+  const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-  const tick = () => {
-    const role = roles[roleIndex];
-    if (deleting) {
-      charIndex -= 1;
-      typed.textContent = role.slice(0, charIndex);
-      if (charIndex === 0) {
-        deleting = false;
+  if (roles.length > 1) {
+    const gate = loopGate(typing.closest('.roles') ?? typing);
+    (async () => {
+      let roleIndex = 0; // the first role starts fully written
+      for (;;) {
+        typing.classList.add('is-holding'); // the cursor blinks a few beats, then rests
+        await gate.rest(HOLD_MS);
+        await gate.ready();
+        typing.classList.remove('is-holding');
+        for (let n = roles[roleIndex].length - 1; n >= 0; n--) {
+          typed.textContent = roles[roleIndex].slice(0, n);
+          await sleep(DELETE_MS);
+        }
         roleIndex = (roleIndex + 1) % roles.length;
+        for (let n = 1; n <= roles[roleIndex].length; n++) {
+          typed.textContent = roles[roleIndex].slice(0, n);
+          await sleep(TYPE_MS);
+        }
       }
-      setTimeout(tick, DELETE_MS);
-    } else {
-      const next = roles[roleIndex];
-      charIndex += 1;
-      typed.textContent = next.slice(0, charIndex);
-      if (charIndex === next.length) {
-        deleting = true;
-        setTimeout(tick, HOLD_MS);
-      } else {
-        setTimeout(tick, TYPE_MS);
-      }
-    }
-  };
-
-  if (roles.length > 1) setTimeout(tick, 2600); // start after the opening sequence
+    })();
+  }
 }

@@ -91,7 +91,9 @@ Ported from `prototypes/flip-headline.html` (kept as the reference; not part of 
 - Motion **"Type + flip"**, layout **"Flush left — noun steps away"**: delete the verb with a claret cursor → noun flips away → type the new verb from the left edge → noun flips in 0.5s after. The noun only moves while hidden. Timings are constants at the top of `src/scripts/flip-headline.ts`; styles are section 7 of `motion.css`.
 - Verb and noun always share one line; the script fits the headline font size to the longest pair (≈99px desktop, ≈35px phone with "Strategizing content"). A shorter longest verb gives a bigger phone headline.
 - Accessibility: `aria-label` on the `<h1>` holds the current full sentence; animated spans are `aria-hidden`. Without JS or with reduced motion it is the first pair, static, wrapping normally.
-- Open: the real pairs (current ones are placeholders), flip direction (now opposite), cursor colour (claret) and whether the cursor keeps blinking after the noun lands (it does), and whether the label's typing roles are now redundant (still there).
+- Loops pause (Hallmark gate 18, WCAG 2.2.2): `src/scripts/loop-control.ts` gates the headline and the typing roles on being on screen, tab visible, pointer/focus away, and the "Pause motion" button in the hero. A change that has begun always finishes. The cursor blinks four beats after the noun lands, then rests hidden; the roles cursor blinks three beats while it rests.
+- Verb and noun are two wheels: a click on the verb retypes just the verb (the noun flips out and back in as the same word), a click on the noun flips just the noun, so new combinations appear. Each word is a real button laid over its slot (`flip-hit`) with a claret hairline cue on hover/focus (always faint on touch); a visitor's click restarts the 4.5s rest; keyboard focus pauses the loop. The visible words are aria-hidden and the sentence lives in the `<h1>` aria-label plus a polite status line.
+- Open: the real pairs (current ones are placeholders), flip direction (now opposite), and whether a pair should link to its project (not built).
 
 ## Still to fill in (content)
 
