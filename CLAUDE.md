@@ -55,18 +55,27 @@ Novela and Basier Circle are Atipo Foundry **webfont** licences: one website onl
 ## Code map
 
 ```text
-src/pages/index.astro          home page (hero, work, about band, writing, experience, contact)
+src/pages/index.astro          home page (hero, work index, about band, writing, experience, awards, contact)
 src/pages/work/[id].astro      case study pages
 src/pages/writing/[id].astro   article pages
 src/layouts/BaseLayout.astro   <head>, nav, footer, motion on-switch
 src/layouts/ArticleLayout.astro  shared layout + Markdown prose styles
-src/components/                Nav, Button, Tag, ProjectCard, SectionHeader, Footer
+src/components/                Nav, Button, Tag, ProjectCard (a row of the work index), SectionHeader, Footer
 src/styles/tokens.css          design tokens + type classes
 src/styles/global.css          base styles
+src/styles/home.css            the home page's layout (Hallmark stamp on line 1), role tokens, 12-column grid
 src/styles/motion.css          all animation (one easing curve, durations at the top)
 src/scripts/motion.ts          scroll reveals, frosted nav past hero, typing roles in the label
 prototypes/                    standalone HTML experiments — not part of the build
 ```
+
+## Home page layout (Hallmark redesign, full depth)
+
+Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, then the intro and actions under a hairline; the work index starts at the fold. Work is an index of rows (client, title and summary, tags and link; the whole row is the link, the title turning claret is the one hover); about is the claret band split into heading and statement, with the typing roles line moved under it; writing is head beside rows; experience is a table; awards four across; contact is a statement with the email set large. Nav and Footer are shared, so the case-study and article pages pick them up.
+
+- The hero no longer carries the label line (Hallmark gates 54/63 and the 80-word screen budget); "Multi-platform writer in Jakarta: <typed role>" sits in the about band.
+- Gates run with `node ~/.claude/skills/hallmark/scripts/sloplint.mjs`; it only sees an `.astro` page's CSS when they share a folder, so lint a flattened copy for the static pass and `--url` for the render pass. `.hallmark/` holds the records and screenshots (ignored except `log.json`).
+- Project images, once supplied (`image` in a project's frontmatter), show in the row's middle column.
 
 ## Motion
 

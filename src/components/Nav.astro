@@ -1,4 +1,6 @@
 ---
+import { settings } from '../data/site';
+
 interface Props {
   current?: string;
 }
@@ -11,17 +13,20 @@ const links = [
   { href: '/#work', label: 'Work' },
   { href: '/#writing', label: 'Writing' },
   { href: '/#experience', label: 'Experience' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '/#contact', label: 'Contact', action: true },
 ];
 ---
 
 <header class="site-header">
   <nav aria-label="Main" class="container">
-    <a class="name" href="/">Purna Anantha</a>
+    <div class="id">
+      <a class="name" href="/">Purna Anantha</a>
+      <span class="role body-sm muted">{settings.label}</span>
+    </div>
     <div class="links">
       {links.map((link) => (
         <a
-          class="item"
+          class:list={['item', { action: link.action }]}
           href={link.href}
           aria-current={link.href === current ? 'page' : undefined}
         >
@@ -40,17 +45,30 @@ const links = [
     justify-content: space-between;
     align-items: center;
     gap: var(--space-xs);
+    min-height: var(--nav-h, 72px);
   }
-  a { color: var(--text); text-decoration: none; }
-  .name { padding: 12px 0; }
-  .links { display: flex; flex-wrap: wrap; }
+  a { color: var(--text); text-decoration: none; white-space: nowrap; }
+  .id { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-sm); }
+  .name { padding: 12px 0; font-family: var(--font-display); font-size: 28px; line-height: 32px; letter-spacing: -0.36px; }
+  .links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
   .item {
-    padding: 12px 16px;
+    padding: 12px var(--space-sm);
     border-bottom: 2px solid transparent;
+    transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   }
   .item:hover { border-bottom-color: var(--tertiary); color: var(--text); }
-  @media (max-width: 640px) {
-    .links { margin-inline: -16px; }
+  .item[aria-current='page'] { color: var(--text); border-bottom-color: var(--claret); }
+  /* The hire action: outlined, quieter than the hero's filled button. */
+  .item.action {
+    margin-left: var(--space-xs);
+    padding: 12px 20px;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-sm);
   }
-  .item[aria-current='page'] { color: var(--accent); border-bottom-color: var(--claret); }
+  .item.action:hover { background: var(--primary); color: var(--neutral); border-color: var(--primary); }
+  @media (max-width: 640px) {
+    .links { margin-inline: calc(-1 * var(--space-xs)); gap: 0; }
+    .item { padding-inline: var(--space-xs); }
+    .item.action { margin-left: var(--space-2xs, 4px); padding-inline: var(--space-sm); }
+  }
 </style>

@@ -2,19 +2,25 @@
 ---
 
 <footer>
-  <div class="container caption muted">
-    <span>Purna Anantha · Jakarta, Indonesia</span>
-    <span>Bahasa Indonesia · English</span>
+  <div class="container colophon">
+    <p class="mark headline-md">Purna Anantha</p>
+    <p class="where body-sm muted">Jakarta, Indonesia<br />Bahasa Indonesia and English</p>
   </div>
 </footer>
 
 <style>
   footer { border-top: 1px solid var(--tertiary); }
-  div {
-    padding-block: var(--space-gutter);
+  .colophon {
+    padding-block: var(--space-lg) var(--space-md);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--space-xs);
+    align-items: flex-end;
+    gap: var(--space-sm) var(--space-md);
+  }
+  .where { text-align: right; }
+  @media (max-width: 640px) {
+    .colophon { padding-block: var(--space-md); }
+    .where { text-align: left; }
   }
 </style>

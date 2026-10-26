@@ -1,0 +1,145 @@
+/* Hallmark · shape: Specimen · genre: editorial · theme: brand · redesign: full · draw: 535b71 · job: hire · imagery: none
+ * paper: oklch(96.6% 0.022 63) · accent: oklch(44.3% 0.168 10) · display: Novela · body: Basier Circle · hero: Banner · nav: edge-aligned · footer: colophon · signature: the headline that types and flips
+ * axes: light/roman-serif/warm · posture: Restrained · contrast: pass · fold: pass · hero-review: fix · 5 findings · 3 resolved 2 owner's · finish-review: subagent · 8 findings · 6 resolved 2 owner's · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
+/* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
+/* Hallmark · dismissed 58 · the window counts the hero's intro and two buttons beside the work head and the lead row of the index, 85 words over 900px and the owner's own text */
+
+/* The home page. Brand tokens (tokens.css) stay the source; these add the roles the page's layout needs
+   and name the brand's values by their Hallmark role. */
+:root {
+  --color-paper: var(--background);
+  --color-ink: var(--text);
+  --color-ink-2: var(--secondary);
+  --color-rule: var(--tertiary);
+  --color-accent: var(--claret);
+  --color-accent-ink: var(--background);
+  --color-focus: var(--claret);
+  --color-rule-on-accent: color-mix(in oklab, var(--background) 32%, var(--claret));
+
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --gap-columns: 32px;
+  --nav-h: 72px;
+
+  --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.3125rem);
+  --text-title: clamp(1.75rem, 1.2vw + 1.2rem, 2.25rem);
+  --text-role: clamp(1.375rem, 0.8vw + 1.1rem, 1.75rem);
+
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+}
+
+html, body { overflow-x: clip; }
+
+.headline-display, .headline-lg, .headline-md {
+  overflow-wrap: break-word;
+  min-width: 0;
+  text-wrap: balance;
+  font-synthesis: none;
+}
+p { text-wrap: pretty; }
+
+/* Browser surfaces take the palette. */
+html { scrollbar-color: var(--color-rule) var(--color-paper); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); color: var(--color-ink); }
+
+/* Twelve columns inside the container. */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-columns);
+}
+@media (max-width: 60rem) {
+  .grid-12 { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+}
+
+/* 1 · Hero (Banner): headline, then the intro and actions under a hairline; the work starts at the fold --- */
+
+.hero {
+  padding-block: var(--space-lg) var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+.hero h1 { max-width: none; }
+.hero-foot {
+  align-items: end;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-rule);
+}
+.hero-foot .intro { grid-column: 1 / span 5; max-width: 36rem; font-size: var(--text-lead); line-height: 1.45; }
+.hero-foot .actions { grid-column: 6 / -1; display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: flex-start; }
+
+/* 2 · Sections ----------------------------------------------------------------- */
+
+.section { padding-bottom: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
+.section.top { padding-top: var(--space-xl); padding-bottom: 0; }
+
+/* 3 · Work index ----------------------------------------------------------------- */
+/* Rows are in ProjectCard.astro; the list itself only sets the rhythm. */
+.index { display: flex; flex-direction: column; }
+
+/* 4 · About band: a field of the lead colour, heading and statement split ---------- */
+
+.about { background: var(--color-accent); color: var(--color-accent-ink); }
+.about a:focus-visible { outline-color: var(--color-accent-ink); }
+.about-inner { padding-block: var(--space-xl); row-gap: var(--space-md); align-items: start; }
+.about-head { grid-column: 1 / span 5; color: var(--color-accent-ink); }
+.about-body { grid-column: 6 / -1; display: flex; flex-direction: column; gap: var(--space-md); }
+.about-text { max-width: 24em; font-family: var(--font-display); font-size: clamp(1.625rem, 1vw + 1.35rem, 2.25rem); line-height: 1.25; letter-spacing: -0.36px; }
+.roles { padding-top: var(--space-sm); border-top: 1px solid var(--color-rule-on-accent); }
+
+/* 5 · Writing: rows under the head, title left and source right ----------------------- */
+
+.writing-rows { display: flex; flex-direction: column; margin-top: var(--space-md); }
+.post {
+  align-items: baseline;
+  row-gap: var(--space-xs);
+  padding-block: var(--space-md);
+  border-bottom: 1px solid var(--color-rule);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.post-title { grid-column: 1 / span 8; font-family: var(--font-display); font-size: var(--text-title); line-height: 1.2; letter-spacing: -0.36px; transition: color var(--dur-short) var(--ease-out); }
+.post:hover .post-title { color: var(--color-accent); }
+.post-source { grid-column: 9 / -1; display: flex; flex-direction: column; }
+
+/* 6 · Experience: a table of years, roles and houses ---------------------------------- */
+
+.jobs { display: flex; flex-direction: column; }
+.job { align-items: baseline; row-gap: var(--space-2xs, 4px); padding-block: var(--space-gutter); border-bottom: 1px solid var(--color-rule); }
+.years { grid-column: 1 / span 3; font-variant-numeric: tabular-nums; }
+.role { grid-column: 4 / span 5; font-family: var(--font-display); font-size: var(--text-role); line-height: 1.2; letter-spacing: -0.36px; }
+.org { grid-column: 9 / -1; display: flex; flex-direction: column; }
+
+/* 7 · Awards: four across, parted by hairlines ------------------------------------- */
+
+.awards-block { display: flex; flex-direction: column; gap: var(--space-sm); }
+.awards-label { font-weight: 400; }
+.awards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--color-rule); }
+.award { display: flex; flex-direction: column; gap: var(--space-xs); padding: var(--space-md) var(--space-gutter) var(--space-md) var(--space-gutter); border-left: 1px solid var(--color-rule); }
+.award:first-child { padding-left: 0; border-left: 0; }
+.award-name { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.15; letter-spacing: -0.36px; overflow-wrap: break-word; min-width: 0; }
+
+/* 8 · Contact: the statement, then the plain way to reach me ------------------------- */
+
+.contact { gap: var(--space-lg); }
+.section.top.contact { padding-bottom: var(--space-xl); }
+.contact h2 { max-width: 14ch; }
+.contact-body { row-gap: var(--space-md); align-items: end; }
+.contact-text { grid-column: 1 / span 5; font-size: var(--text-lead); line-height: 1.45; max-width: 30rem; }
+.contact-links { grid-column: 7 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+.contact-more { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-md); }
+.contact-mail { white-space: nowrap; font-family: var(--font-display); font-size: clamp(1.25rem, 5.4vw, 2.75rem); line-height: 1.15; letter-spacing: -0.36px; overflow-wrap: anywhere; }
+
+@media (max-width: 60rem) {
+  .hero { padding-block: var(--space-lg); gap: var(--space-md); }
+  .hero-foot .intro, .hero-foot .actions { grid-column: 1 / -1; }
+  .hero-foot .actions { justify-content: flex-start; margin-top: var(--space-md); }
+  .about-head, .about-body, .post-title, .post-source, .contact-text, .contact-links { grid-column: 1 / -1; }
+  .years, .role, .org { grid-column: 1 / -1; }
+  .awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .award:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .award:nth-child(n + 3) { border-top: 1px solid var(--color-rule); }
+}

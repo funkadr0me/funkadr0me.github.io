@@ -59,9 +59,9 @@
 }
 
 /* Type styles — fluid sizes for the display set, capped at the design-system values */
-.headline-display { font-family: var(--font-display); font-weight: 400; font-size: clamp(56px, 8.9vw, 128px); line-height: 1.1; letter-spacing: -0.03em; }
-.headline-lg      { font-family: var(--font-display); font-weight: 400; font-size: clamp(45px, 5.3vw, 76px); line-height: 1.04; letter-spacing: -0.028em; }
-.headline-md      { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 3.2vw, 45px); line-height: 1.2; letter-spacing: -0.36px; }
+.headline-display { font-family: var(--font-display); font-weight: 400; font-size: clamp(56px, 8.9vw, 128px); line-height: 1.1; letter-spacing: -0.03em; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+.headline-lg      { font-family: var(--font-display); font-weight: 400; font-size: clamp(45px, 5.3vw, 76px); line-height: 1.04; letter-spacing: -0.028em; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+.headline-md      { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 3.2vw, 45px); line-height: 1.2; letter-spacing: -0.36px; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
 .headline-sm      { font-family: var(--font-sans); font-weight: 400; font-size: 27px; line-height: 32px; }
 .body-lg  { font-size: 18px; line-height: 28px; }
 .body-md  { font-size: 16px; line-height: 24px; }

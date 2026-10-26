@@ -2,75 +2,64 @@
 import Tag from './Tag.astro';
 import type { Project } from '../data/site';
 
+// One row of the work index: who it was for, what it was, how it is filed, where to read it.
 interface Props {
   project: Project;
   index?: number;
+  lead?: boolean;
 }
 
-const { project, index = 0 } = Astro.props;
-const blockColor = {
-  claret: 'var(--claret)',
-  oxford: 'var(--oxford)',
-  teal: 'var(--teal)',
-  ink: 'var(--primary)',
-}[project.tone];
+const { project, index = 0, lead = false } = Astro.props;
+const linkLabel = project.linkLabel ?? 'View project';
+// A bracketed summary is the CMS's "still to fill in" marker; it stays in the CMS but is not shown.
+const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
 ---
 
-<div class="reveal-wrap" data-reveal style={`--d: ${index * 0.08}s`}>
-<article class="card">
-  {project.image ? (
-    <img class="media" src={project.image} alt={project.imageAlt ?? ''} />
-  ) : (
-    <div class:list={['media', 'block', { display: Boolean(project.blockText) }]} style={`background: ${blockColor}`}>
-      {project.blockText ?? '[PROJECT IMAGE]'}
+<article class:list={['row', 'grid-12', { lead }]} data-reveal style={`--d: ${index * 0.08}s`}>
+  <div class="who">
+    <p class="client body-sm muted">{project.client}</p>
+    {project.blockText && <p class="figure">{project.blockText}</p>}
+  </div>
+  <div class="what">
+    {project.image && <img class="media" src={project.image} alt={project.imageAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
+    <h3 class:list={['title', lead ? 'headline-lg' : 'headline-md']}>{project.title}</h3>
+    {summary && <p class="summary">{summary}</p>}
+  </div>
+  <div class="meta">
+    <div class="tags">
+      {project.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
     </div>
-  )}
-  <div class="text">
-    <p class="client label-sm muted">{project.client}</p>
-    <h3 class="headline-sm">{project.title}</h3>
-    <p class="body-sm muted">{project.summary}</p>
+    <a class="go u-draw" href={project.href} aria-label={`${linkLabel}: ${project.title}`}>{linkLabel}</a>
   </div>
-  <div class="tags">
-    {project.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
-  </div>
-  <a class="u-draw link" href={project.href}>{project.linkLabel ?? 'View project'}</a>
 </article>
-</div>
 
 <style>
-  .reveal-wrap { display: flex; }
-  .card {
-    flex: 1;
-    border: 1px solid var(--tertiary);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    background: var(--surface);
+  .row {
+    position: relative;
+    align-items: start;
+    row-gap: var(--space-sm);
+    padding-block: var(--space-2xl);
+    border-bottom: 1px solid var(--color-rule);
   }
-  .media {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-  }
-  .block {
-    display: flex;
-    align-items: flex-end;
-    padding: var(--space-sm);
-    color: var(--background);
-    font-size: 14px;
-    line-height: 20px;
-  }
-  .block.display {
-    color: var(--neutral);
-    font-family: var(--font-display);
-    font-size: 45px;
-    line-height: 54px;
-    letter-spacing: -0.36px;
-  }
-  .text { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .row.lead { padding-top: var(--space-3xl); }
+  .who { grid-column: 1 / span 3; display: flex; flex-direction: column; gap: var(--space-xs); }
+  .what { grid-column: 4 / span 6; display: flex; flex-direction: column; gap: var(--space-sm); }
+  .meta { grid-column: 10 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+
+  .figure { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .title { color: var(--color-ink); transition: color var(--dur-short) var(--ease-out); }
+  .summary { max-width: 46ch; }
+  .media { width: 100%; max-width: 640px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
   .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
-  .link { align-self: flex-start; }
+
+  /* The whole row is the link; the hover signal is the title's colour. */
+  .go::after { content: ""; position: absolute; inset: 0; }
+  .row:hover .title { color: var(--color-accent); }
+  .go:focus-visible { outline: none; }
+  .row:has(.go:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+
+  @media (max-width: 60rem) {
+    .row { padding-block: var(--space-lg); }
+    .who, .what, .meta { grid-column: 1 / -1; }
+  }
 </style>
