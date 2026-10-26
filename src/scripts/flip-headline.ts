@@ -18,9 +18,9 @@ const FLIP_OUT = 'cubic-bezier(0.55, 0, 1, 0.45)';
 const FLIP_IN = 'cubic-bezier(0, 0.55, 0.45, 1)';
 const CARET_EM = 0.12;       // room kept after the verb for the cursor
 
-interface Pair {
-  verb: string;
-  noun: string;
+interface Words {
+  verbs: string[];
+  nouns: string[];
 }
 
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -33,8 +33,8 @@ export function initFlipHeadline() {
   const tail = h1?.querySelector<HTMLElement>('.flip-rest')?.textContent ?? '';
   if (!h1 || !line || !verbSlot || !nounSlot) return;
 
-  const pairs: Pair[] = JSON.parse(h1.dataset.flip ?? '[]');
-  if (pairs.length < 2) return; // one pair stays as written
+  const { verbs, nouns }: Words = JSON.parse(h1.dataset.flip ?? '{"verbs":[],"nouns":[]}');
+  if (verbs.length < 2 && nouns.length < 2) return; // nothing to turn: the headline stays as written
 
   // Width of a word in the headline font, so a slot can be sized to it.
   const measurer = document.createElement('span');
@@ -45,7 +45,7 @@ export function initFlipHeadline() {
     measurer.textContent = text;
     return measurer.getBoundingClientRect().width;
   };
-  const widest = (key: keyof Pair) => Math.max(...pairs.map((pair) => widthOf(pair[key])));
+  const widest = (words: string[]) => Math.max(...words.map(widthOf));
   const fontSize = () => parseFloat(getComputedStyle(h1).fontSize);
   const caretRoom = () => fontSize() * CARET_EM;
   const columnGap = () => parseFloat(getComputedStyle(line).columnGap) || 0;
@@ -61,7 +61,7 @@ export function initFlipHeadline() {
   const fit = () => {
     h1.style.fontSize = '';
     const available = h1.getBoundingClientRect().width;
-    const needed = Math.max(widest('verb') + caretRoom() + columnGap() + widest('noun'), widthOf(tail));
+    const needed = Math.max(widest(verbs) + caretRoom() + columnGap() + widest(nouns), widthOf(tail));
     if (needed > available) h1.style.fontSize = `${(fontSize() * available * 0.98) / needed}px`;
     sizeSlots();
   };
@@ -133,9 +133,7 @@ export function initFlipHeadline() {
     return queue;
   };
 
-  // The verb and the noun are two wheels. The loop turns both together; a click turns one.
-  const verbs = pairs.map((pair) => pair.verb);
-  const nouns = pairs.map((pair) => pair.noun);
+  // The verb and the noun are two wheels of their own length. The loop turns both together; a click turns one.
   let verbIndex = 0;
   let nounIndex = 0;
   let idle = HOLD_MS; // running time since the last change; the first one waits for START_MS only
@@ -147,29 +145,30 @@ export function initFlipHeadline() {
     slot.append(hit);
     return hit;
   };
-  const verbHit = makeHit(verbSlot);
-  const nounHit = makeHit(nounSlot);
+  // A wheel with one word has nothing to turn, so it gets no button.
+  const verbHit = verbs.length > 1 ? makeHit(verbSlot) : null;
+  const nounHit = nouns.length > 1 ? makeHit(nounSlot) : null;
   function labelHits(verb: string, noun: string) {
-    verbHit.setAttribute('aria-label', `Change the verb (now ${verb})`);
-    nounHit.setAttribute('aria-label', `Change the noun (now ${noun})`);
+    verbHit?.setAttribute('aria-label', `Change the verb (now ${verb})`);
+    nounHit?.setAttribute('aria-label', `Change the noun (now ${noun})`);
   }
-  labelHits(pairs[0].verb, pairs[0].noun);
+  labelHits(verbs[0], nouns[0]);
   verbSlot.querySelectorAll('.flip-word').forEach((word) => word.setAttribute('aria-hidden', 'true'));
   nounSlot.querySelectorAll('.flip-word').forEach((word) => word.setAttribute('aria-hidden', 'true'));
 
   const turn = (which: 'verb' | 'noun') => {
     if (pending >= 2) return;
     idle = 0; // a visitor's click restarts the rest
-    if (which === 'verb') verbIndex = (verbIndex + 1) % pairs.length;
-    else nounIndex = (nounIndex + 1) % pairs.length;
+    if (which === 'verb') verbIndex = (verbIndex + 1) % verbs.length;
+    else nounIndex = (nounIndex + 1) % nouns.length;
     const verb = verbs[verbIndex];
     const noun = nouns[nounIndex];
     enqueue(() => change(verb, noun, which === 'verb')).then(() => {
       status.textContent = sentence(verb, noun);
     });
   };
-  verbHit.addEventListener('click', () => turn('verb'));
-  nounHit.addEventListener('click', () => turn('noun'));
+  verbHit?.addEventListener('click', () => turn('verb'));
+  nounHit?.addEventListener('click', () => turn('noun'));
 
   document.fonts.ready.then(async () => {
     fit();
@@ -185,10 +184,11 @@ export function initFlipHeadline() {
         await wait(100);
         idle += 100;
       }
-      verbIndex = nounIndex = (verbIndex + 1) % pairs.length;
+      verbIndex = (verbIndex + 1) % verbs.length;
+      nounIndex = (nounIndex + 1) % nouns.length;
       const verb = verbs[verbIndex];
       const noun = nouns[nounIndex];
-      await enqueue(() => change(verb, noun, true));
+      await enqueue(() => change(verb, noun, verbs.length > 1));
       idle = 0;
     }
   });

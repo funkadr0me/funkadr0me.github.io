@@ -22,17 +22,14 @@ content:
         list: { min: 1, max: 6 }
       - name: location
         type: string
-      - name: pairs
-        label: Headline pairs (verb + noun, flip in turn)
-        type: object
+      - name: verbs
+        label: Headline verbs (the first is the static headline)
+        type: string
         list: { min: 1 }
-        fields:
-          - name: verb
-            type: string
-            required: true
-          - name: noun
-            type: string
-            required: true
+      - name: nouns
+        label: Headline nouns (the first is the static headline)
+        type: string
+        list: { min: 1 }
       - name: headlineTail
         label: Headline second line
         type: string

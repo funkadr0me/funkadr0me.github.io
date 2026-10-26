@@ -28,7 +28,8 @@ export interface Settings {
   label: string;
   location: string;
   roles: string[];
-  pairs: { verb: string; noun: string }[];
+  verbs: string[];
+  nouns: string[];
   headlineTail: string;
   intro: string;
   aboutLabel: string;

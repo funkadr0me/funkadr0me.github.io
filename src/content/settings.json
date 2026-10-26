@@ -6,12 +6,19 @@
     "copywriter",
     "scriptwriter"
   ],
-  "pairs": [
-    { "verb": "Shuffling", "noun": "words" },
-    { "verb": "Juggling", "noun": "thoughts" },
-    { "verb": "Strategizing", "noun": "content" },
-    { "verb": "Fathoming", "noun": "ideas" },
-    { "verb": "Crafting", "noun": "stories" }
+  "verbs": [
+    "Shuffling",
+    "Juggling",
+    "Strategizing",
+    "Fathoming",
+    "Crafting"
+  ],
+  "nouns": [
+    "words",
+    "thoughts",
+    "content",
+    "ideas",
+    "stories"
   ],
   "headlineTail": "across platforms.",
   "intro": "A decade in advertising and user experience design — from Sesame Street scripts and award-winning print ads to product tone and voice. Currently leading the UX Writer Hub at Telkom Indonesia.",

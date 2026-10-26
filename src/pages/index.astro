@@ -8,9 +8,9 @@ import { settings, getProjects, getWriting, experience, awards, links } from '..
 const projects = await getProjects();
 const writing = await getWriting();
 
-// Verb/noun pairs flip in the headline (src/scripts/flip-headline.ts); the static page shows the first.
-const pairs = settings.pairs;
-const first = pairs[0];
+// Verbs and nouns turn in the headline (src/scripts/flip-headline.ts); the static page shows the first of each.
+const { verbs, nouns } = settings;
+const first = { verb: verbs[0], noun: nouns[0] };
 const headline = `${first.verb} ${first.noun} ${settings.headlineTail}`;
 const roles = settings.roles.length ? settings.roles : [settings.label];
 const rolesSentence = roles.length > 1 ? `${roles.slice(0, -1).join(', ')} and ${roles.at(-1)}` : roles[0];
@@ -22,7 +22,7 @@ const parts = (value: string) => value.split(' · ');
 <BaseLayout>
   <!-- Hero -->
   <section class="container hero">
-    <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify(pairs)}>
+    <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify({ verbs, nouns })}>
       <span class="flip-line" style="--i: 0">
         <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true"><span class="flip-txt">{first.verb}</span><span class="flip-caret"></span></span></span>
         <span class="flip-slot" data-flip-noun><span class="flip-word" aria-hidden="true">{first.noun}</span></span>
