@@ -8,8 +8,10 @@ import { settings, getProjects, getWriting, experience, awards, links } from '..
 const projects = await getProjects();
 const writing = await getWriting();
 
-const headline = settings.headline;
-const headlineWords = headline.split(' ');
+// Verb/noun pairs flip in the headline (src/scripts/flip-headline.ts); the static page shows the first.
+const pairs = settings.pairs;
+const first = pairs[0];
+const headline = `${first.verb} ${first.noun} ${settings.headlineTail}`;
 const roles = settings.roles.length ? settings.roles : [settings.label];
 const rolesSentence = roles.length > 1 ? `${roles.slice(0, -1).join(', ')} and ${roles.at(-1)}` : roles[0];
 ---
@@ -21,10 +23,12 @@ const rolesSentence = roles.length > 1 ? `${roles.slice(0, -1).join(', ')} and $
       <span class="sr-only">{settings.label}: {rolesSentence}, based in {settings.location}</span>
       <span aria-hidden="true">{settings.label} · <span class="typing" data-typing={JSON.stringify(roles)}><span class="typing-text">{roles[0]}</span><span class="typing-caret"></span></span> · {settings.location}</span>
     </p>
-    <h1 class="headline-display" aria-label={headline}>
-      {headlineWords.map((word, i) => (
-        <><span class="hero-word" aria-hidden="true" style={`--i: ${i}`}>{word}</span>{i < headlineWords.length - 1 ? ' ' : ''}</>
-      ))}
+    <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify(pairs)}>
+      <span class="flip-line" aria-hidden="true" style="--i: 0">
+        <span class="flip-slot" data-flip-verb><span class="flip-word"><span class="flip-txt">{first.verb}</span><span class="flip-caret"></span></span></span>
+        <span class="flip-slot" data-flip-noun><span class="flip-word">{first.noun}</span></span>
+      </span>
+      <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>
     </h1>
     <div class="hero-foot">
       <p class="body-lg intro" data-intro style="--intro-delay: 0.75s">

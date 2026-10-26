@@ -2,10 +2,16 @@
 // - reveal sections as they scroll into view
 // - frost the nav once you scroll past the hero
 // - type out the roles in the hero label
+// - flip the hero headline's verb and noun (flip-headline.ts)
 // The `motion` class on <html> (set in BaseLayout) is the on-switch; with reduced motion it's never set.
+
+import { initFlipHeadline } from './flip-headline';
 
 const root = document.documentElement;
 const motionOn = root.classList.contains('motion');
+
+// Flipping headline ------------------------------------------------------------
+if (motionOn) initFlipHeadline();
 
 // Scroll reveals (also drives the claret band's wipe) -------------------------
 const revealTargets = document.querySelectorAll<HTMLElement>('[data-reveal], [data-wipe]');

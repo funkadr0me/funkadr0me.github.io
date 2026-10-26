@@ -22,9 +22,20 @@ content:
         list: { min: 1, max: 6 }
       - name: location
         type: string
-      - name: headline
-        label: Hero headline
-        type: text
+      - name: pairs
+        label: Headline pairs (verb + noun, flip in turn)
+        type: object
+        list: { min: 1 }
+        fields:
+          - name: verb
+            type: string
+            required: true
+          - name: noun
+            type: string
+            required: true
+      - name: headlineTail
+        label: Headline second line
+        type: string
         required: true
       - name: intro
         label: Hero intro

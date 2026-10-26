@@ -39,11 +39,11 @@
 
 /* 1 · Opening sequence ---------------------------------------------------- */
 
-/* Headline words rise one after another (each word carries --i). */
-.motion .hero-word {
-  display: inline-block;
+/* The two headline lines rise one after another (each carries --i). */
+.motion .flip-line,
+.motion .flip-rest {
   animation: rise-in var(--dur-enter) var(--ease-out) both;
-  animation-delay: calc(0.15s + var(--i) * 0.06s);
+  animation-delay: calc(0.15s + var(--i) * 0.12s);
 }
 
 /* Label, intro and buttons follow the headline. */
@@ -162,7 +162,50 @@ html.motion [data-wipe] {
 }
 .u-draw:hover { animation: underline-draw 0.45s var(--ease-out); }
 
-/* 7 · Reduced motion: no movement anywhere --------------------------------- */
+/* 7 · Flipping headline ----------------------------------------------------- */
+
+/* Without the script (or with reduced motion) this is plain text: the first pair on
+   one wrapping line. The script adds `flip-ready` once it has measured the words. */
+.flip-line {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.26em;
+  align-items: flex-end;
+}
+.flip-rest { display: block; }
+.flip-caret { display: none; }
+
+.flip-ready .flip-line { flex-wrap: nowrap; white-space: nowrap; }
+.flip-ready .flip-slot {
+  position: relative;
+  display: inline-block;
+  height: 1.2em;            /* one line, with room for descenders (g, j, p) */
+  overflow: hidden;
+  perspective: 800px;
+}
+.flip-ready .flip-word {
+  position: absolute;
+  left: 0;
+  bottom: 0.08em;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-origin: 50% 55%;
+}
+.flip-ready .flip-txt { white-space: pre; }
+.flip-ready .flip-caret {
+  display: inline-block;
+  width: 0.05em;
+  height: 0.8em;
+  margin-left: 0.06em;
+  vertical-align: -0.06em;
+  background: var(--claret);
+  animation: caret-blink 1s step-end infinite;
+}
+.flip-ready .flip-caret.typing { animation: none; }
+.flip-measure { position: absolute; visibility: hidden; white-space: nowrap; pointer-events: none; }
+
+/* 8 · Reduced motion: no movement anywhere --------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -28,7 +28,7 @@ Content and code are separate; the CMS only touches `src/content/` and `public/i
 
 | What | Where | Format |
 |---|---|---|
-| Site text (label, typing roles, headline, intro, about, contact, links) | `src/content/settings.json` | JSON |
+| Site text (label, typing roles, headline pairs, intro, about, contact, links) | `src/content/settings.json` | JSON |
 | Projects | `src/content/projects/*.md` | Markdown collection |
 | Writing | `src/content/writing/*.md` | Markdown collection |
 | Experience, awards | `src/content/experience.json`, `awards.json` | JSON lists |
@@ -74,24 +74,15 @@ prototypes/                    standalone HTML experiments — not part of the b
 - Easing `cubic-bezier(0.22, 1, 0.36, 1)`; reveals rise 32px and fade; claret band wipes in (colour on a `::before` so IntersectionObserver still sees the section).
 - No libraries (no GSAP/Lenis); plain CSS + a small script.
 
-## In progress: flipping hero headline
+## Flipping hero headline
 
-Prototype: `prototypes/flip-headline.html` (open it directly in a browser; it has a control panel). Target structure:
+Ported from `prototypes/flip-headline.html` (kept as the reference; not part of the build). Structure: `[Verb] [Noun]` / `across platforms.`
 
-```
-[Verb] [Noun]
-across platforms.
-```
-
-Decisions so far:
-- Motion **"Type + flip"**, layout **"Flush left — noun steps away"**: delete the verb with a claret cursor → noun flips away → type the new verb from the left edge → noun flips in right after the cursor (0.5s later). The noun only moves while hidden.
-- Verb and noun must always share **one line** at every width; the headline font size is fitted so the longest pair fits (≈99px desktop, ≈36px phone with "Strategizing content").
-- Accessibility: `aria-label` on the `<h1>` holds the current full sentence; animated spans are `aria-hidden`; reduced motion shows the first pair, static.
-
-Still open:
-- The real verb/noun **pairs** (placeholders: Shuffling words, Juggling thoughts, Strategizing content, Fathoming ideas, Crafting stories). Shorter longest verb → bigger phone headline.
-- Flip direction (default: opposite), cursor colour (claret vs ink), and whether the cursor keeps blinking after the noun lands.
-- Then port into `src/pages/index.astro` + `motion.css`/`motion.ts`, replacing the static headline and the label's typing roles if redundant, with the pairs editable in Pages CMS (add a `pairs` list to `settings.json`, `.pages.yml` and the `Settings` type).
+- Content: `pairs` (list of `verb` + `noun`) and `headlineTail` in `settings.json`, editable in Pages CMS. The static HTML shows the first pair.
+- Motion **"Type + flip"**, layout **"Flush left — noun steps away"**: delete the verb with a claret cursor → noun flips away → type the new verb from the left edge → noun flips in 0.5s after. The noun only moves while hidden. Timings are constants at the top of `src/scripts/flip-headline.ts`; styles are section 7 of `motion.css`.
+- Verb and noun always share one line; the script fits the headline font size to the longest pair (≈99px desktop, ≈35px phone with "Strategizing content"). A shorter longest verb gives a bigger phone headline.
+- Accessibility: `aria-label` on the `<h1>` holds the current full sentence; animated spans are `aria-hidden`. Without JS or with reduced motion it is the first pair, static, wrapping normally.
+- Open: the real pairs (current ones are placeholders), flip direction (now opposite), cursor colour (claret) and whether the cursor keeps blinking after the noun lands (it does), and whether the label's typing roles are now redundant (still there).
 
 ## Still to fill in (content)
 
