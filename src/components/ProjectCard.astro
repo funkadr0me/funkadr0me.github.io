@@ -6,13 +6,13 @@ import type { Project } from '../data/site';
 interface Props {
   project: Project;
   index?: number;
-  lead?: boolean;
+  lead?: boolean;      // the first row: its picture loads first, and it keeps a little more room above
   compact?: boolean;   // the quieter rows of earlier work
   level?: 2 | 3;       // heading level of the title: 3 under a section head, 2 straight under a page title
 }
 
 const { project, index = 0, lead = false, compact = false, level = 3 } = Astro.props;
-const titleClass = ['title', lead ? 'headline-lg' : 'headline-md'];
+const titleClass = ['title', 'headline-md']; // every project title the same size: the rows are peers
 const linkLabel = project.linkLabel ?? 'View project';
 // A bracketed summary is the CMS's "still to fill in" marker; it stays in the CMS but is not shown.
 const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
