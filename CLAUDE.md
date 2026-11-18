@@ -97,4 +97,4 @@ Ported from `prototypes/flip-headline.html` (kept as the reference; not part of 
 
 ## Still to fill in (content)
 
-Project images for the three Bukalapak cards, summaries for "Career website" and "Year End Review 2018", and a link for "Year End Review 2018".
+The three Bukalapak write-ups have their images (`public/images/work/<project>/`, moved from the old Notion pages; phone screens sit in a `<div class="shots">` gallery of `<figure>`s in the Markdown, styled in ArticleLayout). They still want: the real interview count, the period behind "visits tripled", the persona, before/after strings, the award names and a line of the quiz. careers.bukalapak.com now redirects to bukalapak.com, so that project has no external link.

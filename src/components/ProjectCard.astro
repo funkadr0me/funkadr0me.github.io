@@ -49,7 +49,7 @@ const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
   .figure { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.1; font-variant-numeric: tabular-nums; }
   .title { color: var(--color-ink); transition: color var(--dur-short) var(--ease-out); }
   .summary { max-width: 46ch; }
-  .media { width: 100%; max-width: 640px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+  .media { width: 100%; max-width: 640px; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-sm); }
   .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
 
   /* The whole row is the link; the hover signal is the title's colour. */

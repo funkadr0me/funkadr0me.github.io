@@ -91,6 +91,20 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
     height: auto;
     border-radius: var(--radius-md);
   }
+  .prose :global(figure) { margin: 2em 0; display: flex; flex-direction: column; gap: var(--space-xs); }
+  .prose :global(figcaption) { font-size: 14px; line-height: 20px; color: var(--secondary); }
+  /* A row of screens or photos, wider than the text column so phone screens stay readable. */
+  .prose > :global(.shots) {
+    width: min(1100px, calc(100vw - 2 * var(--space-margin)));
+    max-width: none;
+    margin: 2em 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--space-gutter);
+    align-items: start;
+  }
+  .prose > :global(.shots figure) { margin: 0; }
+  .prose :global(.shots img) { border: 1px solid var(--tertiary); }
   .prose :global(hr) { border: 0; border-top: 1px solid var(--tertiary); margin-block: 2em; }
   .prose :global(code) { font-size: 0.9em; }
 </style>
