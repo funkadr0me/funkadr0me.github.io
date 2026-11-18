@@ -46,7 +46,8 @@ const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
   }
   .row.lead { padding-top: var(--space-3xl); }
   .row.compact { padding-block: var(--space-md); }
-  .row.compact .media { max-width: 360px; }
+  /* Stills from the archive come in many shapes: the same 4:3 crop and a hairline make them one set. */
+  .row.compact .media { max-width: 360px; outline: 1px solid var(--color-rule); outline-offset: -1px; }
   .who { grid-column: 1 / span 3; display: flex; flex-direction: column; gap: var(--space-xs); }
   .what { grid-column: 4 / span 6; display: flex; flex-direction: column; gap: var(--space-sm); }
   .meta { grid-column: 10 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
