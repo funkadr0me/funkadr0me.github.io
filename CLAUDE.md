@@ -55,7 +55,7 @@ Novela and Basier Circle are Atipo Foundry **webfont** licences: one website onl
 ## Code map
 
 ```text
-src/pages/index.astro          home page (hero, work index, about band, writing, experience, awards, contact)
+src/pages/index.astro          home page (hero, work index, about band, writing once there are 3+ pieces, experience and awards, contact)
 src/pages/work/[id].astro      case study pages
 src/pages/writing/[id].astro   article pages
 src/layouts/BaseLayout.astro   <head>, nav, footer, motion on-switch
@@ -71,11 +71,12 @@ prototypes/                    standalone HTML experiments — not part of the b
 
 ## Home page layout (Hallmark redesign, full depth)
 
-Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, then the intro and actions under a hairline; the work index starts at the fold. Work is an index of rows (client, title and summary, tags and link; the whole row is the link, the title turning claret is the one hover); about is the claret band split into heading and statement, with the typing roles line moved under it; writing is head beside rows; experience is a table; awards four across; contact is a statement with the email set large. Nav and Footer are shared, so the case-study and article pages pick them up.
+Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, then the intro and actions under a hairline; the work index starts at the fold. Work is an index of rows (client, title and summary, tags and link; the whole row is the link, the title turning claret is the one hover); about is the claret band split into heading and statement, with the typing roles line moved under it; writing gets its own section and nav link only from three pieces (`WRITING_SECTION_MIN` in `site.ts`), and until then each piece is a link in an "I also write about the craft" line in the About band; experience is a table; awards four across; contact is a statement with the email set large. Nav and Footer are shared, so the case-study and article pages pick them up. On the home page the nav underline follows the section in view (script in `Nav.astro`); nav jumps land the heading just under the nav (`scroll-margin-top` in `home.css`).
 
 - The hero no longer carries the label line (Hallmark gates 54/63 and the 80-word screen budget); "Multi-platform writer in Jakarta: <typed role>" sits in the about band.
 - Gates run with `node ~/.claude/skills/hallmark/scripts/sloplint.mjs`; it only sees an `.astro` page's CSS when they share a folder, so lint a flattened copy for the static pass and `--url` for the render pass. `.hallmark/` holds the records and screenshots (ignored except `log.json`).
 - Earlier work: projects with `era: earlier` (OPPO, HSBC #StartSekarang, Garuda Indonesia, Jala PRT, Jalan Sesama; real stills from the Tumblr archive) are listed on `src/pages/work/advertising-and-scriptwriting.astro` in compact rows. The home page shows one "Advertising & scriptwriting" row that links there; the page ends with a link to the full Tumblr archive. A project can carry an optional `secondLink`/`secondLinkLabel` (Jalan Sesama links to the Medium article about it).
+- The road so far (experience + awards) is one section sized to fit a 1440 x 900 screen. Award logos live in `public/images/awards/` (Citra Pariwara's edition number and festival line cut off), shown in ink with a CSS filter; set per award in `awards.json` (`logo`; `detail` takes one line per win). Company logos replace the company names in the experience rows: ink PNGs in `public/images/logos/`, mapped by exact company name in `src/content/logos.json` ("Company logos" in Pages CMS); a company without a logo stays as text. `logoSize()` in `site.ts` sizes every logo to a similar area so wide and compact marks weigh the same.
 - A project's `image` is its case-study cover; the home row shows `thumb` when set (an illustrated take in ink-and-wash, made outside the repo, 4:3 at 1600px), otherwise `image`.
 
 ## Motion

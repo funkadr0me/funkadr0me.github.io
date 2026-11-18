@@ -2,10 +2,12 @@
 // - Projects and writing are Markdown collections (src/content/projects, src/content/writing — see src/content.config.ts).
 // - Site text, experience and awards are JSON files in src/content/.
 // All of it is editable in Pages CMS (see .pages.yml).
+import { readFileSync } from 'node:fs';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import settingsJson from '../content/settings.json';
 import experienceJson from '../content/experience.json';
 import awardsJson from '../content/awards.json';
+import logosJson from '../content/logos.json';
 
 export type TagTone = 'claret' | 'oxford' | 'teal' | 'ink';
 
@@ -49,7 +51,27 @@ export interface Settings {
 
 export const settings = settingsJson as Settings;
 export const experience: { years: string; role: string; org: string }[] = experienceJson;
-export const awards: { name: string; detail: string }[] = awardsJson;
+export const awards: { name: string; detail: string; logo?: string }[] = awardsJson;
+/**
+ * A logo's display size, so wide wordmarks and compact marks carry similar visual weight:
+ * each gets about the same area, within a height range. Reads a PNG's own size from public/.
+ */
+export function logoSize(src: string, area: number, minHeight: number, maxHeight: number) {
+  let ratio = 3;
+  try {
+    const png = readFileSync(`public${src}`);
+    ratio = png.readUInt32BE(16) / png.readUInt32BE(20); // PNG IHDR: width, height
+  } catch {
+    // not a readable PNG: fall back to a typical wordmark ratio
+  }
+  const height = Math.round(Math.min(maxHeight, Math.max(minHeight, Math.sqrt(area / ratio))));
+  return { width: Math.round(height * ratio), height };
+}
+
+/** Company logos by name, for the experience rows; a company without one is shown as text. */
+export const companyLogos: Record<string, string> = Object.fromEntries(
+  (logosJson as { name: string; logo: string }[]).map((entry) => [entry.name, entry.logo]),
+);
 
 export const links = {
   email: settings.email,
@@ -94,6 +116,10 @@ export async function getProjects(): Promise<Project[]> {
     };
   });
 }
+
+/** Writing gets its own home page section (and nav link) once there are this many pieces; fewer are
+    mentioned in a line in the About band instead. */
+export const WRITING_SECTION_MIN = 3;
 
 export async function getWritingEntries(): Promise<CollectionEntry<'writing'>[]> {
   const entries = await getCollection('writing', ({ data }) => !data.draft);

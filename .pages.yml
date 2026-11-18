@@ -209,4 +209,22 @@ content:
       - name: name
         type: string
       - name: detail
+        label: Detail (one line per win)
+        type: text
+      - name: logo
+        label: Logo (shown in ink, keep it on a transparent background)
+        type: image
+
+  - name: logos
+    label: Company logos
+    type: file
+    path: src/content/logos.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Company name (exactly as written in Experience)
         type: string
+      - name: logo
+        label: Logo (black or grey on a transparent background)
+        type: image

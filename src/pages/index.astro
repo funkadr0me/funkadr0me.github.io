@@ -3,12 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import { settings, getProjects, getWriting, experience, awards, links } from '../data/site';
+import { settings, getProjects, getWriting, experience, awards, companyLogos, logoSize, links, WRITING_SECTION_MIN } from '../data/site';
 
 const projects = await getProjects();
 // Earlier work lives on its own page (/work/advertising-and-scriptwriting/), reached from the archive row.
 const current = projects.filter((project) => project.era === 'now');
 const writing = await getWriting();
+const writingSection = writing.length >= WRITING_SECTION_MIN; // otherwise the pieces get a line in the About band
 
 // Verbs and nouns turn in the headline (src/scripts/flip-headline.ts); the static page shows the first of each.
 const { verbs, nouns } = settings;
@@ -57,6 +58,14 @@ const parts = (value: string) => value.split(' · ');
       <h2 class="headline-lg about-head">{settings.aboutLabel}</h2>
       <div class="about-body">
         <p class="about-text">{settings.about}</p>
+        {!writingSection && writing.length > 0 && (
+          <p class="about-writing">
+            I also write about the craft:{' '}
+            {writing.map((post, i) => (
+              <>{i > 0 && (i === writing.length - 1 ? ' and ' : ', ')}<a href={post.href}>{post.title}</a></>
+            ))}.
+          </p>
+        )}
         <p class="roles">
           <span class="sr-only">{settings.label}: {rolesSentence}, based in {settings.location}</span>
           <span aria-hidden="true">{settings.label} in {settings.location}: <span class="typing" data-typing={JSON.stringify(roles)}><span class="typing-text">{roles[0]}</span><span class="typing-caret"></span></span></span>
@@ -65,7 +74,8 @@ const parts = (value: string) => value.split(' · ');
     </div>
   </section>
 
-  <!-- Writing -->
+  <!-- Writing: its own section once there are enough pieces -->
+  {writingSection && (
   <section class="container section top" id="writing">
     <SectionHeader title="I think, therefore I write">Writings &amp; other documented blabbers</SectionHeader>
     <div class="writing-rows">
@@ -77,8 +87,9 @@ const parts = (value: string) => value.split(' · ');
       ))}
     </div>
   </section>
+  )}
 
-  <!-- Experience -->
+  <!-- Experience and awards: one screen -->
   <section class="container section top" id="experience">
     <SectionHeader title="The road so far"><a class="u-draw" href={links.resume}>Full resume</a></SectionHeader>
     <div class="jobs">
@@ -86,21 +97,22 @@ const parts = (value: string) => value.split(' · ');
         <div class="job grid-12" data-reveal style={`--d: ${i * 0.05}s`}>
           <span class="years body-sm muted">{job.years}</span>
           <span class="role">{job.role}</span>
-          <span class="org muted">{parts(job.org).map((part) => <span>{part}</span>)}</span>
+          <span class="org muted">
+            {parts(job.org).map((company) => companyLogos[company]
+              ? <img class="org-logo" src={companyLogos[company]} alt={company} loading="lazy" {...logoSize(companyLogos[company], 1700, 20, 30)} />
+              : <span class="org-name">{company}</span>)}
+          </span>
         </div>
       ))}
     </div>
-  </section>
-
-  <!-- Awards -->
-  <section class="container section top">
     <div class="awards-block">
       <h3 class="awards-label body-sm muted">Awards</h3>
       <div class="awards">
         {awards.map((award, i) => (
           <div class="award" data-reveal style={`--d: ${i * 0.08}s`}>
+            {award.logo && <span class="award-mark"><img class="award-logo" src={award.logo} alt="" loading="lazy" {...logoSize(award.logo, 2800, 24, 36)} /></span>}
             <span class="award-name">{award.name}</span>
-            <span class="body-sm muted">{award.detail}</span>
+            <span class="body-sm muted">{award.detail.split('\n').map((line, j) => <>{j > 0 && <br />}{line}</>)}</span>
           </div>
         ))}
       </div>

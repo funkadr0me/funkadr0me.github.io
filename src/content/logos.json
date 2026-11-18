@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Telkom Indonesia",
+    "logo": "/images/logos/telkom-indonesia.png"
+  },
+  {
+    "name": "Pluang",
+    "logo": "/images/logos/pluang.png"
+  },
+  {
+    "name": "Bukalapak",
+    "logo": "/images/logos/bukalapak.png"
+  },
+  {
+    "name": "J. Walter Thompson",
+    "logo": "/images/logos/j-walter-thompson.png"
+  },
+  {
+    "name": "Lowe & Partners",
+    "logo": "/images/logos/lowe-and-partners.png"
+  },
+  {
+    "name": "Ogilvy & Mather",
+    "logo": "/images/logos/ogilvy-and-mather.png"
+  },
+  {
+    "name": "Colman Ideas Inc.",
+    "logo": "/images/logos/colman-ideas.png"
+  },
+  {
+    "name": "Redworks",
+    "logo": "/images/logos/redworks.png"
+  },
+  {
+    "name": "Jalan Sesama (Sesame Street Indonesia)",
+    "logo": "/images/logos/jalan-sesama.png"
+  }
+]

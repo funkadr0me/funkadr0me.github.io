@@ -1,18 +1,22 @@
 [
   {
     "name": "Clio",
-    "detail": "2 Bronze, “Jala PRT” print series · 2012"
+    "detail": "2 Bronze, “Jala PRT” print series · 2012",
+    "logo": "/images/awards/clio.png"
   },
   {
     "name": "Cannes Lions",
-    "detail": "Shortlist, Press, “Jala PRT – Clothes” · 2011"
+    "detail": "Shortlist, Press, “Jala PRT – Clothes” · 2011",
+    "logo": "/images/awards/cannes-lions.png"
   },
   {
     "name": "Citra Pariwara",
-    "detail": "1 Silver & 1 Bronze · 2011"
+    "detail": "1 Silver & 1 Bronze · 2011\nDaun Muda Finalist · 2009",
+    "logo": "/images/awards/citra-pariwara.png"
   },
   {
     "name": "Asian TV Awards",
-    "detail": "Nominee, Best Preschool Programme, Jalan Sesama · 2011"
+    "detail": "Nominee, Best Preschool Programme, Jalan Sesama · 2011",
+    "logo": "/images/awards/asian-television-awards.png"
   }
 ]

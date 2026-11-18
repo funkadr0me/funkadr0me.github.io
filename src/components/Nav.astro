@@ -1,17 +1,22 @@
 ---
-import { settings } from '../data/site';
+import { settings, getWriting, WRITING_SECTION_MIN } from '../data/site';
 
 interface Props {
   current?: string;
 }
 
-// Highlight Writing on /writing/... pages, Work everywhere else.
+// On the home page the underline follows the section in view (script below), so nothing is marked
+// at first. Elsewhere it marks the part of the site you are in: Writing on /writing/..., Work otherwise.
 const path = Astro.url.pathname;
-const { current = path.startsWith('/writing') ? '/#writing' : '/#work' } = Astro.props;
+const isHome = path === '/';
+const { current = isHome ? undefined : path.startsWith('/writing') ? '/#writing' : '/#work' } = Astro.props;
+
+// Writing has a home page section, and so a nav link, only once there are enough pieces.
+const hasWritingSection = (await getWriting()).length >= WRITING_SECTION_MIN;
 
 const links = [
   { href: '/#work', label: 'Work' },
-  { href: '/#writing', label: 'Writing' },
+  ...(hasWritingSection ? [{ href: '/#writing', label: 'Writing' }] : []),
   { href: '/#experience', label: 'Experience' },
   { href: '/#contact', label: 'Contact', action: true },
 ];
@@ -29,6 +34,7 @@ const links = [
           class:list={['item', { action: link.action }]}
           href={link.href}
           aria-current={link.href === current ? 'page' : undefined}
+          data-section={link.href.split('#')[1]}
         >
           {link.label}
         </a>
@@ -36,6 +42,32 @@ const links = [
     </div>
   </nav>
 </header>
+
+<script>
+  // Home page: underline the nav link of the section in view. A section counts once its top passes
+  // into the upper part of the screen, below the nav; the hero leaves every link plain.
+  if (location.pathname === '/' && 'IntersectionObserver' in window) {
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('.site-header [data-section]')];
+    const sections = links
+      .map((link) => document.getElementById(link.dataset.section ?? ''))
+      .filter((section): section is HTMLElement => section !== null);
+    const navHeight = document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 0;
+    const inView = new Set<string>();
+    const mark = (id?: string) =>
+      links.forEach((link) => {
+        if (link.dataset.section === id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => (entry.isIntersecting ? inView.add(entry.target.id) : inView.delete(entry.target.id)));
+        mark(sections.map((section) => section.id).filter((id) => inView.has(id)).pop());
+      },
+      { rootMargin: `-${navHeight}px 0px -60% 0px` },
+    );
+    sections.forEach((section) => observer.observe(section));
+  }
+</script>
 
 <style>
   .site-header { border-bottom: 1px solid var(--tertiary); }
@@ -57,7 +89,7 @@ const links = [
     transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   }
   .item:hover { border-bottom-color: var(--tertiary); color: var(--text); }
-  .item[aria-current='page'] { color: var(--text); border-bottom-color: var(--claret); }
+  .item:not(.action)[aria-current] { color: var(--text); border-bottom-color: var(--claret); }
   /* The hire action: outlined, quieter than the hero's filled button. */
   .item.action {
     margin-left: var(--space-xs);

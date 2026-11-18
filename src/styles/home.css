@@ -25,6 +25,7 @@
   --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.3125rem);
   --text-title: clamp(1.75rem, 1.2vw + 1.2rem, 2.25rem);
   --text-role: clamp(1.375rem, 0.8vw + 1.1rem, 1.75rem);
+  --text-role-s: clamp(1.25rem, 0.4vw + 1.05rem, 1.5rem);
 
   --dur-micro: 120ms;
   --dur-short: 220ms;
@@ -96,6 +97,10 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 
 .section { padding-bottom: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
 .section.top { padding-top: var(--space-xl); padding-bottom: 0; }
+/* Nav jumps (#work, #writing, #experience, #contact) land with the section's heading just under the
+   sticky nav, skipping the section's own top padding, so a section sized to one screen shows whole. */
+.section[id] { scroll-margin-top: calc(var(--nav-h) + var(--space-sm)); }
+.section.top[id] { scroll-margin-top: calc(var(--nav-h) + var(--space-sm) - var(--space-xl)); }
 
 /* 3 · Work index ----------------------------------------------------------------- */
 /* Rows are in ProjectCard.astro; the list itself only sets the rhythm. */
@@ -109,6 +114,9 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .about-head { grid-column: 1 / span 5; color: var(--color-accent-ink); }
 .about-body { grid-column: 6 / -1; display: flex; flex-direction: column; gap: var(--space-md); }
 .about-text { max-width: 24em; font-family: var(--font-display); font-size: clamp(1.625rem, 1vw + 1.35rem, 2.25rem); line-height: 1.25; letter-spacing: -0.36px; }
+.about-writing { max-width: 36rem; }
+.about a { color: var(--color-accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.about a:hover { text-decoration-thickness: 2px; }
 .roles { padding-top: var(--space-sm); border-top: 1px solid var(--color-rule-on-accent); }
 
 /* 5 · Writing: rows under the head, title left and source right ----------------------- */
@@ -129,19 +137,24 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 /* 6 · Experience: a table of years, roles and houses ---------------------------------- */
 
 .jobs { display: flex; flex-direction: column; }
-.job { align-items: baseline; row-gap: var(--space-2xs, 4px); padding-block: var(--space-gutter); border-bottom: 1px solid var(--color-rule); }
+.job { align-items: baseline; row-gap: var(--space-2xs, 4px); padding-block: 12px; border-bottom: 1px solid var(--color-rule); }
 .years { grid-column: 1 / span 3; font-variant-numeric: tabular-nums; }
-.role { grid-column: 4 / span 5; font-family: var(--font-display); font-size: var(--text-role); line-height: 1.2; letter-spacing: -0.36px; }
-.org { grid-column: 9 / -1; display: flex; flex-direction: column; }
+.role { grid-column: 4 / span 5; font-family: var(--font-display); font-size: var(--text-role-s); line-height: 1.2; letter-spacing: -0.36px; }
+.org { grid-column: 9 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-sm); }
+/* Company logos are ink PNGs on transparent (public/images/logos). */
+.org-logo { flex-shrink: 0; object-fit: contain; } /* size set per logo by logoSize(): similar area, 18 to 34px tall */
 
 /* 7 · Awards: four across, parted by hairlines ------------------------------------- */
 
-.awards-block { display: flex; flex-direction: column; gap: var(--space-sm); }
+.awards-block { display: flex; flex-direction: column; gap: var(--space-xs); margin-top: var(--space-gutter); }
 .awards-label { font-weight: 400; }
 .awards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--color-rule); }
-.award { display: flex; flex-direction: column; gap: var(--space-xs); padding: var(--space-md) var(--space-gutter) var(--space-md) var(--space-gutter); border-left: 1px solid var(--color-rule); }
+.award { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-xs); padding: var(--space-sm) var(--space-gutter); border-left: 1px solid var(--color-rule); }
 .award:first-child { padding-left: 0; border-left: 0; }
-.award-name { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.15; letter-spacing: -0.36px; overflow-wrap: break-word; min-width: 0; }
+/* Award logos in one ink treatment, whatever colour the file is (they need transparent backgrounds). */
+.award-mark { display: flex; align-items: flex-end; height: 36px; } /* one box height, so the names line up */
+.award-logo { flex-shrink: 0; object-fit: contain; object-position: left center; filter: brightness(0); opacity: 0.88; }
+.award-name { font-family: var(--font-display); font-size: var(--text-role-s); line-height: 1.15; letter-spacing: -0.36px; overflow-wrap: break-word; min-width: 0; }
 
 /* 8 · Contact: the statement, then the plain way to reach me ------------------------- */
 
