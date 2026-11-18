@@ -3,7 +3,7 @@
  * axes: light/roman-serif/warm · posture: Restrained · contrast: pass · fold: pass · hero-review: fix · 5 findings · 3 resolved 2 owner's · finish-review: subagent · 8 findings · 6 resolved 2 owner's · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
 /* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
-/* Hallmark · dismissed 58 · the windows hold the hero's intro beside the work head, or three index rows of the owner's projects with their tags, at most 89 words over 900px */
+/* Hallmark · dismissed 58 · the windows hold the hero's intro beside the work head, or the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, at most 128 words over 900px at 1440 */
 
 /* The home page. Brand tokens (tokens.css) stay the source; these add the roles the page's layout needs
    and name the brand's values by their Hallmark role. */
@@ -103,8 +103,22 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .section.top[id] { scroll-margin-top: calc(var(--nav-h) + var(--space-sm) - var(--space-xl)); }
 
 /* 3 · Work index ----------------------------------------------------------------- */
-/* Rows are in ProjectCard.astro; the list itself only sets the rhythm. */
+/* Cards are in ProjectCard.astro; the grid sets how many sit across: four on a wide screen, so the
+   whole index fits one screen, two on a tablet, one on a phone. (The advertising page's `.index`
+   stays a column of rows.) */
 .index { display: flex; flex-direction: column; }
+.index.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gap-columns);
+  row-gap: var(--space-md);
+}
+@media (max-width: 72rem) {
+  .index.cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 40rem) {
+  .index.cards { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* 4 · About band: a field of the lead colour, heading and statement split ---------- */
 

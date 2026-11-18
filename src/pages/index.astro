@@ -47,7 +47,7 @@ const parts = (value: string) => value.split(' · ');
   <!-- Work -->
   <section class="container section" id="work">
     <SectionHeader title="Carefully curated">Selected work, 2008 to present</SectionHeader>
-    <div class="index">
+    <div class="index cards">
       {current.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} />)}
     </div>
   </section>

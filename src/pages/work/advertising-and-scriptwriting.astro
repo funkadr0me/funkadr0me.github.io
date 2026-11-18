@@ -18,6 +18,6 @@ const pieces = (await getProjects()).filter((project) => project.era === 'earlie
   externalLabel="More in the full archive"
 >
   <div slot="media" class="index">
-    {pieces.map((project, i) => <ProjectCard project={project} index={i} compact level={2} />)}
+    {pieces.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} compact level={2} />)}
   </div>
 </ArticleLayout>

@@ -60,7 +60,7 @@ src/pages/work/[id].astro      case study pages
 src/pages/writing/[id].astro   article pages
 src/layouts/BaseLayout.astro   <head>, nav, footer, motion on-switch
 src/layouts/ArticleLayout.astro  shared layout + Markdown prose styles
-src/components/                Nav, Button, Tag, ProjectCard (a row of the work index), SectionHeader, Footer
+src/components/                Nav, Button, Tag, ProjectCard (a card of the work grid, or a compact row on the advertising page), SectionHeader, Footer
 src/styles/tokens.css          design tokens + type classes
 src/styles/global.css          base styles
 src/styles/home.css            the home page's layout (Hallmark stamp on line 1), role tokens, 12-column grid
@@ -71,7 +71,7 @@ prototypes/                    standalone HTML experiments — not part of the b
 
 ## Home page layout (Hallmark redesign, full depth)
 
-Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, then the intro and actions under a hairline; the work index starts at the fold. Work is an index of rows (client, title and summary, tags and link; the whole row is the link, the title turning claret is the one hover); about is the claret band split into heading and statement, with the typing roles line moved under it; writing gets its own section and nav link only from three pieces (`WRITING_SECTION_MIN` in `site.ts`), and until then each piece is a link in an "I also write about the craft" line in the About band; experience is a table; awards four across; contact is a statement with the email set large. Nav and Footer are shared, so the case-study and article pages pick them up. On the home page the nav underline follows the section in view (script in `Nav.astro`); nav jumps land the heading just under the nav (`scroll-margin-top` in `home.css`).
+Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, then the intro and actions under a hairline; the work index starts at the fold. Work is a grid of cards, four across on a wide screen so it fits one screen (two on a tablet, one on a phone): picture, client, title, summary and link under a hairline, no box (tags are left to the case studies to keep the screen under its word budget); the whole card is the link, the title turning claret is the one hover, and the links line up at the bottom; about is the claret band split into heading and statement, with the typing roles line moved under it; writing gets its own section and nav link only from three pieces (`WRITING_SECTION_MIN` in `site.ts`), and until then each piece is a link in an "I also write about the craft" line in the About band; experience is a table; awards four across; contact is a statement with the email set large. Nav and Footer are shared, so the case-study and article pages pick them up. On the home page the nav underline follows the section in view (script in `Nav.astro`); nav jumps land the heading just under the nav (`scroll-margin-top` in `home.css`).
 
 - The hero no longer carries the label line (Hallmark gates 54/63 and the 80-word screen budget); "Multi-platform writer in Jakarta: <typed role>" sits in the about band.
 - Gates run with `node ~/.claude/skills/hallmark/scripts/sloplint.mjs`; it only sees an `.astro` page's CSS when they share a folder, so lint a flattened copy for the static pass and `--url` for the render pass. `.hallmark/` holds the records and screenshots (ignored except `log.json`).

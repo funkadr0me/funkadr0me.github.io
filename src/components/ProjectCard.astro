@@ -2,75 +2,117 @@
 import Tag from './Tag.astro';
 import type { Project } from '../data/site';
 
-// One row of the work index: who it was for, what it was, how it is filed, where to read it.
+// One piece of work. On the home page it is a card in a four-across grid: picture, who it was for,
+// what it was, where to read it; its tags are left to the case study, to keep the grid light.
+// `compact` makes it a quieter row instead, tags included, for the earlier work on the advertising page.
 interface Props {
   project: Project;
   index?: number;
-  lead?: boolean;      // the first row: its picture loads first, and it keeps a little more room above
-  compact?: boolean;   // the quieter rows of earlier work
+  lead?: boolean;      // the first card or row: its picture loads first
+  compact?: boolean;   // a row of earlier work instead of a card
   level?: 2 | 3;       // heading level of the title: 3 under a section head, 2 straight under a page title
 }
 
 const { project, index = 0, lead = false, compact = false, level = 3 } = Astro.props;
-const titleClass = ['title', 'headline-md']; // every project title the same size: the rows are peers
 const linkLabel = project.linkLabel ?? 'View project';
 // A bracketed summary is the CMS's "still to fill in" marker; it stays in the CMS but is not shown.
 const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
+const Title = level === 2 ? 'h2' : 'h3';
 ---
 
-<article class:list={['row', 'grid-12', { lead, compact }]} data-reveal style={`--d: ${index * 0.08}s`}>
-  <div class="who">
-    <p class="client body-sm muted">{project.client}</p>
-    {project.blockText && <p class="figure">{project.blockText}</p>}
-  </div>
-  <div class="what">
-    {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
-    {level === 2 ? <h2 class:list={titleClass}>{project.title}</h2> : <h3 class:list={titleClass}>{project.title}</h3>}
-    {summary && <p class="summary">{summary}</p>}
-  </div>
-  <div class="meta">
-    <div class="tags">
-      {project.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
+{compact ? (
+  <article class="item row grid-12" data-reveal style={`--d: ${index * 0.08}s`}>
+    <div class="who">
+      <p class="client body-sm muted">{project.client}</p>
+      {project.blockText && <p class="figure">{project.blockText}</p>}
     </div>
-    <a class="go u-draw" href={project.href} aria-label={`${linkLabel}: ${project.title}`}>{linkLabel}</a>
-    {project.secondLink && (
-      <a class="go-second u-draw" href={project.secondLink} aria-label={`${project.secondLinkLabel ?? 'Read more'}: ${project.title}`}>{project.secondLinkLabel ?? 'Read more'}</a>
-    )}
-  </div>
-</article>
+    <div class="what">
+      {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
+      <Title class="title headline-md">{project.title}</Title>
+      {summary && <p class="summary">{summary}</p>}
+    </div>
+    <div class="meta">
+      <div class="tags">
+        {project.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
+      </div>
+      <div class="links">
+        <a class="go u-draw" href={project.href} aria-label={`${linkLabel}: ${project.title}`}>{linkLabel}</a>
+        {project.secondLink && (
+          <a class="go-second u-draw" href={project.secondLink} aria-label={`${project.secondLinkLabel ?? 'Read more'}: ${project.title}`}>{project.secondLinkLabel ?? 'Read more'}</a>
+        )}
+      </div>
+    </div>
+  </article>
+) : (
+  <article class="item card" data-reveal style={`--d: ${index * 0.08}s`}>
+    {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
+    <p class="client body-sm muted">{project.client}{project.blockText && <span> · {project.blockText}</span>}</p>
+    <Title class="title card-title">{project.title}</Title>
+    {summary && <p class="summary body-sm">{summary}</p>}
+    <div class="links">
+      <a class="go u-draw" href={project.href} aria-label={`${linkLabel}: ${project.title}`}>{linkLabel}</a>
+      {project.secondLink && (
+        <a class="go-second u-draw" href={project.secondLink} aria-label={`${project.secondLinkLabel ?? 'Read more'}: ${project.title}`}>{project.secondLinkLabel ?? 'Read more'}</a>
+      )}
+    </div>
+  </article>
+)}
 
 <style>
+  .item { position: relative; }
+  .title { color: var(--color-ink); transition: color var(--dur-short) var(--ease-out); }
+  .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  .links { display: flex; flex-wrap: wrap; column-gap: var(--space-gutter); row-gap: var(--space-xs); }
+  .media { display: block; width: 100%; border-radius: var(--radius-sm); }
+
+  /* Card: a hairline above, no box. Cards in a row share a height, so the links line up at the bottom. */
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-rule);
+  }
+  .card .media { aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 0%; margin-bottom: var(--space-xs); }
+  .card .client { margin-bottom: calc(-1 * var(--space-xs)); }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-title);
+    line-height: 1.15;
+    letter-spacing: -0.36px;
+    overflow-wrap: break-word;
+    min-width: 0;
+    text-wrap: balance;
+  }
+  .card .links { margin-top: auto; padding-top: var(--space-xs); }
+
+  /* Row: the earlier work on the advertising page. */
   .row {
-    position: relative;
     align-items: start;
     row-gap: var(--space-sm);
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-md);
     border-bottom: 1px solid var(--color-rule);
   }
-  .row.lead { padding-top: var(--space-3xl); }
-  .row.compact { padding-block: var(--space-md); }
-  /* Stills from the archive come in many shapes: each is shown whole, and a hairline makes them one set. */
-  .row.compact .media { max-width: 360px; height: auto; aspect-ratio: auto; object-fit: contain; outline: 1px solid var(--color-rule); outline-offset: -1px; }
   .who { grid-column: 1 / span 3; display: flex; flex-direction: column; gap: var(--space-xs); }
   .what { grid-column: 4 / span 6; display: flex; flex-direction: column; gap: var(--space-sm); }
   .meta { grid-column: 10 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
-
   .figure { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.1; font-variant-numeric: tabular-nums; }
-  .title { color: var(--color-ink); transition: color var(--dur-short) var(--ease-out); }
   .summary { max-width: 46ch; }
-  .media { width: 100%; max-width: 640px; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-sm); }
-  .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  /* Stills from the archive come in many shapes: each is shown whole, and a hairline makes them one set. */
+  .row .media { max-width: 360px; height: auto; object-fit: contain; outline: 1px solid var(--color-rule); outline-offset: -1px; }
 
-  /* The whole row is the link; the hover signal is the title's colour. */
+  /* The whole card or row is the link; the hover signal is the title's colour. */
   .go::after { content: ""; position: absolute; inset: 0; }
-  .row:hover .title { color: var(--color-accent); }
-  /* The second link sits above the row-wide link so it stays clickable on its own. */
+  .item:hover .title { color: var(--color-accent); }
+  /* The second link sits above the card-wide link so it stays clickable on its own. */
   .go-second { position: relative; z-index: 1; }
   .go:focus-visible { outline: none; }
-  .row:has(.go:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+  .item:has(.go:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: var(--space-xs); }
+  .row:has(.go:focus-visible) { outline-offset: -2px; }
 
   @media (max-width: 60rem) {
-    .row { padding-block: var(--space-lg); }
+    .row { padding-block: var(--space-md); }
     .who, .what, .meta { grid-column: 1 / -1; }
   }
 </style>
