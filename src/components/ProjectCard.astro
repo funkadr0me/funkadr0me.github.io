@@ -33,6 +33,9 @@ const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
       {project.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
     </div>
     <a class="go u-draw" href={project.href} aria-label={`${linkLabel}: ${project.title}`}>{linkLabel}</a>
+    {project.secondLink && (
+      <a class="go-second u-draw" href={project.secondLink} aria-label={`${project.secondLinkLabel ?? 'Read more'}: ${project.title}`}>{project.secondLinkLabel ?? 'Read more'}</a>
+    )}
   </div>
 </article>
 
@@ -61,6 +64,8 @@ const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
   /* The whole row is the link; the hover signal is the title's colour. */
   .go::after { content: ""; position: absolute; inset: 0; }
   .row:hover .title { color: var(--color-accent); }
+  /* The second link sits above the row-wide link so it stays clickable on its own. */
+  .go-second { position: relative; z-index: 1; }
   .go:focus-visible { outline: none; }
   .row:has(.go:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: -2px; }
 

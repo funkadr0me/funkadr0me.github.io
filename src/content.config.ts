@@ -34,6 +34,8 @@ const projects = defineCollection({
     ),
     link: optionalText,                     // external link, used when there's no write-up
     linkLabel: optionalText,
+    secondLink: optionalText,               // an optional extra link on the row, e.g. an article about the work
+    secondLinkLabel: optionalText,
     era: z.preprocess(blank, z.enum(['now', 'earlier']).catch('now').default('now')), // 'earlier' = on the advertising & scriptwriting page
     draft: flag,                            // hide from the site
   }),

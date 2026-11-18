@@ -16,6 +16,8 @@ export interface Project {
   summary: string;
   href: string;             // the write-up page, or the external link
   linkLabel?: string;
+  secondLink?: string;      // an extra link beside the main one
+  secondLinkLabel?: string;
   hasWriteUp: boolean;
   tone: TagTone;
   image?: string;
@@ -78,6 +80,8 @@ export async function getProjects(): Promise<Project[]> {
       href: writeUp ? workUrl(entry.id) : (data.link ?? '#work'),
       // With a write-up the row opens the case study; `linkLabel` then names the external link on that page.
       linkLabel: writeUp ? 'Case study' : data.linkLabel,
+      secondLink: data.secondLink,
+      secondLinkLabel: data.secondLinkLabel,
       hasWriteUp: writeUp,
       tone: data.tone,
       image: data.image,
