@@ -128,6 +128,13 @@ content:
       - name: linkLabel
         label: Link text (optional)
         type: string
+      - name: era
+        label: Where it sits on the home page
+        type: select
+        options:
+          values:
+            - { name: now, label: Home page }
+            - { name: earlier, label: Advertising & scriptwriting page }
       - name: draft
         label: Hide from the site
         type: boolean

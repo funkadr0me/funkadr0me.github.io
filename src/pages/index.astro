@@ -6,6 +6,8 @@ import SectionHeader from '../components/SectionHeader.astro';
 import { settings, getProjects, getWriting, experience, awards, links } from '../data/site';
 
 const projects = await getProjects();
+// Earlier work lives on its own page (/work/advertising-and-scriptwriting/), reached from the archive row.
+const current = projects.filter((project) => project.era === 'now');
 const writing = await getWriting();
 
 // Verbs and nouns turn in the headline (src/scripts/flip-headline.ts); the static page shows the first of each.
@@ -45,7 +47,7 @@ const parts = (value: string) => value.split(' · ');
   <section class="container section" id="work">
     <SectionHeader title="Carefully curated">Selected work, 2008 to present</SectionHeader>
     <div class="index">
-      {projects.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} />)}
+      {current.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} />)}
     </div>
   </section>
 

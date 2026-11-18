@@ -7,22 +7,25 @@ interface Props {
   project: Project;
   index?: number;
   lead?: boolean;
+  compact?: boolean;   // the quieter rows of earlier work
+  level?: 2 | 3;       // heading level of the title: 3 under a section head, 2 straight under a page title
 }
 
-const { project, index = 0, lead = false } = Astro.props;
+const { project, index = 0, lead = false, compact = false, level = 3 } = Astro.props;
+const titleClass = ['title', lead ? 'headline-lg' : 'headline-md'];
 const linkLabel = project.linkLabel ?? 'View project';
 // A bracketed summary is the CMS's "still to fill in" marker; it stays in the CMS but is not shown.
 const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
 ---
 
-<article class:list={['row', 'grid-12', { lead }]} data-reveal style={`--d: ${index * 0.08}s`}>
+<article class:list={['row', 'grid-12', { lead, compact }]} data-reveal style={`--d: ${index * 0.08}s`}>
   <div class="who">
     <p class="client body-sm muted">{project.client}</p>
     {project.blockText && <p class="figure">{project.blockText}</p>}
   </div>
   <div class="what">
     {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
-    <h3 class:list={['title', lead ? 'headline-lg' : 'headline-md']}>{project.title}</h3>
+    {level === 2 ? <h2 class:list={titleClass}>{project.title}</h2> : <h3 class:list={titleClass}>{project.title}</h3>}
     {summary && <p class="summary">{summary}</p>}
   </div>
   <div class="meta">
@@ -42,6 +45,8 @@ const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
     border-bottom: 1px solid var(--color-rule);
   }
   .row.lead { padding-top: var(--space-3xl); }
+  .row.compact { padding-block: var(--space-md); }
+  .row.compact .media { max-width: 360px; }
   .who { grid-column: 1 / span 3; display: flex; flex-direction: column; gap: var(--space-xs); }
   .what { grid-column: 4 / span 6; display: flex; flex-direction: column; gap: var(--space-sm); }
   .meta { grid-column: 10 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }

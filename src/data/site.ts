@@ -24,6 +24,7 @@ export interface Project {
   thumbAlt?: string;
   blockText?: string;
   tags: { label: string; tone: TagTone }[];
+  era: 'now' | 'earlier';   // 'earlier' work is listed on /work/advertising-and-scriptwriting/, not the home page
 }
 
 export interface Settings {
@@ -85,6 +86,7 @@ export async function getProjects(): Promise<Project[]> {
       thumbAlt: data.thumb ? data.thumbAlt : data.imageAlt,
       blockText: data.blockText,
       tags: data.tags,
+      era: data.era,
     };
   });
 }

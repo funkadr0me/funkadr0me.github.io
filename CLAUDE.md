@@ -75,6 +75,7 @@ Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, t
 
 - The hero no longer carries the label line (Hallmark gates 54/63 and the 80-word screen budget); "Multi-platform writer in Jakarta: <typed role>" sits in the about band.
 - Gates run with `node ~/.claude/skills/hallmark/scripts/sloplint.mjs`; it only sees an `.astro` page's CSS when they share a folder, so lint a flattened copy for the static pass and `--url` for the render pass. `.hallmark/` holds the records and screenshots (ignored except `log.json`).
+- Earlier work: projects with `era: earlier` (OPPO, HSBC #StartSekarang, Garuda Indonesia, Jala PRT, Jalan Sesama; real stills from the Tumblr archive) are listed on `src/pages/work/advertising-and-scriptwriting.astro` in compact rows. The home page shows one "Advertising & scriptwriting" row that links there; the page ends with a link to the full Tumblr archive.
 - A project's `image` is its case-study cover; the home row shows `thumb` when set (an illustrated take in ink-and-wash, made outside the repo, 4:3 at 1600px), otherwise `image`.
 
 ## Motion

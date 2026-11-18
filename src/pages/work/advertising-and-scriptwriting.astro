@@ -1,0 +1,23 @@
+---
+// The agency and scriptwriting years on one page: every project marked `era: earlier`, in order.
+// The home page links here from its "Advertising & scriptwriting" row.
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../data/site';
+
+const pieces = (await getProjects()).filter((project) => project.era === 'earlier');
+---
+
+<ArticleLayout
+  title="Advertising & scriptwriting"
+  kicker="2008 to 2018"
+  description="Ten years of TV, radio, print and digital campaigns at Redworks, Ogilvy & Mather, Lowe & Partners, Colman Ideas and J. Walter Thompson, plus scripts and songs for Jalan Sesama."
+  backHref="/#work"
+  backLabel="All work"
+  externalLink="https://theworkssofar.tumblr.com/"
+  externalLabel="More in the full archive"
+>
+  <div slot="media" class="index">
+    {pieces.map((project, i) => <ProjectCard project={project} index={i} compact level={2} />)}
+  </div>
+</ArticleLayout>

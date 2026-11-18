@@ -1,7 +1,7 @@
 ---
 title: Advertising & scriptwriting
 client: Archive
-summary: Ten years of traditional and digital campaigns, plus scripts and lyrics for Jalan Sesama.
+summary: Ten years of TV, radio, print and digital campaigns, plus scripts and songs for Jalan Sesama.
 order: 4
 tone: ink
 blockText: 2008–2018
@@ -14,6 +14,6 @@ tags:
   tone: ink
 - label: Scriptwriting
   tone: ink
-link: https://theworkssofar.tumblr.com/
-linkLabel: View the archive
+link: /work/advertising-and-scriptwriting/
+linkLabel: See the work
 ---
