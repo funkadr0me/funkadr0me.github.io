@@ -11,6 +11,8 @@ tags:
   tone: teal
 image: /images/work/mitra-year-end-review-2018/invitation.jpg
 imageAlt: The opening screen, Syukuran 2018, with a tumpeng rice cone and a Saya Mau! button
+thumb: /images/work/mitra-year-end-review-2018/thumb.jpg
+thumbAlt: An ink-and-wash drawing of a tumpeng on banana leaves under the Mitra Bukalapak logo and the word Syukuran
 ---
 
 ## Shopkeepers who like to be seen

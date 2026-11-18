@@ -90,6 +90,12 @@ content:
       - name: imageAlt
         label: Image description (alt text)
         type: string
+      - name: thumb
+        label: Home page thumbnail (optional; the image is used when empty)
+        type: image
+      - name: thumbAlt
+        label: Thumbnail description (alt text)
+        type: string
       - name: tone
         label: Colour block (when there's no image)
         type: select

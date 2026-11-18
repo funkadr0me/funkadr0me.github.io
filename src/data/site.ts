@@ -20,6 +20,8 @@ export interface Project {
   tone: TagTone;
   image?: string;
   imageAlt?: string;
+  thumb?: string;           // the home row's picture: `thumb` when set, otherwise `image`
+  thumbAlt?: string;
   blockText?: string;
   tags: { label: string; tone: TagTone }[];
 }
@@ -79,6 +81,8 @@ export async function getProjects(): Promise<Project[]> {
       tone: data.tone,
       image: data.image,
       imageAlt: data.imageAlt,
+      thumb: data.thumb ?? data.image,
+      thumbAlt: data.thumb ? data.thumbAlt : data.imageAlt,
       blockText: data.blockText,
       tags: data.tags,
     };

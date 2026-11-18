@@ -15,6 +15,8 @@ link: https://brand.bukalapak.design/brand-elements#tone_and_voice-overview
 linkLabel: Read the published guideline
 image: /images/work/bukalapak-tone-and-voice/cover.jpg
 imageAlt: A smiling shopkeeper in front of his Mitra Bukalapak shop, Toko Alif
+thumb: /images/work/bukalapak-tone-and-voice/thumb.jpg
+thumbAlt: An ink-and-wash drawing of a smiling shopkeeper in a white polo shirt outside his red shop, gas canisters and snack racks beside him
 ---
 
 ## Two voices, one brand

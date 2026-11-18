@@ -25,6 +25,8 @@ const projects = defineCollection({
     tone: z.preprocess(blank, tone.default('ink')),  // colour block when there's no image
     image: optionalText,                    // e.g. /images/tone-and-voice.jpg
     imageAlt: optionalText,
+    thumb: optionalText,                    // home page row only, e.g. an illustrated take; falls back to image
+    thumbAlt: optionalText,
     blockText: optionalText,                // big text on the colour block
     tags: z.preprocess(
       blank,

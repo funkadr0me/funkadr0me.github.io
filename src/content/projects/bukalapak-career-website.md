@@ -11,6 +11,8 @@ tags:
   tone: teal
 image: /images/work/bukalapak-career-website/cover.jpg
 imageAlt: The careers homepage, headed Together we grow and change the world, over an illustration of four colleagues
+thumb: /images/work/bukalapak-career-website/thumb.jpg
+thumbAlt: An ink-and-wash drawing of four laughing colleagues in an office, one holding a phone and a laptop, one at a desk with bubble tea
 ---
 
 ## Hiring for the next stage

@@ -21,7 +21,7 @@ const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
     {project.blockText && <p class="figure">{project.blockText}</p>}
   </div>
   <div class="what">
-    {project.image && <img class="media" src={project.image} alt={project.imageAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
+    {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
     <h3 class:list={['title', lead ? 'headline-lg' : 'headline-md']}>{project.title}</h3>
     {summary && <p class="summary">{summary}</p>}
   </div>
