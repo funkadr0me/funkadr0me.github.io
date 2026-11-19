@@ -28,6 +28,7 @@ const projects = defineCollection({
     thumb: optionalText,                    // home page row only, e.g. an illustrated take; falls back to image
     thumbAlt: optionalText,
     blockText: optionalText,                // big text on the colour block
+    role: optionalText,                     // e.g. "Design lead"; shown at the top of the case study
     tags: z.preprocess(
       blank,
       z.array(z.object({ label: z.string(), tone: z.preprocess(blank, tone.default('ink')) })).default([]),

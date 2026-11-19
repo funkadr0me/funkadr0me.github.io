@@ -4,12 +4,11 @@ client: Bukalapak
 summary: Witty ads, a stiff app. I led the voice that joined them, and built it into the design system.
 order: 1
 tone: claret
+role: Design lead
 tags:
 - label: Content strategy
   tone: oxford
 - label: Design system
-  tone: claret
-- label: Design lead
   tone: claret
 link: https://brand.bukalapak.design/brand-elements#tone_and_voice-overview
 linkLabel: Read the published guideline

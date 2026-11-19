@@ -108,6 +108,9 @@ content:
       - name: blockText
         label: Big text on the colour block (optional)
         type: string
+      - name: role
+        label: Your role (shown at the top of the case study)
+        type: string
       - name: tags
         type: object
         list: true
