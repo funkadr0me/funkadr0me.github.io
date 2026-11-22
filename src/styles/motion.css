@@ -150,10 +150,11 @@ html.motion [data-wipe] {
 }
 .u-draw:hover { animation: underline-draw 0.45s var(--ease-out); }
 
-/* 7 · Flipping headline ----------------------------------------------------- */
+/* 7 · Split-flap headline -------------------------------------------------- */
 
 /* Without the script (or with reduced motion) this is plain text: the first pair on
-   one wrapping line. The script adds `flip-ready` once it has measured the words. */
+   one wrapping line. The script splits each word into letter cells, and adds
+   `flip-ready` once it has measured them. */
 .flip-line {
   display: flex;
   flex-wrap: wrap;
@@ -161,35 +162,50 @@ html.motion [data-wipe] {
   align-items: flex-end;
 }
 .flip-rest { display: block; }
-.flip-caret {
-  display: inline-block;
-  width: 0.05em;
-  height: 0.8em;
-  margin-left: 0.06em;
-  vertical-align: -0.06em;
-  background: var(--claret);   /* at rest the cursor still shows, so the idea reads without the script */
-}
 /* The static headline sizes itself; the script then fits it to the longest pair. */
 .headline-display[data-flip] { font-size: clamp(2.25rem, 9.2vw, 8rem); }
 
 .flip-ready .flip-line { flex-wrap: nowrap; white-space: nowrap; }
-.flip-ready .flip-slot {
+.flip-slot { position: relative; display: inline-flex; }
+.flip-word { display: inline-flex; }
+
+/* A letter cell: as wide as its glyph. It snaps to each new letter's width as that letter lands. */
+.flip-cell {
   position: relative;
   display: inline-block;
+  width: var(--w, 0.5em);
   height: 1.2em;            /* one line, with room for descenders (g, j, p) */
-  overflow: hidden;
-  perspective: 800px;
+  perspective: 3em;
 }
-.flip-ready .flip-word {
+/* Four layers per cell, each half a letter. The glyph may overhang its cell (f, g),
+   so the halves are clipped top and bottom only. */
+.flip-layer {
+  position: absolute;
+  inset: 0;
+  line-height: 1.2em;
+  white-space: pre;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+}
+.flip-layer.top { clip-path: inset(-0.4em -0.4em 50% -0.4em); }
+.flip-layer.bottom { clip-path: inset(50% -0.4em -0.4em -0.4em); }
+/* The two flaps only show while the cell turns; they carry the paper so they cover the half behind them. */
+.flip-layer.flap { visibility: hidden; background: var(--color-paper); }
+.flip-layer.flap.top { clip-path: inset(0 0 50% 0); }
+.flip-layer.flap.bottom { clip-path: inset(50% 0 0 0); }
+.flipping .flip-layer.flap { visibility: visible; }
+/* The hinge: a hairline across the middle of a turning letter. */
+.flip-cell::after {
+  content: "";
   position: absolute;
   left: 0;
-  bottom: 0.08em;
-  white-space: nowrap;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  transform-origin: 50% 55%;
+  right: 0;
+  top: 50%;
+  height: max(1px, 0.012em);
+  background: var(--tertiary);
+  opacity: 0;
 }
-.flip-ready .flip-txt { white-space: pre; }
+.flip-cell.flipping::after { opacity: 1; }
 
 /* Each word is a button over its slot: click turns that wheel. The cue is a claret hairline under the word. */
 .flip-hit {
@@ -217,9 +233,7 @@ html.motion [data-wipe] {
 .flip-hit:focus-visible { outline: 2px solid var(--claret); outline-offset: -4px; }
 /* No hover on a touchscreen: show the hairline faintly so the words read as touchable. */
 @media (hover: none) { .flip-hit::after { transform: scaleX(1); background: var(--tertiary); } }
-.flip-ready .flip-caret { animation: caret-blink 1s step-end 4 forwards; } /* four beats, then it rests hidden until the next change */
-.flip-ready .flip-caret.typing { animation: none; }
-.flip-measure { position: absolute; visibility: hidden; white-space: nowrap; pointer-events: none; }
+.flip-measure { position: absolute; visibility: hidden; white-space: pre; pointer-events: none; }
 
 /* 8 · Reduced motion: no movement anywhere --------------------------------- */
 

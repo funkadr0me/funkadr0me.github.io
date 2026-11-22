@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Split-flap headline — prototype</title>
+<!-- Standalone prototype for the hero headline as a split-flap board, like the old airport departure boards.
+     Serve the repo root (python3 -m http.server) and open /prototypes/split-flap.html; fonts load from
+     ../public/fonts. Not part of the site build.
+     The verb's letters flip first, left to right; the noun follows once the verb has landed.
+     Chosen: C · Type, ported to src/scripts/flip-headline.ts (where cells snap to width; no width transition). -->
+<style>
+@font-face { font-family: "Novela"; src: url("../public/fonts/Novela-Regular.woff2") format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Basier Circle"; src: url("../public/fonts/BasierCircle-Regular.woff2") format("woff2"); font-weight: 400; font-display: block; }
+
+:root {
+  --ink: #1A1A1A; --paper: #FFF1E5; --rule: #CCC1B7; --claret: #990F3D;
+  --font-display: Novela, Georgia, serif;
+  --font-sans: "Basier Circle", system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-sans); font-size: 16px; line-height: 24px; }
+.container { max-width: 1376px; margin: 0 auto; padding-inline: 32px; }
+@media (max-width: 640px) { .container { padding-inline: 16px; } }
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 24px; border-bottom: 1px solid var(--rule); }
+.controls span { margin-right: 8px; color: #555; }
+.controls button { font: inherit; padding: 8px 14px; border: 1px solid var(--ink); background: none; color: var(--ink); border-radius: 4px; cursor: pointer; }
+.controls button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.hero { padding-block: 96px 120px; }
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 9.2vw, 8rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.board { display: flex; flex-wrap: nowrap; align-items: flex-end; column-gap: var(--word-gap); white-space: nowrap; }
+.rest { display: block; }
+.word { position: relative; display: flex; column-gap: var(--tile-gap); cursor: pointer; }
+
+/* One cell = four layers of the same size, each showing half of a character:
+   the static top (the next character), the static bottom (the current one),
+   the falling top flap (current) and the rising bottom flap (next). */
+.cell {
+  position: relative;
+  display: inline-block;
+  width: var(--cell-w);
+  height: var(--cell-h);
+  perspective: 3em;
+  transition: width 320ms var(--ease-out);
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: var(--cell-h);
+  background: var(--tile);
+  color: var(--tile-ink);
+  border-radius: var(--tile-r);
+  backface-visibility: hidden;
+  transform-origin: 50% 50%;
+}
+.layer.top { clip-path: inset(0 0 50% 0); }
+.layer.bottom { clip-path: inset(50% 0 0 0); }
+.layer.flap { visibility: hidden; }
+.cell.flipping .layer.flap { visibility: visible; }
+/* The hinge: a thin line of paper across the middle of each tile. */
+.cell::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(50% - var(--hinge) / 2);
+  height: var(--hinge);
+  background: var(--hinge-colour);
+  z-index: 3;
+  opacity: var(--hinge-rest);
+  transition: opacity 200ms;
+}
+.cell.flipping::after { opacity: 1; }
+
+/* Variant A · Paper board: a tinted tile per letter, ink letters. */
+.v-paper {
+  --cell-w: 0.62em; --cell-h: 1.18em; --tile-gap: 0.035em; --word-gap: 0.22em;
+  --tile: color-mix(in oklab, var(--ink) 7%, var(--paper)); --tile-ink: var(--ink); --tile-r: 0.04em;
+  --hinge: 0.025em; --hinge-colour: var(--paper); --hinge-rest: 1;
+}
+/* Variant B · Ink board: the classic airport look, paper letters on ink tiles. */
+.v-ink {
+  --cell-w: 0.62em; --cell-h: 1.18em; --tile-gap: 0.035em; --word-gap: 0.22em;
+  --tile: var(--ink); --tile-ink: var(--paper); --tile-r: 0.04em;
+  --hinge: 0.025em; --hinge-colour: var(--paper); --hinge-rest: 1;
+}
+/* Variant C · Type: no tiles at rest, the headline reads as type; letters fold through
+   a few characters when they change, each cell easing to its new letter's width. */
+.v-type {
+  --cell-h: 1.18em; --tile-gap: 0em; --word-gap: 0.26em;
+  --tile: var(--paper); --tile-ink: var(--ink); --tile-r: 0;
+  --hinge: 0.02em; --hinge-colour: var(--rule); --hinge-rest: 0;
+}
+.v-type .cell { width: var(--w, 0.5em); }
+.measuring .cell { transition: none; }
+
+.note { max-width: 60ch; color: #444; margin-top: 48px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="controls" role="group" aria-label="Variant">
+    <span>Variant</span>
+    <button type="button" data-variant="v-paper" aria-pressed="true">A · Paper board</button>
+    <button type="button" data-variant="v-ink" aria-pressed="false">B · Ink board</button>
+    <button type="button" data-variant="v-type" aria-pressed="false">C · Type</button>
+    <span style="margin-left:16px">Order</span>
+    <button type="button" data-order="verb-first" aria-pressed="true">Verb, then noun</button>
+    <button type="button" data-order="together" aria-pressed="false">Together</button>
+    <button type="button" id="now" style="margin-left:auto">Flip now</button>
+  </div>
+  <section class="hero">
+    <h1 id="h1" class="v-paper" aria-label="Shuffling words across platforms.">
+      <span class="board" aria-hidden="true">
+        <span class="word" id="verb" title="Click to change the verb"></span>
+        <span class="word" id="noun" title="Click to change the noun"></span>
+      </span>
+      <span class="rest" aria-hidden="true">across platforms.</span>
+    </h1>
+    <p class="note">The verb flips first, letter by letter from the left; the noun follows when the verb has landed. Click either word to turn just that one. In A and B every word keeps the tiles of its longest word, so a shorter word leaves blank tiles, as a real board does.</p>
+  </section>
+</div>
+<script>
+const VERBS = ['Shuffling', 'Juggling', 'Strategizing', 'Fathoming', 'Crafting'];
+const NOUNS = ['words', 'thoughts', 'content', 'ideas', 'stories'];
+const HOLD_MS = 4500;
+const STEP_MS = 120;        // one flap: top half falls, bottom half lands
+const STAGGER_MS = 45;      // the next letter starts this much later
+const NOUN_AFTER_MS = 180;  // the noun starts once the verb has landed, plus this
+const LOWER = 'abcdefghijklmnopqrstuvwxyz';
+const UPPER = LOWER.toUpperCase();
+
+const h1 = document.getElementById('h1');
+const verbEl = document.getElementById('verb');
+const nounEl = document.getElementById('noun');
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+let variant = 'v-paper';
+let order = 'verb-first';
+
+const measurer = document.createElement('span');
+Object.assign(measurer.style, { position: 'absolute', visibility: 'hidden', whiteSpace: 'pre' });
+h1.append(measurer);
+const glyphWidth = (ch) => { if (ch === ' ') return 0; measurer.textContent = ch; return measurer.getBoundingClientRect().width; };
+
+function makeCell(ch) {
+  const cell = document.createElement('span');
+  cell.className = 'cell';
+  for (const cls of ['top', 'bottom', 'flap top', 'flap bottom']) {
+    const layer = document.createElement('span');
+    layer.className = `layer ${cls}`;
+    layer.textContent = ch;
+    cell.append(layer);
+  }
+  cell.dataset.ch = ch;
+  return cell;
+}
+const layers = (cell) => cell.querySelectorAll('.layer'); // [top, bottom, flapTop, flapBottom]
+
+function setCell(cell, ch) {
+  layers(cell).forEach((l) => { l.textContent = ch; });
+  cell.dataset.ch = ch;
+  cell.style.setProperty('--w', `${glyphWidth(ch)}px`);
+}
+
+async function flap(cell, next) {
+  const [top, bottom, flapTop, flapBottom] = layers(cell);
+  const cur = cell.dataset.ch;
+  top.textContent = next;          // revealed as the top flap falls
+  bottom.textContent = cur;        // covered as the bottom flap lands
+  flapTop.textContent = cur;
+  flapBottom.textContent = next;
+  cell.classList.add('flipping');
+  await flapTop.animate([{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-90deg)' }],
+    { duration: STEP_MS / 2, easing: 'cubic-bezier(0.55, 0, 1, 0.45)', fill: 'forwards' }).finished;
+  await flapBottom.animate([{ transform: 'rotateX(90deg)' }, { transform: 'rotateX(0deg)' }],
+    { duration: STEP_MS / 2, easing: 'cubic-bezier(0, 0.55, 0.45, 1)', fill: 'forwards' }).finished;
+  bottom.textContent = next;
+  cell.dataset.ch = next;
+  flapTop.getAnimations().forEach((a) => a.cancel());
+  flapBottom.getAnimations().forEach((a) => a.cancel());
+  cell.classList.remove('flipping');
+}
+
+// A cell passes through a few other letters before it lands, as a real flap wheel does; an unchanged letter stays.
+async function turnCell(cell, target, index) {
+  if (cell.dataset.ch === target) return;
+  await wait(index * STAGGER_MS);
+  cell.style.setProperty('--w', `${Math.max(glyphWidth(target), glyphWidth(cell.dataset.ch))}px`);
+  const steps = 2 + ((index * 7 + target.charCodeAt(0)) % 4);
+  const pool = target !== target.toLowerCase() ? UPPER : LOWER; // a capital passes through capitals
+  for (let s = 0; s < steps; s++) await flap(cell, pool[(target.charCodeAt(0) + s * 11 + index * 5) % pool.length]);
+  await flap(cell, target);
+  cell.style.setProperty('--w', `${glyphWidth(target)}px`);
+}
+
+function build(el, words, first) {
+  const n = Math.max(...words.map((w) => w.length));
+  el.replaceChildren(...Array.from({ length: n }, (_, i) => makeCell(first[i] ?? ' ')));
+  el.querySelectorAll('.cell').forEach((cell) => setCell(cell, cell.dataset.ch));
+}
+const turnWord = (el, word) => Promise.all([...el.children].map((cell, i) => turnCell(cell, word[i] ?? ' ', i)));
+
+// Fit: the board line and the tail must fit the headline's width.
+function fit() {
+  h1.classList.add('measuring'); // no width transitions while measuring
+  h1.style.fontSize = '';
+  const avail = h1.getBoundingClientRect().width;
+  const board = h1.querySelector('.board');
+  const needed = variant === 'v-type'
+    ? Math.max(...VERBS.map((v) => [...v].reduce((s, c) => s + glyphWidth(c), 0))) + Math.max(...NOUNS.map((v) => [...v].reduce((s, c) => s + glyphWidth(c), 0))) + parseFloat(getComputedStyle(board).columnGap)
+    : board.scrollWidth;
+  const fs = parseFloat(getComputedStyle(h1).fontSize);
+  if (needed > avail) h1.style.fontSize = `${(fs * avail * 0.98) / needed}px`;
+  h1.querySelectorAll('.cell').forEach((cell) => cell.style.setProperty('--w', `${glyphWidth(cell.dataset.ch)}px`));
+  h1.offsetWidth;
+  h1.classList.remove('measuring');
+}
+
+let vi = 0, ni = 0, busy = false, idle = 0;
+async function change(turnVerb, turnNoun) {
+  if (busy) return;
+  busy = true;
+  if (turnVerb) vi = (vi + 1) % VERBS.length;
+  if (turnNoun) ni = (ni + 1) % NOUNS.length;
+  h1.setAttribute('aria-label', `${VERBS[vi]} ${NOUNS[ni]} across platforms.`);
+  if (order === 'verb-first') {
+    if (turnVerb) await turnWord(verbEl, VERBS[vi]);
+    if (turnVerb && turnNoun) await wait(NOUN_AFTER_MS);
+    if (turnNoun) await turnWord(nounEl, NOUNS[ni]);
+  } else {
+    await Promise.all([turnVerb && turnWord(verbEl, VERBS[vi]), turnNoun && turnWord(nounEl, NOUNS[ni])]);
+  }
+  busy = false;
+  idle = 0;
+}
+
+verbEl.addEventListener('click', () => change(true, false));
+nounEl.addEventListener('click', () => change(false, true));
+document.getElementById('now').addEventListener('click', () => change(true, true));
+document.querySelectorAll('[data-variant]').forEach((b) => b.addEventListener('click', () => {
+  variant = b.dataset.variant;
+  h1.className = variant;
+  document.querySelectorAll('[data-variant]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  fit();
+}));
+document.querySelectorAll('[data-order]').forEach((b) => b.addEventListener('click', () => {
+  order = b.dataset.order;
+  document.querySelectorAll('[data-order]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+}));
+
+document.fonts.ready.then(async () => {
+  build(verbEl, VERBS, VERBS[0]);
+  build(nounEl, NOUNS, NOUNS[0]);
+  fit();
+  addEventListener('resize', fit);
+  for (;;) {
+    await wait(100);
+    if (busy) continue;
+    idle += 100;
+    if (idle >= HOLD_MS) await change(true, true);
+  }
+});
+</script>
+</body>
+</html>

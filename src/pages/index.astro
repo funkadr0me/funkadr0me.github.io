@@ -11,7 +11,7 @@ const current = projects.filter((project) => project.era === 'now');
 const writing = await getWriting();
 const writingSection = writing.length >= WRITING_SECTION_MIN; // otherwise the pieces get a line in the About band
 
-// Verbs and nouns turn in the headline (src/scripts/flip-headline.ts); the static page shows the first of each.
+// Verbs and nouns turn in the headline like a split-flap board (src/scripts/flip-headline.ts); the static page shows the first of each.
 const { verbs, nouns } = settings;
 const first = { verb: verbs[0], noun: nouns[0] };
 const headline = `${first.verb} ${first.noun} ${settings.headlineTail}`;
@@ -27,7 +27,7 @@ const parts = (value: string) => value.split(' · ');
   <section class="container hero">
     <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify({ verbs, nouns })}>
       <span class="flip-line" style="--i: 0">
-        <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true"><span class="flip-txt">{first.verb}</span><span class="flip-caret"></span></span></span>
+        <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true">{first.verb}</span></span>
         <span class="flip-slot" data-flip-noun><span class="flip-word" aria-hidden="true">{first.noun}</span></span>
       </span>
       <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>

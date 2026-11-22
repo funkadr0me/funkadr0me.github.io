@@ -66,6 +66,7 @@ src/styles/global.css          base styles
 src/styles/home.css            the home page's layout (Hallmark stamp on line 1), role tokens, 12-column grid
 src/styles/motion.css          all animation (one easing curve, durations at the top)
 src/scripts/motion.ts          scroll reveals, frosted nav past hero, typing roles in the label
+src/scripts/flip-headline.ts   the split-flap hero headline
 prototypes/                    standalone HTML experiments — not part of the build
 ```
 
@@ -85,17 +86,18 @@ Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: headline, t
 - Easing `cubic-bezier(0.22, 1, 0.36, 1)`; reveals rise 32px and fade; claret band wipes in (colour on a `::before` so IntersectionObserver still sees the section).
 - No libraries (no GSAP/Lenis); plain CSS + a small script.
 
-## Flipping hero headline
+## Split-flap hero headline
 
-Ported from `prototypes/flip-headline.html` (kept as the reference; not part of the build). Structure: `[Verb] [Noun]` / `across platforms.`
+Ported from `prototypes/split-flap.html`, look **"C · Type"** (kept as the reference with the other two looks, paper and ink boards; not part of the build). The earlier typing version is `prototypes/flip-headline.html`. Structure: `[Verb] [Noun]` / `across platforms.`
 
-- Content: `verbs`, `nouns` (two lists, any lengths) and `headlineTail` in `settings.json`, editable in Pages CMS. The static HTML shows the first verb and the first noun; the loop turns both wheels one step at a time, so with different lengths the combinations keep shifting. The longest verb plus the longest noun sets the phone size.
-- Motion **"Type + flip"**, layout **"Flush left — noun steps away"**: delete the verb with a claret cursor → noun flips away → type the new verb from the left edge → noun flips in 0.5s after. The noun only moves while hidden. Timings are constants at the top of `src/scripts/flip-headline.ts`; styles are section 7 of `motion.css`.
-- Verb and noun always share one line; the script fits the headline font size to the longest pair (≈99px desktop, ≈35px phone with "Strategizing content"). A shorter longest verb gives a bigger phone headline.
-- Accessibility: `aria-label` on the `<h1>` holds the current full sentence; animated spans are `aria-hidden`. Without JS or with reduced motion it is the first pair, static, wrapping normally.
-- Loops pause (Hallmark gate 18, WCAG 2.2.2): `src/scripts/loop-control.ts` gates the headline and the typing roles on being on screen, tab visible, pointer/focus away, and the "Pause motion" button in the hero. A change that has begun always finishes. The cursor blinks four beats after the noun lands, then rests hidden; the roles cursor blinks three beats while it rests.
-- Verb and noun are two wheels: a click on the verb retypes just the verb (the noun flips out and back in as the same word), a click on the noun flips just the noun, so new combinations appear. Each word is a real button laid over its slot (`flip-hit`) with a claret hairline cue on hover/focus (always faint on touch); a visitor's click restarts the 4.5s rest; keyboard focus pauses the loop. The visible words are aria-hidden and the sentence lives in the `<h1>` aria-label plus a polite status line.
-- Open: the real verbs and nouns (the current ones are placeholders), flip direction (now opposite), and whether a combination should link to a project (not built).
+- Content: `verbs`, `nouns` (two lists, any lengths) and `headlineTail` in `settings.json`, editable in Pages CMS. The static HTML shows the first verb and the first noun; the loop turns both wheels one step at a time, so with different lengths the combinations keep shifting.
+- Motion: at rest it is plain type. When a word changes, the script has split it into letter cells, and each letter folds about its middle like an airport departure board, passing through two to five other letters before it lands (an unchanged letter stays put; a capital passes through capitals). The verb flips first, left to right; the noun starts once it has landed. A hairline shows across a letter only while it turns. Each cell is as wide as its glyph and snaps to the new letter's width as it lands (no width transition: Hallmark gate 10a). Timings are constants at the top of `src/scripts/flip-headline.ts`; styles are section 7 of `motion.css`.
+- Each word keeps as many cells as its wheel's longest word; spare cells hold a blank of no width. Letter cells break Novela's ligatures (ffl), which reads fine at this size.
+- Verb and noun always share one line; the script fits the headline font size to the longest pair (128px, the clamp's top, at 1440; about 36px on a phone with "Strategizing thoughts").
+- Accessibility: `aria-label` on the `<h1>` holds the current full sentence; the letter cells are `aria-hidden`. Without JS or with reduced motion it is the first pair, static, wrapping normally.
+- Loops pause (Hallmark gate 18, WCAG 2.2.2): `src/scripts/loop-control.ts` gates the headline and the typing roles on being on screen, tab visible, pointer/focus away, and the "Pause motion" button in the hero. A change that has begun always finishes. The roles cursor blinks three beats while it rests.
+- Verb and noun are two wheels: a click on the verb flips just the verb, a click on the noun just the noun, so new combinations appear. Each word is a real button laid over its slot (`flip-hit`) with a claret hairline cue on hover/focus (always faint on touch); a visitor's click restarts the 4.5s rest; keyboard focus pauses the loop. The sentence lives in the `<h1>` aria-label plus a polite status line.
+- Open: the real verbs and nouns (the current ones are placeholders), and whether a combination should link to a project (not built).
 
 ## Still to fill in (content)
 
