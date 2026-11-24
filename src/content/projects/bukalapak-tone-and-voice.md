@@ -62,21 +62,47 @@ The barber stayed in our guide for a while. Then our UX researchers advised agai
 
 Each principle started as "Be X, not Y". For the brand guideline, they later got shorter names:
 
-- User-centric. Tell people only what matters most, and make them the subject of the action.
-- Be a good friend. Every line is a thoughtful suggestion that helps them decide quickly.
-- Offer solutions. Every word guides people toward their goal.
-- Use plain words. Common words with clear meanings, and no new jargon unless we're teaching it.
-- Be consistent. Everything comes from one big idea.
+<figure>
+  <ol class="card principles">
+    <li><span class="card-name">User-centric</span><span>Tell people only what matters most, and make them the subject of the action.</span></li>
+    <li><span class="card-name">Be a good friend</span><span>Every line is a thoughtful suggestion that helps them decide quickly.</span></li>
+    <li><span class="card-name">Offer solutions</span><span>Every word guides people toward their goal.</span></li>
+    <li><span class="card-name">Use plain words</span><span>Common words with clear meanings, and no new jargon unless we’re teaching it.</span></li>
+    <li><span class="card-name">Be consistent</span><span>Everything comes from one big idea.</span></li>
+  </ol>
+</figure>
 
-Be a good friend did the most work (the barber lives on in it). The old app told people what went wrong and stopped there. I put it bluntly in our guide: user experience should not be a thriller, so every line had to help.
+"Be a good friend" did the most work (the barber lives on in it). The old app told people what went wrong and stopped there. I put it bluntly in our guide: "user experience should not be a thriller", so every line had to help.
 
-An example from our dialog guideline: "BukaDompet Kamu Dibekukan Sementara. Kamu dapat menggunakan metode bayar lain." (Your BukaDompet is temporarily frozen. You can use another payment method.)
+An example from our dialog guideline:
+
+- Title: "BukaDompet Kamu Dibekukan Sementara" (Your BukaDompet is temporarily frozen)
+- Body: "Kamu dapat menggunakan metode bayar lain." (You can use another payment method.)
 
 We also set the tone by how the user feels:
 
-- Joyful when it goes well: "Hore! Pesananmu sudah sampai" (Hooray! Your order has arrived)
-- Casual when it's neutral: "Barang telah sampai di kota pengantaran" (The item has reached the delivery city)
-- Serious when it goes wrong: "Maaf, pembayaran tidak berhasil. Mohon ulangi beberapa waktu lagi." (Sorry, the payment didn't go through. Please try again in a while.)
+<figure class="wide">
+  <ul class="card tones">
+    <li>
+      <span class="card-name">Joyful</span>
+      <span class="tone-when">When it goes well</span>
+      <span class="tone-line" lang="id">“Hore! Pesananmu sudah sampai”</span>
+      <span class="tone-gloss">Hooray! Your order has arrived</span>
+    </li>
+    <li>
+      <span class="card-name">Casual</span>
+      <span class="tone-when">When it’s neutral</span>
+      <span class="tone-line" lang="id">“Barang telah sampai di kota pengantaran”</span>
+      <span class="tone-gloss">The item has reached the delivery city</span>
+    </li>
+    <li>
+      <span class="card-name">Serious</span>
+      <span class="tone-when">When it goes wrong</span>
+      <span class="tone-line" lang="id">“Maaf, pembayaran tidak berhasil. Mohon ulangi beberapa waktu lagi.”</span>
+      <span class="tone-gloss">Sorry, the payment didn’t go through. Please try again in a while.</span>
+    </li>
+  </ul>
+</figure>
 
 We said sorry when the fault was likely ours, or when the stakes were high, like a payment. We didn't when things were neutral or the fix was obvious, like an item out of stock. Sorry isn't a debt we pay in every message. We say it when it's due.
 
@@ -86,7 +112,7 @@ The interviews also showed that designers often wrote their own error messages r
 
 ## There's always a way
 
-While we wrote, the creative team was building a new brand campaign: "Ada Aja Caranya" (There's always a way). We met every two weeks, and they used our principles to guide the campaign's voice. Management backed the voice too, in the product's design and with a bigger role in the in-app campaigns that followed.
+While we wrote, the creative team was building a new brand campaign: "Ada Aja Caranya" (There's always a way). We met every two weeks, and they used our principles to guide the campaign's voice. Senior stakeholders backed the voice too. It guided the product's design, and it took a bigger role in the in-app campaigns that followed.
 
 Today, the tone and voice sits in Bukalapak's brand guideline, on the same page as the logo and the colours. The two voices that shared one screen in 2017 now share one page.
 
