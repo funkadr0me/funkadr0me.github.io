@@ -2,12 +2,13 @@
 interface Props {
   href: string;
   variant?: 'primary' | 'secondary';
+  download?: boolean;       // the link downloads a file (a PDF) instead of opening a page
 }
 
-const { href, variant = 'primary' } = Astro.props;
+const { href, variant = 'primary', download } = Astro.props;
 ---
 
-<a class:list={['btn', variant]} href={href}><slot /></a>
+<a class:list={['btn', variant]} href={href} download={download}><slot /></a>
 
 <style>
   .btn {
