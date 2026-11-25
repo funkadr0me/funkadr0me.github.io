@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import Email from '../components/Email.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { settings, getProjects, getWriting, experience, awards, companyLogos, logoSize, links, WRITING_SECTION_MIN } from '../data/site';
@@ -125,7 +126,7 @@ const parts = (value: string) => value.split(' · ');
         {settings.contactText}
       </p>
       <div class="contact-links" data-reveal style="--d: 0.2s">
-        <a class="contact-mail u-draw" href={`mailto:${links.email}`}>{links.email}</a>
+        <Email class="contact-mail u-draw" />
         <p class="contact-more">
           <a class="u-draw" href={links.linkedin}>LinkedIn</a>
         </p>
