@@ -8,6 +8,17 @@
   </div>
 </footer>
 
+<script>
+  // The footer's real height as --footer-h: on the home page the contact section fills the screen above it,
+  // so the last screen is the contact statement with the footer under it.
+  const footer = document.querySelector<HTMLElement>('footer');
+  if (footer) {
+    const setFooterHeight = () => document.documentElement.style.setProperty('--footer-h', `${footer.offsetHeight}px`);
+    setFooterHeight();
+    if ('ResizeObserver' in window) new ResizeObserver(setFooterHeight).observe(footer);
+  }
+</script>
+
 <style>
   footer { border-top: 1px solid var(--tertiary); }
   .colophon {

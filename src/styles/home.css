@@ -25,6 +25,7 @@
   --space-3xl: 96px;
   --gap-columns: 32px;
   --nav-h: 72px;
+  --footer-h: 215px; /* the footer's height; Footer.astro keeps it current */
   --header-h: 73px; /* the sticky header with its hairline; Nav.astro keeps it current when the header wraps */
 
   /* One type scale for the page (home only; tokens.css stays the design system's):
@@ -140,7 +141,8 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
    place. The sections are scrolled to just under the header, so each height takes off what its scroll margin leaves. */
 :root { --screen: calc(100svh - var(--header-h)); }
 #work { min-height: calc(var(--screen) - var(--space-sm)); }
-.section.top[id]:not(.contact) { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm)); }
+.section.top[id] { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm)); }
+.section.top.contact { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm) - var(--footer-h)); } /* the footer takes the rest of the last screen */
 .about { min-height: var(--screen); display: flex; }
 .about-inner { flex: 1 1 auto; align-content: start; }
 
@@ -238,7 +240,10 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 
 /* 8 · Contact: the statement, then the plain way to reach me ------------------------- */
 
-.contact { gap: var(--space-md); }
+/* Contact and the footer make the last screen, so the jump from Experience lands on a clean screen instead of the
+   end of the awards, and the statement sits in the middle of the space above the footer. It is not a snap point:
+   the jump position is also the end of the page, so there is nothing to settle into. */
+.contact { gap: var(--space-md); justify-content: center; }
 .section.top.contact { padding-bottom: var(--rhythm); }
 .contact h2 { max-width: 14ch; }
 .contact-body { row-gap: var(--space-md); align-items: end; }
