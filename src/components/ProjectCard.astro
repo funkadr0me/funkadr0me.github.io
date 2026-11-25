@@ -103,6 +103,7 @@ const Title = level === 2 ? 'h2' : 'h3';
   .row .media { max-width: 360px; height: auto; object-fit: contain; outline: 1px solid var(--color-rule); outline-offset: -1px; }
 
   /* The whole card or row is the link; the hover signal is the title's colour. */
+  .row .links a { white-space: nowrap; } /* a link label stays on one line in the narrow meta column */
   .go::after { content: ""; position: absolute; inset: 0; }
   .item:hover .title { color: var(--color-accent); }
   /* The second link sits above the card-wide link so it stays clickable on its own. */

@@ -48,6 +48,8 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
     row-gap: var(--space-md);
   }
   .article > :global(*) { grid-column: text; min-width: 0; }
+  /* A list of rows (the advertising page) takes the whole band, like a wide picture. */
+  .article > :global(.index) { grid-column: wide; }
   .article-head {
     grid-column: text-start / wide-end;
     display: flex;

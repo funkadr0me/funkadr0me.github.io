@@ -146,7 +146,8 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
 
   @media (max-width: 60rem) {
     .block h2, .body { grid-column: 1 / -1; }
-    .block { padding-block: var(--space-margin); }
+    /* One column, so the 32px gaps of the twelve tracks don't add up wider than a phone. */
+    .block { grid-template-columns: minmax(0, 1fr); column-gap: 0; padding-block: var(--space-margin); }
   }
   @media (max-width: 40rem) {
     .reach { flex-direction: column; }
@@ -162,13 +163,13 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
     :root {
       --font-display: Georgia, 'Times New Roman', serif;
       --font-sans: Arial, Helvetica, sans-serif;
-      --background: #fff;
-      --claret: #000;
+      --background: var(--neutral);
+      --claret: var(--accent);
       --secondary: #333;
     }
-    html, body { background: #fff; color: #000; font-size: 9pt; line-height: 1.38; }
+    html, body { background: var(--neutral); color: var(--accent); font-size: 9pt; line-height: 1.38; }
     .site-header, footer, .no-print, .motion-toggle { display: none !important; }
-    a { color: #000; text-decoration: none; }
+    a { color: var(--accent); text-decoration: none; }
 
     .resume { max-width: none; padding: 0; }
     .resume .masthead { gap: 3pt; padding-bottom: 8pt; }
@@ -176,7 +177,7 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
     .resume .title { font-size: 11.5pt; line-height: 1.3; }
     .resume .reach { gap: 0 14pt; font-size: 9pt; }
 
-    .resume .block { display: block; padding-block: 6pt 0; border-top: 0.75pt solid #999; margin-top: 6pt; }
+    .resume .block { display: block; padding-block: 6pt 0; border-top: 0.75pt solid var(--tertiary); margin-top: 6pt; }
     .resume .block h2 { font-size: 12.5pt; line-height: 1.2; letter-spacing: 0; margin-bottom: 4pt; }
     .resume .body { gap: 6pt; }
     .resume .summary { font-size: 9pt; line-height: 1.45; max-width: none; }
