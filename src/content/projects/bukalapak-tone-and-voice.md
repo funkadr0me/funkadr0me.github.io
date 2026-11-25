@@ -4,7 +4,7 @@ client: Bukalapak
 summary: Witty ads, a stiff app. I led the voice that joined them, and built it into the design system.
 order: 1
 tone: claret
-role: Design lead
+role: Product Content Strategist Manager (UX writing lead)
 tags:
 - label: Content strategy
   tone: oxford
@@ -39,7 +39,7 @@ Some still wanted a "proper" voice for serious things like payments, because tha
 
 ## One day, two kinds of writers
 
-By then, both writing teams reported to me: the product content strategists, who wrote the app, and the creative content strategists, who wrote the ads. On 21 March, two teammates and I brought all nine writers into one room. Ad writers have a few seconds to sell, so their headlines are in your face. Product writers walk people through a task. We needed both.
+By then, both writing teams reported to me: the product content strategists, who wrote the app, and the creative content strategists, who wrote the ads. On March 21, two teammates and I brought all nine writers into one room. Ad writers have a few seconds to sell, so their headlines are in your face. Product writers walk people through a task. We needed both.
 
 First, we listed what confused our users: long copy, jargon, lines that said nothing. Then we played a word game with one rule: Be X, not Y. That's where "Be a good friend, not a salesman" came from.
 
@@ -47,8 +47,8 @@ The liveliest round was "Who says it?" One side pictured a sharp consultant (the
 
 <div class="shots">
   <figure>
-    <img src="/images/work/bukalapak-tone-and-voice/workshop.jpg" alt="Workshop participants sticking coloured notes on a glass wall" loading="lazy" />
-    <figcaption>The workshop, 21 March 2019.</figcaption>
+    <img src="/images/work/bukalapak-tone-and-voice/workshop.jpg" alt="Workshop participants sticking colored notes on a glass wall" loading="lazy" />
+    <figcaption>The workshop, March 21, 2019.</figcaption>
   </figure>
   <figure>
     <img src="/images/work/bukalapak-tone-and-voice/team.jpg" alt="Eleven people posing in a meeting room after the workshop, notes on the wall behind them" loading="lazy" />
@@ -60,7 +60,7 @@ The barber stayed in our guide for a while. Then our UX researchers advised agai
 
 ## Be a good friend, not a salesman
 
-Each principle started as "Be X, not Y". For the brand guideline, they later got shorter names:
+Each principle started as "Be X, not Y." For the brand guideline, they later got shorter names:
 
 <figure>
   <ol class="card principles">
@@ -72,7 +72,7 @@ Each principle started as "Be X, not Y". For the brand guideline, they later got
   </ol>
 </figure>
 
-"Be a good friend" did the most work (the barber lives on in it). The old app told people what went wrong and stopped there. I put it bluntly in our guide: "user experience should not be a thriller", so every line had to help.
+"Be a good friend" did the most work (the barber lives on in it). The old app told people what went wrong and stopped there. I put it bluntly in our guide: "user experience should not be a thriller," so every line had to help.
 
 An example from our dialog guideline:
 
@@ -114,7 +114,7 @@ The interviews also showed that designers often wrote their own error messages r
 
 While we wrote, the creative team was building a new brand campaign: "Ada Aja Caranya" (There's always a way). We met every two weeks, and they used our principles to guide the campaign's voice. Senior stakeholders backed the voice too. It guided the product's design, and it took a bigger role in the in-app campaigns that followed.
 
-Today, the tone and voice sits in Bukalapak's brand guideline, on the same page as the logo and the colours. The two voices that shared one screen in 2017 now share one page.
+Today, the tone and voice sits in Bukalapak's brand guideline, on the same page as the logo and the colors. The two voices that shared one screen in 2017 now share one page.
 
 <figure>
   <img src="/images/work/bukalapak-tone-and-voice/guideline.jpg" alt="The Tone and voice page of Bukalapak's brand guideline" loading="lazy" />
