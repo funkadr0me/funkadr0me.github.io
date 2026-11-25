@@ -3,7 +3,7 @@
  * axes: light/roman-serif/warm · posture: Restrained · contrast: pass · fold: pass · hero-review: fix · 5 findings · 3 resolved 2 owner's · finish-review: subagent · 8 findings · 6 resolved 2 owner's · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
 /* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
-/* Hallmark · dismissed 58 · the windows hold the hero's intro beside the work head, or the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, at most 128 words over 900px at 1440 */
+/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, intro, two buttons), so the densest window is the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, at most 128 words over 900px at 1440 */
 
 /* The home page. Brand tokens (tokens.css) stay the source; these add the roles the page's layout needs
    and name the brand's values by their Hallmark role. */
@@ -21,11 +21,19 @@
   --space-3xl: 96px;
   --gap-columns: 32px;
   --nav-h: 72px;
+  --header-h: 73px; /* the sticky header with its hairline; Nav.astro keeps it current when the header wraps */
 
-  --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.3125rem);
-  --text-title: clamp(1.75rem, 1.2vw + 1.2rem, 2.25rem);
-  --text-role: clamp(1.375rem, 0.8vw + 1.1rem, 1.75rem);
+  /* One type scale for the page (home only; tokens.css stays the design system's):
+     hero 112 · section titles 40-58 · statement 24-32 · card and row titles 24-28 / 20-24 · lead 17-20 · body 16 · small 14. */
+  --fs-hero: clamp(3.25rem, 8vw, 7rem);
+  --fs-title: clamp(2.5rem, 2.2vw + 1.6rem, 3.625rem);
+  --text-statement: clamp(1.5rem, 0.8vw + 1.25rem, 2rem);
+  --text-lead: clamp(1.0625rem, 0.3vw + 0.95rem, 1.25rem);
+  --text-title: clamp(1.5rem, 0.6vw + 1.2rem, 1.75rem);
+  --text-role: clamp(1.25rem, 0.5vw + 1.05rem, 1.625rem);
   --text-role-s: clamp(1.25rem, 0.4vw + 1.05rem, 1.5rem);
+  /* One vertical rhythm: the space between sections and inside the About band. */
+  --rhythm: clamp(64px, 6.5vw, 96px);
 
   --dur-micro: 120ms;
   --dur-short: 220ms;
@@ -57,32 +65,41 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 
 /* 1 · Hero (Banner): headline, then the intro and actions under a hairline; the work starts at the fold --- */
 
+/* The hero is exactly one screen (under the sticky nav): the headline centred in the free space, the intro
+   and the two buttons along the bottom, so the work section starts at the fold and never peeks in. */
 .hero {
-  padding-block: var(--space-lg) var(--space-3xl);
+  min-height: calc(100svh - var(--header-h));
+  padding-block: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xl);
+  gap: var(--space-md);
 }
-.hero h1 { max-width: none; }
+.hero-title { position: relative; margin-block: auto; }
+.hero h1 { max-width: none; font-size: var(--fs-hero); }
 .hero-foot {
   align-items: end;
+  row-gap: var(--space-sm);
   padding-top: var(--space-md);
   border-top: 1px solid var(--color-rule);
 }
-.hero-foot .intro { grid-column: 1 / span 5; max-width: 36rem; font-size: var(--text-lead); line-height: 1.45; }
-.hero-foot .actions { grid-column: 6 / -1; display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: flex-start; }
+.hero-foot .intro { grid-column: 1 / span 6; max-width: 36rem; font-size: var(--text-lead); line-height: 1.45; }
+/* Two buttons of one width, on the right edge (the nav's Contact button ends there too). */
+.hero-foot .actions { grid-column: 7 / -1; justify-self: end; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-sm); }
 
-/* The pause control for the text loops: quiet, but a real 44px target. */
+/* The pause control for the text loops (WCAG 2.2.2 needs it): quiet, tied to the headline it holds,
+   at its bottom right; still a real 44px target. Under the headline on a narrow screen. */
 .loop-toggle {
-  align-self: center;
-  margin-left: auto;
+  position: absolute;
+  right: 0;
+  bottom: 0;
   min-height: 44px;
-  padding: 0 var(--space-sm);
+  padding: 0 var(--space-xs);
   border: 0;
   background: none;
   color: var(--color-ink-2);
   font: inherit;
-  font-size: var(--text-sm);
+  font-size: 14px;
+  line-height: 20px;
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -91,16 +108,20 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .loop-toggle:hover { color: var(--color-accent); }
 .loop-toggle:active { color: var(--color-ink); }
 .loop-toggle:disabled { opacity: 0.55; cursor: not-allowed; }
-@media (max-width: 60rem) { .loop-toggle { margin-left: 0; padding-left: 0; } }
+@media (max-width: 60rem) {
+  .loop-toggle { position: static; margin-top: var(--space-sm); padding-left: 0; }
+}
 
 /* 2 · Sections ----------------------------------------------------------------- */
 
-.section { padding-bottom: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); }
-.section.top { padding-top: var(--space-xl); padding-bottom: 0; }
+.section { padding-bottom: var(--rhythm); display: flex; flex-direction: column; gap: var(--space-md); }
+.section.top { padding-top: var(--rhythm); padding-bottom: 0; }
 /* Nav jumps (#work, #writing, #experience, #contact) land with the section's heading just under the
    sticky nav, skipping the section's own top padding, so a section sized to one screen shows whole. */
-.section[id] { scroll-margin-top: calc(var(--nav-h) + var(--space-sm)); }
-.section.top[id] { scroll-margin-top: calc(var(--nav-h) + var(--space-sm) - var(--space-xl)); }
+.section[id] { scroll-margin-top: calc(var(--header-h) + var(--space-sm)); }
+.section.top[id] { scroll-margin-top: calc(var(--header-h) + var(--space-sm) - var(--rhythm)); }
+/* Section titles share one size (the hero is the only larger type). */
+.section .head h2, .about-head, .contact h2 { font-size: var(--fs-title); line-height: 1.08; }
 
 /* 3 · Work index ----------------------------------------------------------------- */
 /* Cards are in ProjectCard.astro; the grid sets how many sit across: four on a wide screen, so the
@@ -124,12 +145,12 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 
 .about { background: var(--color-accent); color: var(--color-accent-ink); }
 .about a:focus-visible { outline-color: var(--color-accent-ink); }
-.about-inner { padding-block: var(--space-xl); row-gap: var(--space-md); align-items: start; }
+.about-inner { padding-block: var(--rhythm); row-gap: var(--space-md); align-items: start; }
 .about-head { grid-column: 1 / span 5; color: var(--color-accent-ink); }
 .about-body { grid-column: 6 / -1; grid-row: 1 / span 2; display: flex; flex-direction: column; gap: var(--space-md); }
 /* The photo sits under the heading, in black and white so it doesn't fight the claret. */
 .about-portrait { grid-column: 1 / span 5; grid-row: 2; display: block; width: min(100%, 16rem); height: auto; aspect-ratio: 1; object-fit: cover; filter: grayscale(1); border-radius: var(--radius-md); }
-.about-text { max-width: 24em; font-family: var(--font-display); font-size: clamp(1.625rem, 1vw + 1.35rem, 2.25rem); line-height: 1.25; letter-spacing: -0.36px; }
+.about-text { max-width: 24em; font-family: var(--font-display); font-size: var(--text-statement); line-height: 1.25; letter-spacing: -0.36px; }
 .about-writing { max-width: 36rem; }
 .about a { color: var(--color-accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .about a:hover { text-decoration-thickness: 2px; }
@@ -177,20 +198,20 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 
 /* 8 · Contact: the statement, then the plain way to reach me ------------------------- */
 
-.contact { gap: var(--space-lg); }
-.section.top.contact { padding-bottom: var(--space-xl); }
+.contact { gap: var(--space-md); }
+.section.top.contact { padding-bottom: var(--rhythm); }
 .contact h2 { max-width: 14ch; }
 .contact-body { row-gap: var(--space-md); align-items: end; }
-.contact-text { grid-column: 1 / span 5; font-size: var(--text-lead); line-height: 1.45; max-width: 30rem; }
-.contact-links { grid-column: 7 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
-.contact-more { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-md); }
-.contact-mail { white-space: nowrap; font-family: var(--font-display); font-size: clamp(1.25rem, 5.4vw, 2.75rem); line-height: 1.15; letter-spacing: -0.36px; overflow-wrap: anywhere; }
+.contact-text { grid-column: 1 / span 6; font-size: var(--text-lead); line-height: 1.45; max-width: 32rem; }
+/* The address and LinkedIn are buttons, the same pair as the hero's, on the right edge. */
+.contact-links { grid-column: 7 / -1; justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-sm); }
 
 @media (max-width: 60rem) {
-  .hero { padding-block: var(--space-lg); gap: var(--space-md); }
+  .hero { padding-block: var(--space-md); gap: var(--space-md); }
   .hero-foot .intro, .hero-foot .actions { grid-column: 1 / -1; }
-  .hero-foot .actions { justify-content: flex-start; margin-top: var(--space-md); }
+  .hero-foot .actions { justify-self: stretch; }
   .about-head, .about-body, .post-title, .post-source, .contact-text, .contact-links { grid-column: 1 / -1; }
+  .contact-links { justify-self: stretch; justify-content: flex-start; }
   .about-portrait, .about-body { grid-row: auto; }
   .about-portrait { grid-column: 1 / -1; width: min(100%, 12rem); }
   .years, .role, .org { grid-column: 1 / -1; }

@@ -164,7 +164,7 @@ html.motion [data-wipe] {
 }
 .flip-rest { display: block; }
 /* The static headline sizes itself; the script then fits it to the longest pair. */
-.headline-display[data-flip] { font-size: clamp(2.25rem, 9.2vw, 8rem); }
+.headline-display[data-flip] { font-size: var(--fs-hero); } /* the hero size, set in home.css */
 
 .flip-ready .flip-line { flex-wrap: nowrap; white-space: nowrap; }
 .flip-slot { position: relative; display: inline-flex; }

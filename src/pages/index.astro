@@ -25,13 +25,17 @@ const parts = (value: string) => value.split(' · ');
 <BaseLayout>
   <!-- Hero -->
   <section class="container hero">
-    <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify({ verbs, nouns })}>
-      <span class="flip-line" style="--i: 0">
-        <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true">{first.verb}</span></span>
-        <span class="flip-slot" data-flip-noun><span class="flip-word" aria-hidden="true">{first.noun}</span></span>
-      </span>
-      <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>
-    </h1>
+    <div class="hero-title">
+      <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify({ verbs, nouns })}>
+        <span class="flip-line" style="--i: 0">
+          <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true">{first.verb}</span></span>
+          <span class="flip-slot" data-flip-noun><span class="flip-word" aria-hidden="true">{first.noun}</span></span>
+        </span>
+        <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>
+      </h1>
+      <!-- WCAG 2.2.2: the loops run past five seconds, so a visible pause control stays; it sits with the headline it holds. -->
+      <button class="loop-toggle" type="button" data-loop-toggle hidden>Pause motion</button>
+    </div>
     <div class="hero-foot grid-12">
       <p class="intro" data-intro style="--intro-delay: 0.75s">
         {settings.intro}
@@ -39,7 +43,6 @@ const parts = (value: string) => value.split(' · ');
       <div class="actions" data-intro style="--intro-delay: 0.9s">
         <Button href="#work">Read the case studies</Button>
         <Button href={links.resume} variant="secondary">Resume</Button>
-        <button class="loop-toggle" type="button" data-loop-toggle hidden>Pause motion</button>
       </div>
     </div>
   </section>
@@ -128,10 +131,8 @@ const parts = (value: string) => value.split(' · ');
         {settings.contactText}
       </p>
       <div class="contact-links" data-reveal style="--d: 0.2s">
-        <a class="contact-mail u-draw" href={`mailto:${links.email}`}>{links.email}</a>
-        <p class="contact-more">
-          <a class="u-draw" href={links.linkedin}>LinkedIn</a>
-        </p>
+        <Button href={`mailto:${links.email}`}>{links.email}</Button>
+        <Button href={links.linkedin} variant="secondary">LinkedIn</Button>
       </div>
     </div>
   </section>

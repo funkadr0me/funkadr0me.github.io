@@ -46,7 +46,7 @@ const Title = level === 2 ? 'h2' : 'h3';
 ) : (
   <article class="item card" data-reveal style={`--d: ${index * 0.08}s`}>
     {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
-    <p class="client body-sm muted">{project.client}{project.cardRole && <span> · {project.cardRole}</span>}{project.blockText && <span> · {project.blockText}</span>}</p>
+    <p class="client body-sm muted">{project.client}{(project.cardRole || project.blockText) && <span> · {project.cardRole || project.blockText}</span>}</p>
     <Title class="title card-title">{project.title}</Title>
     {summary && <p class="summary body-sm">{summary}</p>}
     <div class="links">

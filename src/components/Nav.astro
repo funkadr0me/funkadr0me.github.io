@@ -45,6 +45,13 @@ const links = [
 </header>
 
 <script>
+  // The header's real height (it grows to two or three rows on a phone) as --header-h: the home page's hero is one
+  // screen under it, and nav jumps land below it.
+  const siteHeader = document.querySelector<HTMLElement>('.site-header');
+  if (siteHeader && 'ResizeObserver' in window) {
+    new ResizeObserver(() => document.documentElement.style.setProperty('--header-h', `${siteHeader.offsetHeight}px`)).observe(siteHeader);
+  }
+
   // Home page: underline the nav link of the section in view. A section counts once its top passes
   // into the upper part of the screen, below the nav; the hero leaves every link plain.
   if (location.pathname === '/' && 'IntersectionObserver' in window) {
@@ -94,12 +101,16 @@ const links = [
   /* The hire action: outlined, quieter than the hero's filled button. */
   .item.action {
     margin-left: var(--space-xs);
-    padding: 12px 20px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px; /* as tall as the page's buttons */
+    padding: 0 var(--space-gutter);
     border: 1px solid var(--primary);
     border-radius: var(--radius-sm);
   }
   .item.action:hover { background: var(--primary); color: var(--neutral); border-color: var(--primary); }
   @media (max-width: 640px) {
+    .id .role { display: none; } /* the name and the links are enough of a bar on a phone */
     .links { margin-inline: calc(-1 * var(--space-xs)); gap: 0; }
     .item { padding-inline: var(--space-xs); }
     .item.action { margin-left: var(--space-2xs, 4px); padding-inline: var(--space-sm); }
