@@ -9,7 +9,7 @@ interface Props {
 // at first. Elsewhere it marks the part of the site you are in: Writing on /writing/..., Work otherwise.
 const path = Astro.url.pathname;
 const isHome = path === '/';
-const { current = isHome ? undefined : path.startsWith('/writing') ? '/#writing' : '/#work' } = Astro.props;
+const { current = isHome ? undefined : path.startsWith('/resume') ? '/resume/' : path.startsWith('/writing') ? '/#writing' : '/#work' } = Astro.props;
 
 // Writing has a home page section, and so a nav link, only once there are enough pieces.
 const hasWritingSection = (await getWriting()).length >= WRITING_SECTION_MIN;
@@ -18,6 +18,7 @@ const links = [
   { href: '/#work', label: 'Work' },
   ...(hasWritingSection ? [{ href: '/#writing', label: 'Writing' }] : []),
   { href: '/#experience', label: 'Experience' },
+  { href: '/resume/', label: 'Resume' },
   { href: '/#contact', label: 'Contact', action: true },
 ];
 ---

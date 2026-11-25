@@ -29,6 +29,7 @@ const projects = defineCollection({
     thumbAlt: optionalText,
     blockText: optionalText,                // big text on the colour block
     role: optionalText,                     // e.g. "Design lead"; shown at the top of the case study
+    cardRole: optionalText,                 // a few words, e.g. "UX writing lead"; shown after the client on the home card
     tags: z.preprocess(
       blank,
       z.array(z.object({ label: z.string(), tone: z.preprocess(blank, tone.default('ink')) })).default([]),

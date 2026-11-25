@@ -43,6 +43,12 @@ content:
       - name: about
         label: About band — text
         type: text
+      - name: portrait
+        label: About band — photo (square, shown in black and white)
+        type: image
+      - name: portraitAlt
+        label: About band — photo description for screen readers
+        type: string
       - name: contactHeadline
         label: Contact headline
         type: string
@@ -53,12 +59,6 @@ content:
         type: string
       - name: linkedin
         label: LinkedIn URL
-        type: string
-      - name: twitter
-        label: Twitter URL
-        type: string
-      - name: resume
-        label: Resume URL
         type: string
 
   - name: projects
@@ -110,6 +110,9 @@ content:
         type: string
       - name: role
         label: Your role (shown at the top of the case study)
+        type: string
+      - name: cardRole
+        label: Short role on the home card, a few words (e.g. UX writing lead)
         type: string
       - name: tags
         type: object
@@ -231,3 +234,81 @@ content:
       - name: logo
         label: Logo (black or gray on a transparent background)
         type: image
+
+  - name: resume
+    label: Resume
+    type: file
+    path: src/content/resume.json
+    format: json
+    fields:
+      - name: name
+        type: string
+      - name: title
+        label: Line under the name (current role)
+        type: string
+      - name: location
+        type: string
+      - name: summary
+        type: text
+      - name: experience
+        label: Work experience (newest first)
+        type: object
+        list: true
+        fields:
+          - name: role
+            type: string
+          - name: company
+            type: string
+          - name: location
+            type: string
+          - name: dates
+            label: Dates (e.g. January 2023 - Present)
+            type: string
+          - name: bullets
+            label: What you did (one line each)
+            type: string
+            list: true
+      - name: skills
+        type: string
+        list: true
+      - name: education
+        type: object
+        list: true
+        fields:
+          - name: degree
+            type: string
+          - name: school
+            type: string
+          - name: dates
+            type: string
+      - name: certifications
+        type: object
+        list: true
+        fields:
+          - name: name
+            type: string
+          - name: issuer
+            type: string
+          - name: date
+            type: string
+      - name: awards
+        label: Awards (newest first)
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Award or festival
+            type: string
+          - name: year
+            type: string
+          - name: detail
+            label: What it was for
+            type: string
+      - name: languages
+        type: object
+        list: true
+        fields:
+          - name: name
+            type: string
+          - name: level
+            type: string

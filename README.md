@@ -11,6 +11,7 @@ npm install      # once
 npm run dev      # local site at http://localhost:4321
 npm run build    # production build into ./dist
 npm run preview  # preview the build
+npm run resume:pdf  # reprint the resume PDF (needs Chrome); commit public/Purna-Anantha-Resume.pdf
 ```
 
 ## Where things live
@@ -30,6 +31,7 @@ src/
   layouts/BaseLayout.astro
   components/         Nav, Button, Tag, ProjectCard, SectionHeader, Footer
   pages/index.astro   the home page → "/"
+  pages/resume.astro  the resume page → /resume/ (content in src/content/resume.json)
   pages/work/[id].astro     case study pages → /work/<file-name>/
   pages/writing/[id].astro  article pages → /writing/<file-name>/
 ```
@@ -72,11 +74,11 @@ Same repository, no other code changes:
 
 1. Go to https://app.pagescms.org and sign in with GitHub.
 2. Install the Pages CMS GitHub App on the `funkadr0me.github.io` repository.
-3. Open the repository — the editor reads `.pages.yml` and shows Site text, Projects, Writing, Experience and Awards.
+3. Open the repository — the editor reads `.pages.yml` and shows Site text, Projects, Writing, Experience, Awards and Resume. The resume PDF is not rebuilt by the CMS: after editing the Resume, run `npm run resume:pdf` locally and commit the new PDF.
 4. Edit and save. Each save is a commit to `main`, which triggers a new deploy (about a minute).
 
 ## To do
 
 - Project images for the three Bukalapak cards
-- Summaries for Career website and Year End Review 2018
+- Summaries for Careers website and Year End Review 2018
 - Link for Year End Review 2018

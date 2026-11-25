@@ -15,5 +15,5 @@ tags:
 - label: Scriptwriting
   tone: ink
 link: /work/advertising-and-scriptwriting/
-linkLabel: See the work
+linkLabel: Browse the archive
 ---

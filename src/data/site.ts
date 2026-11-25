@@ -8,12 +8,14 @@ import settingsJson from '../content/settings.json';
 import experienceJson from '../content/experience.json';
 import awardsJson from '../content/awards.json';
 import logosJson from '../content/logos.json';
+import resumeJson from '../content/resume.json';
 
 export type TagTone = 'claret' | 'oxford' | 'teal' | 'ink';
 
 /** Shape the project card needs. */
 export interface Project {
   client: string;
+  cardRole?: string;        // a short role shown after the client on the home card
   title: string;
   summary: string;
   href: string;             // the write-up page, or the external link
@@ -41,12 +43,12 @@ export interface Settings {
   intro: string;
   aboutLabel: string;
   about: string;
+  portrait?: string;        // About band photo, shown in black and white
+  portraitAlt?: string;
   contactHeadline: string;
   contactText: string;
   email: string;
   linkedin: string;
-  twitter: string;
-  resume: string;
 }
 
 export const settings = settingsJson as Settings;
@@ -73,11 +75,14 @@ export const companyLogos: Record<string, string> = Object.fromEntries(
   (logosJson as { name: string; logo: string }[]).map((entry) => [entry.name, entry.logo]),
 );
 
+/** The resume page's content (src/content/resume.json) and the PDF printed from that page. */
+export const resume = resumeJson;
+export const RESUME_PDF = '/Purna-Anantha-Resume.pdf';
+
 export const links = {
   email: settings.email,
   linkedin: settings.linkedin,
-  twitter: settings.twitter,
-  resume: settings.resume,
+  resume: '/resume/',
 };
 
 /** An entry gets its own page when there's text below its frontmatter. */
@@ -97,6 +102,7 @@ export async function getProjects(): Promise<Project[]> {
     const writeUp = hasWriteUp(entry);
     return {
       client: data.client,
+      cardRole: data.cardRole,
       title: data.title,
       summary: data.summary,
       href: writeUp ? workUrl(entry.id) : (data.link ?? '#work'),

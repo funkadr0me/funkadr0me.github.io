@@ -126,12 +126,17 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .about a:focus-visible { outline-color: var(--color-accent-ink); }
 .about-inner { padding-block: var(--space-xl); row-gap: var(--space-md); align-items: start; }
 .about-head { grid-column: 1 / span 5; color: var(--color-accent-ink); }
-.about-body { grid-column: 6 / -1; display: flex; flex-direction: column; gap: var(--space-md); }
+.about-body { grid-column: 6 / -1; grid-row: 1 / span 2; display: flex; flex-direction: column; gap: var(--space-md); }
+/* The photo sits under the heading, in black and white so it doesn't fight the claret. */
+.about-portrait { grid-column: 1 / span 5; grid-row: 2; display: block; width: min(100%, 16rem); height: auto; aspect-ratio: 1; object-fit: cover; filter: grayscale(1); border-radius: var(--radius-md); }
 .about-text { max-width: 24em; font-family: var(--font-display); font-size: clamp(1.625rem, 1vw + 1.35rem, 2.25rem); line-height: 1.25; letter-spacing: -0.36px; }
 .about-writing { max-width: 36rem; }
 .about a { color: var(--color-accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .about a:hover { text-decoration-thickness: 2px; }
 .roles { padding-top: var(--space-sm); border-top: 1px solid var(--color-rule-on-accent); }
+/* "content strategist" can't share the line on a phone. Give every typed role its own line there,
+   so the band keeps one height while the roles change. */
+@media (max-width: 26rem) { .roles .typing { display: block; } }
 
 /* 5 · Writing: rows under the head, title left and source right ----------------------- */
 
@@ -186,6 +191,8 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
   .hero-foot .intro, .hero-foot .actions { grid-column: 1 / -1; }
   .hero-foot .actions { justify-content: flex-start; margin-top: var(--space-md); }
   .about-head, .about-body, .post-title, .post-source, .contact-text, .contact-links { grid-column: 1 / -1; }
+  .about-portrait, .about-body { grid-row: auto; }
+  .about-portrait { grid-column: 1 / -1; width: min(100%, 12rem); }
   .years, .role, .org { grid-column: 1 / -1; }
   .awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .award:nth-child(odd) { padding-left: 0; border-left: 0; }
