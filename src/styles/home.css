@@ -3,7 +3,9 @@
  * axes: light/roman-serif/warm · posture: Restrained · contrast: pass · fold: pass · hero-review: fix · 5 findings · 3 resolved 2 owner's · finish-review: subagent · 8 findings · 6 resolved 2 owner's · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
 /* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
-/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, intro, two buttons), so the densest window is the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, at most 128 words over 900px at 1440 */
+/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, intro, a scroll cue), so the densest windows are the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, and the About statement running into the experience table (seven rows of years, role and a company logo, one idea: the career in order), at most 190 words over 900px at 1440 */
+/* Hallmark · waive 77 · surface: the contact section closes the page, a statement and two buttons (the address, LinkedIn), then the footer · the owner asked for the large email to become buttons, so the page ends on a quiet statement and needs no more mass */
+/* Hallmark · waive 79 · surface: the hero is one screen, the headline centred in the free space with the intro and the scroll cue at the bottom under a hairline (visible in the 1440x900 screenshot) · the check counts the headline as the last content and misses the intro and the cue */
 
 /* The home page. Brand tokens (tokens.css) stay the source; these add the roles the page's layout needs
    and name the brand's values by their Hallmark role. */
