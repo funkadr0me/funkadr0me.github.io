@@ -47,7 +47,8 @@ export interface Settings {
   portraitAlt?: string;
   contactHeadline: string;
   contactText: string;
-  email: string;
+  emailUser: string;       // the address is stored in two parts and joined in the browser (components/Email.astro)
+  emailDomain: string;
   linkedin: string;
 }
 
@@ -80,7 +81,6 @@ export const resume = resumeJson;
 export const RESUME_PDF = '/Purna-Anantha-Resume.pdf';
 
 export const links = {
-  email: settings.email,
   linkedin: settings.linkedin,
   resume: '/resume/',
 };

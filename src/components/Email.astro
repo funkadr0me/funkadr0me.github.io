@@ -1,0 +1,24 @@
+---
+import { settings } from '../data/site';
+
+// The email address, kept out of the page's HTML so address-harvesting bots don't pick it up.
+// The HTML holds the two halves and reads "name [at] domain"; the script below joins them into a
+// real mailto link. Without JavaScript the plain "[at]" text stays, so the address is still there to copy.
+interface Props {
+  class?: string;
+  button?: boolean;   // set as a primary button (the same one as Button.astro makes)
+}
+
+const { class: className, button = false } = Astro.props;
+const { emailUser: user, emailDomain: domain } = settings;
+---
+
+<a class:list={[className, { btn: button, primary: button }]} data-email-user={user} data-email-domain={domain}>{user} [at] {domain}</a>
+
+<script>
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-email-user]')) {
+    const address = `${link.dataset.emailUser}@${link.dataset.emailDomain}`;
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+  }
+</script>

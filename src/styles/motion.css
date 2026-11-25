@@ -33,11 +33,6 @@
   to   { background-size: 100% 1px; }
 }
 
-@keyframes caret-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
 /* 1 · Opening sequence ---------------------------------------------------- */
 
 /* The two headline lines rise one after another (each carries --i). */
@@ -58,22 +53,7 @@
   animation: nav-drop 0.5s var(--ease-out) 1.25s both;
 }
 
-/* 2 · Typing label ---------------------------------------------------------- */
-
-.typing { white-space: nowrap; }
-.typing-caret {
-  display: none;
-  width: 1px;
-  height: 1em;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  background: currentColor;
-}
-.motion .typing-caret { display: inline-block; }
-/* Solid while typing; a few beats of blink while the role rests, then solid again. */
-.motion .is-holding .typing-caret { animation: caret-blink 1s step-end 3; }
-
-/* 3 · Scroll reveals -------------------------------------------------------- */
+/* 2 · Scroll reveals -------------------------------------------------------- */
 
 .js.motion [data-reveal] {
   opacity: 0;
@@ -87,7 +67,7 @@
   transform: none;
 }
 
-/* 4 · Claret band wipes open, then its text appears ------------------------ */
+/* 3 · Claret band wipes open, then its text appears ------------------------ */
 
 /* The band's colour lives on a ::before layer so the section itself stays
    observable (a clip-path on the section would hide it from the observer). */
@@ -120,7 +100,7 @@ html.motion [data-wipe] {
 .js.motion [data-wipe][data-revealed] .about-portrait { transition-delay: 0.5s; }
 .js.motion [data-wipe][data-revealed] .about-body { transition-delay: 0.55s; }
 
-/* 5 · Sticky nav — frosted Paper once past the hero ----------------------- */
+/* 4 · Sticky nav — frosted Paper once past the hero ----------------------- */
 
 .site-header {
   position: sticky;
@@ -138,7 +118,7 @@ html.motion [data-wipe] {
   .site-header[data-past-hero] { background-color: var(--background); }
 }
 
-/* 6 · Quiet hovers ---------------------------------------------------------- */
+/* 5 · Quiet hovers ---------------------------------------------------------- */
 
 /* Underline that re-draws from the left on hover */
 .u-draw {
@@ -151,7 +131,7 @@ html.motion [data-wipe] {
 }
 .u-draw:hover { animation: underline-draw 0.45s var(--ease-out); }
 
-/* 7 · Split-flap headline -------------------------------------------------- */
+/* 6 · Split-flap headline -------------------------------------------------- */
 
 /* Without the script (or with reduced motion) this is plain text: the first pair on
    one wrapping line. The script splits each word into letter cells, and adds
@@ -236,7 +216,7 @@ html.motion [data-wipe] {
 @media (hover: none) { .flip-hit::after { transform: scaleX(1); background: var(--tertiary); } }
 .flip-measure { position: absolute; visibility: hidden; white-space: pre; pointer-events: none; }
 
-/* 8 · Reduced motion: no movement anywhere --------------------------------- */
+/* 7 · Reduced motion: no movement anywhere --------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

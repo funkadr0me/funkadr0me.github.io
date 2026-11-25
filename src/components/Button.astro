@@ -10,7 +10,8 @@ const { href, variant = 'primary', download } = Astro.props;
 
 <a class:list={['btn', variant]} href={href} download={download}><slot /></a>
 
-<style>
+<style is:global>
+  /* Global (not scoped) so Email.astro can set its link as the same button. */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -29,17 +30,17 @@ const { href, variant = 'primary', download } = Astro.props;
   .btn:active { transform: translateY(1px); }
   .btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
   .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; transform: none; }
-  .primary {
+  .btn.primary {
     background: var(--primary);
     color: var(--neutral);
     border-radius: var(--radius-sm);
   }
-  .primary:hover { background: var(--secondary); color: var(--neutral); }
-  .secondary {
+  .btn.primary:hover { background: var(--secondary); color: var(--neutral); }
+  .btn.secondary {
     background: var(--surface);
     color: var(--secondary);
     border-color: var(--primary);
     border-radius: var(--radius-none);
   }
-  .secondary:hover { background: var(--primary); color: var(--neutral); }
+  .btn.secondary:hover { background: var(--primary); color: var(--neutral); }
 </style>

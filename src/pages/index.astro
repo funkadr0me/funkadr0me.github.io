@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import Email from '../components/Email.astro';
+import ScrollCue from '../components/ScrollCue.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { settings, getProjects, getWriting, experience, awards, companyLogos, logoSize, links, WRITING_SECTION_MIN } from '../data/site';
@@ -40,10 +42,7 @@ const parts = (value: string) => value.split(' · ');
       <p class="intro" data-intro style="--intro-delay: 0.75s">
         {settings.intro}
       </p>
-      <div class="actions" data-intro style="--intro-delay: 0.9s">
-        <Button href="#work">Read the case studies</Button>
-        <Button href={links.resume} variant="secondary">Resume</Button>
-      </div>
+      <ScrollCue href="#work" label="Scroll to see work" />
     </div>
   </section>
 
@@ -53,10 +52,11 @@ const parts = (value: string) => value.split(' · ');
     <div class="index cards">
       {current.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} />)}
     </div>
+    <ScrollCue href="#about" label="Scroll to see profile" />
   </section>
 
   <!-- About band -->
-  <section class="about" data-wipe>
+  <section class="about" id="about" data-wipe>
     <div class="container about-inner grid-12">
       <h2 class="headline-lg about-head">{settings.aboutLabel}</h2>
       {settings.portrait && <img class="about-portrait" src={settings.portrait} alt={settings.portraitAlt ?? ''} width="900" height="900" loading="lazy" />}
@@ -70,10 +70,10 @@ const parts = (value: string) => value.split(' · ');
             ))}.
           </p>
         )}
-        <p class="roles">
-          <span class="sr-only">{settings.label}: {rolesSentence}, based in {settings.location}</span>
-          <span aria-hidden="true">{settings.label} in {settings.location}: <span class="typing" data-typing={JSON.stringify(roles)}><span class="typing-text">{roles[0]}</span><span class="typing-caret"></span></span></span>
-        </p>
+        <p class="roles">{settings.label} in {settings.location}: {rolesSentence}.</p>
+      </div>
+      <div class="about-cue">
+        <ScrollCue href={writingSection ? '#writing' : '#experience'} label={writingSection ? 'Scroll to see writing' : 'Scroll to see experience'} />
       </div>
     </div>
   </section>
@@ -90,6 +90,7 @@ const parts = (value: string) => value.split(' · ');
         </a>
       ))}
     </div>
+    <ScrollCue href="#experience" label="Scroll to see experience" />
   </section>
   )}
 
@@ -121,6 +122,7 @@ const parts = (value: string) => value.split(' · ');
         ))}
       </div>
     </div>
+    <ScrollCue href="#contact" label="Scroll to contact me" />
   </section>
 
   <!-- Contact -->
@@ -131,7 +133,7 @@ const parts = (value: string) => value.split(' · ');
         {settings.contactText}
       </p>
       <div class="contact-links" data-reveal style="--d: 0.2s">
-        <Button href={`mailto:${links.email}`}>{links.email}</Button>
+        <Email button />
         <Button href={links.linkedin} variant="secondary">LinkedIn</Button>
       </div>
     </div>

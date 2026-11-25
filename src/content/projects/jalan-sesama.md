@@ -2,7 +2,7 @@
 title: Tantan’s first swing
 client: Sesame Street Indonesia
 summary: Tantan the orangutan swings from a root for the first time, the way a toddler finds the nerve to try anything new. It’s one of twenty-five Muppet segments I wrote for Sesame Street in Indonesia, and the one that made the DVD.
-order: 14
+order: 15
 era: earlier
 tone: ink
 blockText: '2009'

@@ -1,10 +1,9 @@
 ---
 title: When domestic helpers need help
 client: Jala PRT
-summary: A print series for Indonesia’s network for domestic workers’ rights. Shortlisted at Cannes Lions, with silver and bronze at Citra Pariwara and two bronzes at the Clio Awards.
-order: 13
+summary: A print series for Indonesia’s network for domestic workers’ rights, and I wrote the copy. It was shortlisted at Cannes Lions, with silver and bronze at Citra Pariwara and two bronzes at the Clio Awards.
+order: 14
 era: earlier
-draft: true
 tone: ink
 blockText: '2011'
 image: /images/work/jala-prt/cover.jpg

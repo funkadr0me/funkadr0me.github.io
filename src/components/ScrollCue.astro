@@ -1,0 +1,12 @@
+---
+// "Scroll to see work": the line that ends a section on the home page and leads to the next one. A real link,
+// so a click or the keyboard does what a scroll does; the arrow is a plain glyph and stays still.
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a class="cue" href={href}><span class="cue-text">{label}</span><span class="cue-arrow" aria-hidden="true">↓</span></a>

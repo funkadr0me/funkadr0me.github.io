@@ -5,6 +5,7 @@
 // `npm run resume:pdf`; the @media print rules at the bottom are its layout.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import Email from '../components/Email.astro';
 import { resume, settings, RESUME_PDF } from '../data/site';
 
 const siteHost = new URL(Astro.site ?? 'https://funkadr0me.github.io').host;
@@ -20,7 +21,7 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
       <p class="title body-lg">{resume.title}</p>
       <ul class="reach" aria-label="Contact">
         <li>{resume.location}</li>
-        <li><a href={`mailto:${settings.email}`}>{settings.email}</a></li>
+        <li><Email /></li>
         <li><a href={settings.linkedin}>{linkedinText}</a></li>
         <li><a href="/">{siteHost}</a></li>
       </ul>

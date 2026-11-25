@@ -17,7 +17,7 @@ content:
         type: string
         required: true
       - name: roles
-        label: Typed roles (cycle in the label)
+        label: Roles (listed after the label in the About band)
         type: string
         list: { min: 1, max: 6 }
       - name: location
@@ -55,7 +55,11 @@ content:
       - name: contactText
         label: Contact text
         type: text
-      - name: email
+      - name: emailUser
+        label: Email, the part before the @ (kept apart so bots can't read the address)
+        type: string
+      - name: emailDomain
+        label: Email, the part after the @ (e.g. gmail.com)
         type: string
       - name: linkedin
         label: LinkedIn URL
