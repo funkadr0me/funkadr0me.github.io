@@ -38,6 +38,7 @@ Content and code are separate; the CMS only touches `src/content/` and `public/i
 
 - Collections are defined in `src/content.config.ts` (glob loaders; `z` from `astro/zod`). The schema tolerates the CMS's empty values (`""`/`null`).
 - A project/article with text below its frontmatter gets its own page (`/work/<file>/`, `/writing/<file>/`); with no text it links to `link`.
+- The email is stored in two parts, `emailUser` and `emailDomain` in `settings.json`, and `src/components/Email.astro` joins them in the browser, so the address isn't one plain string in the page HTML or the repo file (light spam protection, November 2026). Without JavaScript it reads "name [at] domain". Use `<Email />` wherever the address is shown. The resume PDF still carries the full address (Chrome runs the script when printing), as it should for applications. When the custom domain is bought, the plan is a forwarding address (e.g. hello@domain) in place of the Gmail.
 - `src/data/site.ts` loads everything for the pages (`getProjects`, `getWriting`, `settings`, …).
 - **When adding or renaming a content field, update both `src/content.config.ts` and `.pages.yml`.**
 

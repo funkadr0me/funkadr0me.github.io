@@ -55,7 +55,11 @@ content:
       - name: contactText
         label: Contact text
         type: text
-      - name: email
+      - name: emailUser
+        label: Email, the part before the @ (kept apart so bots can't read the address)
+        type: string
+      - name: emailDomain
+        label: Email, the part after the @ (e.g. gmail.com)
         type: string
       - name: linkedin
         label: LinkedIn URL
