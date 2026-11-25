@@ -14,6 +14,7 @@ export type TagTone = 'claret' | 'oxford' | 'teal' | 'ink';
 /** Shape the project card needs. */
 export interface Project {
   client: string;
+  cardRole?: string;        // a short role shown after the client on the home card
   title: string;
   summary: string;
   href: string;             // the write-up page, or the external link
@@ -45,7 +46,6 @@ export interface Settings {
   contactText: string;
   email: string;
   linkedin: string;
-  twitter: string;
   resume: string;
 }
 
@@ -76,7 +76,6 @@ export const companyLogos: Record<string, string> = Object.fromEntries(
 export const links = {
   email: settings.email,
   linkedin: settings.linkedin,
-  twitter: settings.twitter,
   resume: settings.resume,
 };
 
@@ -97,6 +96,7 @@ export async function getProjects(): Promise<Project[]> {
     const writeUp = hasWriteUp(entry);
     return {
       client: data.client,
+      cardRole: data.cardRole,
       title: data.title,
       summary: data.summary,
       href: writeUp ? workUrl(entry.id) : (data.link ?? '#work'),

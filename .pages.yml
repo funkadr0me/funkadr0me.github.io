@@ -54,9 +54,6 @@ content:
       - name: linkedin
         label: LinkedIn URL
         type: string
-      - name: twitter
-        label: Twitter URL
-        type: string
       - name: resume
         label: Resume URL
         type: string
@@ -110,6 +107,9 @@ content:
         type: string
       - name: role
         label: Your role (shown at the top of the case study)
+        type: string
+      - name: cardRole
+        label: Short role on the home card, a few words (e.g. UX writing lead)
         type: string
       - name: tags
         type: object
