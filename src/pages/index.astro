@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
+import Email from '../components/Email.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { settings, getProjects, getWriting, experience, awards, companyLogos, logoSize, links, WRITING_SECTION_MIN } from '../data/site';
@@ -38,7 +39,6 @@ const parts = (value: string) => value.split(' · ');
       </p>
       <div class="actions" data-intro style="--intro-delay: 0.9s">
         <Button href="#work">Read the case studies</Button>
-        <Button href={links.resume} variant="secondary">Resume</Button>
         <button class="loop-toggle" type="button" data-loop-toggle hidden>Pause motion</button>
       </div>
     </div>
@@ -67,10 +67,7 @@ const parts = (value: string) => value.split(' · ');
             ))}.
           </p>
         )}
-        <p class="roles">
-          <span class="sr-only">{settings.label}: {rolesSentence}, based in {settings.location}</span>
-          <span aria-hidden="true">{settings.label} in {settings.location}: <span class="typing" data-typing={JSON.stringify(roles)}><span class="typing-text">{roles[0]}</span><span class="typing-caret"></span></span></span>
-        </p>
+        <p class="roles">{settings.label} in {settings.location}: {rolesSentence}.</p>
       </div>
     </div>
   </section>
@@ -128,7 +125,7 @@ const parts = (value: string) => value.split(' · ');
         {settings.contactText}
       </p>
       <div class="contact-links" data-reveal style="--d: 0.2s">
-        <a class="contact-mail u-draw" href={`mailto:${links.email}`}>{links.email}</a>
+        <Email class="contact-mail u-draw" />
         <p class="contact-more">
           <a class="u-draw" href={links.linkedin}>LinkedIn</a>
         </p>
