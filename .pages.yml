@@ -97,7 +97,7 @@ content:
         label: Thumbnail description (alt text)
         type: string
       - name: tone
-        label: Colour block (when there's no image)
+        label: Color block (when there's no image)
         type: select
         options:
           values:
@@ -106,7 +106,7 @@ content:
             - { name: teal, label: Teal }
             - { name: ink, label: Ink }
       - name: blockText
-        label: Big text on the colour block (optional)
+        label: Big text on the color block (optional)
         type: string
       - name: role
         label: Your role (shown at the top of the case study)
@@ -199,7 +199,7 @@ content:
       - name: role
         type: string
       - name: org
-        label: Organisation
+        label: Organization
         type: string
 
   - name: awards
@@ -229,5 +229,5 @@ content:
         label: Company name (exactly as written in Experience)
         type: string
       - name: logo
-        label: Logo (black or grey on a transparent background)
+        label: Logo (black or gray on a transparent background)
         type: image

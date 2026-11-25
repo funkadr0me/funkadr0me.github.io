@@ -1,7 +1,7 @@
 ---
 title: Selfies that show the truest you
 client: OPPO
-summary: Three TV commercials for OPPO’s selfie phones. Raisa looking for her moment of perfection, two of Indonesia’s powerhouse vocalists on holiday, and a break from the category’s love stories with a film about self-empowerment.
+summary: Three TV commercials for OPPO’s selfie phones. Raisa looking for her moment of perfection, two of Indonesia’s powerhouse vocalists on vacation, and a break from the category’s love stories with a film about self-empowerment.
 order: 10
 era: earlier
 tone: ink

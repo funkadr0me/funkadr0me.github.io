@@ -105,6 +105,66 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
   }
   .prose > :global(.shots figure) { margin: 0; }
   .prose :global(.shots img) { border: 1px solid var(--tertiary); }
+  /* A figure wider than the text column (the same width as .shots). */
+  .prose > :global(figure.wide) { width: min(1100px, calc(100vw - 2 * var(--space-margin))); max-width: none; }
+
+  /* Cards of set type, for frameworks shown in a case study (principles, tones). Flat: a hairline
+     border, no fill, no shadow. The names are in the display face, the rest in the body face. */
+  .prose :global(.card) {
+    margin: 0;
+    padding: var(--space-margin);
+    list-style: none;
+    border: 1px solid var(--tertiary);
+    border-radius: var(--radius-md);
+  }
+  .prose :global(.card li) { margin: 0; }
+  .prose :global(.card-name) {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: -0.2px;
+  }
+  /* Principles: name beside its line, a hairline between rows. */
+  .prose :global(.principles li) {
+    display: grid;
+    grid-template-columns: 14rem minmax(0, 1fr);
+    column-gap: var(--space-gutter);
+    align-items: baseline;
+    padding-block: var(--space-sm);
+    border-top: 1px solid var(--tertiary);
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .prose :global(.principles li:first-child) { padding-top: 0; border-top: 0; }
+  .prose :global(.principles li:last-child) { padding-bottom: 0; }
+  /* Tones: three columns, a hairline between them. */
+  .prose :global(.tones) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prose :global(.tones li) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-inline: var(--space-gutter);
+    border-left: 1px solid var(--tertiary);
+  }
+  .prose :global(.tones li:first-child) { padding-left: 0; border-left: 0; }
+  .prose :global(.tones li:last-child) { padding-right: 0; }
+  .prose :global(.tone-when) { font-size: 14px; line-height: 20px; color: var(--secondary); }
+  .prose :global(.tone-line) {
+    margin-top: var(--space-xs);
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 30px;
+    color: var(--claret);
+  }
+  .prose :global(.tone-gloss) { font-size: 16px; line-height: 24px; }
+  @media (max-width: 40rem) {
+    .prose :global(.card) { padding: var(--space-gutter); }
+    .prose :global(.principles li) { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+    .prose :global(.tones) { grid-template-columns: minmax(0, 1fr); }
+    .prose :global(.tones li) { padding: var(--space-sm) 0; border-left: 0; border-top: 1px solid var(--tertiary); }
+    .prose :global(.tones li:first-child) { padding-top: 0; border-top: 0; }
+    .prose :global(.tones li:last-child) { padding-bottom: 0; }
+  }
   .prose :global(hr) { border: 0; border-top: 1px solid var(--tertiary); margin-block: 2em; }
   .prose :global(code) { font-size: 0.9em; }
 </style>

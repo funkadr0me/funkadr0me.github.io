@@ -101,4 +101,6 @@ Ported from `prototypes/split-flap.html`, look **"C · Type"** (kept as the refe
 
 ## Still to fill in (content)
 
-The three Bukalapak write-ups have their images (`public/images/work/<project>/`, moved from the old Notion pages; phone screens sit in a `<div class="shots">` gallery of `<figure>`s in the Markdown, styled in ArticleLayout). They still want: the real interview count, the period behind "visits tripled", the persona, before/after strings, the award names and a line of the quiz. careers.bukalapak.com now redirects to bukalapak.com, so that project has no external link.
+The three Bukalapak write-ups (tone and voice, Year End Review, careers website) were rewritten in Purna's voice in November 2026, each with a `role` line. Every fact in them traces to Purna or to the project's own files (old work files in iCloud, the Web Archive); claims that couldn't be traced, such as "visits tripled", were dropped, so don't add numbers back without a source. Images live in `public/images/work/<project>/`. Several phone screens sit in a `<div class="shots">` gallery of `<figure>`s, styled in ArticleLayout; a single phone screen gets a `<figure style="max-width: 320px">` so it doesn't fill the column. careers.bukalapak.com now redirects to bukalapak.com, so that project has no external link.
+
+Still open: a humanizer pass on the three write-ups (keep the short landing lines, the glossed Indonesian, the quotations and the HTML intact), and the other case studies, which haven't been rewritten yet.
