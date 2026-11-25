@@ -22,7 +22,7 @@
 <style>
   footer { border-top: 1px solid var(--tertiary); }
   .colophon {
-    padding-block: var(--space-lg) var(--space-md);
+    padding-block: var(--space-md); /* the same air above and below the name */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -31,7 +31,6 @@
   }
   .where { text-align: right; }
   @media (max-width: 640px) {
-    .colophon { padding-block: var(--space-md); }
     .where { text-align: left; }
   }
 </style>
