@@ -1,10 +1,11 @@
 ---
-title: Product Tone & Voice
+title: Product tone and voice
 client: Bukalapak
 summary: Witty ads, a stiff app. I led the voice that joined them, and built it into the design system.
 order: 1
 tone: claret
 role: Product Content Strategist Manager (UX writing lead)
+cardRole: UX writing lead
 tags:
 - label: Content strategy
   tone: oxford

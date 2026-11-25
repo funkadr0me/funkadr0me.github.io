@@ -80,5 +80,5 @@ Same repository, no other code changes:
 ## To do
 
 - Project images for the three Bukalapak cards
-- Summaries for Career website and Year End Review 2018
+- Summaries for Careers website and Year End Review 2018
 - Link for Year End Review 2018
