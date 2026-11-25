@@ -110,7 +110,7 @@ Ported from `prototypes/split-flap.html`, look **"C · Type"** (kept as the refe
 - Loops pause (Hallmark gate 18, WCAG 2.2.2): `src/scripts/loop-control.ts` gates the headline on being on screen, tab visible, pointer/focus away, and the "Pause motion" button in the hero. A change that has begun always finishes.
 - Verb and noun are two wheels: a click on the verb flips just the verb, a click on the noun just the noun, so new combinations appear. Each word is a real button laid over its slot (`flip-hit`) with a claret hairline cue on hover/focus (always faint on touch); a visitor's click restarts the 4.5s rest; keyboard focus pauses the loop. The sentence lives in the `<h1>` aria-label plus a polite status line.
 - Words chosen November 2026: verbs Shuffling, Juggling, Trimming, Tuning, Crafting; nouns words, tone, labels, scripts, stories. Every verb has to read with every noun.
-- Hero buttons: "Read the case studies" (to #work) and "Resume" (the `/resume/` page). Contact is left to the nav's action button, so "Give me a shout." is only the contact headline.
+- Hero button: one, "Read the case studies" (to #work). Resume and Contact are left to the nav, which shows on every page, so the hero repeats neither; "Give me a shout." is only the contact headline, and "Full resume" stays in the road-so-far header.
 - Open: whether a combination should link to a project (not built).
 
 ## Still to fill in (content)
