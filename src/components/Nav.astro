@@ -116,7 +116,7 @@ const links = [
   }
   .item.action:hover { background: var(--primary); color: var(--neutral); border-color: var(--primary); }
   @media (max-width: 640px) {
-    .id .role { display: none; } /* the name and the links are enough of a bar on a phone */
+    .id .role, .id .sep { display: none; } /* the name and the links are enough of a bar on a phone */
     .links { margin-inline: calc(-1 * var(--space-xs)); gap: 0; }
     .item { padding-inline: var(--space-xs); }
     .item.action { margin-left: var(--space-2xs, 4px); padding-inline: var(--space-sm); }
