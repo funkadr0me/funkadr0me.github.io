@@ -3,9 +3,9 @@
  * axes: light/roman-serif/warm · posture: Restrained · contrast: pass · fold: pass · hero-review: fix · 5 findings · 3 resolved 2 owner's · finish-review: subagent · 8 findings · 6 resolved 2 owner's · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
 /* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
-/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, intro, a scroll cue), so the densest windows are the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, and the About statement running into the experience table (seven rows of years, role and a company logo, one idea: the career in order), at most 190 words over 900px at 1440 */
+/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, subheadline, a scroll cue), so the densest windows are the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, and the About statement running into the experience table (seven rows of years, role and a company logo, one idea: the career in order), at most 190 words over 900px at 1440 */
 /* Hallmark · waive 77 · surface: the contact section closes the page, a statement and two buttons (the address, LinkedIn), then the footer · the owner asked for the large email to become buttons, so the page ends on a quiet statement and needs no more mass */
-/* Hallmark · waive 79 · surface: the hero is one screen, the headline centred in the free space with the intro and the scroll cue at the bottom under a hairline (visible in the 1440x900 screenshot) · the check counts the headline as the last content and misses the intro and the cue */
+/* Hallmark · waive 79 · surface: the hero is one screen, the headline and its subheadline centred in the free space with the scroll cue at the bottom (visible in the 1440x900 screenshot) · the check counts the headline as the last content and misses the subheadline and the cue */
 /* Hallmark · waive 59 · surface: sections sit 96px apart (the --rhythm token, 64px on a phone), and Work, About and Experience each fit one 1440x900 screen with their scroll cue · the owner asked for tighter sections than the earlier 160px, so the gap stays at 96px instead of the 120px the check asks for */
 /* Hallmark · waive 37 · surface: the resume's print block swaps in Georgia and Arial on top of Novela and Basier Circle · the PDF uses system fonts because the site's webfonts are licensed for this website only and cannot travel inside a file */
 
@@ -28,8 +28,9 @@
   --header-h: 73px; /* the sticky header with its hairline; Nav.astro keeps it current when the header wraps */
 
   /* One type scale for the page (home only; tokens.css stays the design system's):
-     hero 112 · section titles 40-58 · statement 24-32 · card and row titles 24-28 / 20-24 · lead 17-20 · body 16 · small 14. */
-  --fs-hero: clamp(3.25rem, 8vw, 7rem);
+     hero 52-128 (a subheadline of 20-28 under it) · section titles 40-58 · statement 24-32 · card and row titles 24-28 / 20-24 · lead 17-20 · body 16 · small 14. */
+  --fs-hero: clamp(3.25rem, min(8.9vw, 14svh), 8rem); /* the height term keeps headline and subheadline on one short screen */
+  --text-sub: clamp(1.25rem, 1vw + 1rem, 1.75rem);
   --fs-title: clamp(2.5rem, 2.2vw + 1.6rem, 3.625rem);
   --text-statement: clamp(1.5rem, 0.8vw + 1.25rem, 2rem);
   --text-lead: clamp(1.0625rem, 0.3vw + 0.95rem, 1.25rem);
@@ -67,10 +68,10 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
   .grid-12 { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
 }
 
-/* 1 · Hero (Banner): headline, then the intro and actions under a hairline; the work starts at the fold --- */
+/* 1 · Hero (Banner): a headline and a subheadline, then the scroll cue; the work starts at the fold --- */
 
-/* The hero is exactly one screen (under the sticky nav): the headline centred in the free space, the intro
-   and the two buttons along the bottom, so the work section starts at the fold and never peeks in. */
+/* The hero is exactly one screen (under the sticky nav): the headline and its subheadline centred in the free
+   space, the scroll cue along the bottom, so the work section starts at the fold and never peeks in. */
 .hero {
   min-height: calc(100svh - var(--header-h));
   padding-block: var(--space-md);
@@ -78,16 +79,9 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
   flex-direction: column;
   gap: var(--space-md);
 }
-.hero-title { position: relative; margin-block: auto; }
+.hero-title { position: relative; margin-block: auto; display: flex; flex-direction: column; gap: var(--space-margin); }
 .hero h1 { max-width: none; font-size: var(--fs-hero); }
-.hero-foot {
-  align-items: end;
-  row-gap: var(--space-sm);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-rule);
-}
-.hero-foot .intro { grid-column: 1 / span 6; max-width: 36rem; font-size: var(--text-lead); line-height: 1.45; }
-.hero-foot .cue { grid-column: 1 / -1; }
+.hero .intro { max-width: 40rem; font-size: var(--text-sub); line-height: 1.35; }
 
 /* The pause control for the text loops (WCAG 2.2.2 needs one): a 44px icon button, tied to the headline it holds,
    at its bottom right; under the headline on a narrow screen. Its name is the aria-label (Pause motion / Play motion). */
@@ -239,7 +233,6 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 
 @media (max-width: 60rem) {
   .hero { padding-block: var(--space-md); gap: var(--space-md); }
-  .hero-foot .intro { grid-column: 1 / -1; }
   .about-head, .about-body, .post-title, .post-source, .contact-text, .contact-links { grid-column: 1 / -1; }
   .contact-links { justify-self: stretch; justify-content: flex-start; }
   .about-portrait, .about-body { grid-row: auto; }
@@ -254,5 +247,5 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
    still fits the one screen under the header. */
 @media (max-width: 24rem), (max-width: 60rem) and (max-height: 40rem) {
   .hero { padding-block: var(--space-sm); gap: var(--space-sm); }
-  .hero-foot { padding-top: var(--space-sm); }
+  .hero-title { gap: var(--space-sm); }
 }
