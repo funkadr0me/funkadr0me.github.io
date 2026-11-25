@@ -4,6 +4,7 @@ client: Jala PRT
 summary: A print series for Indonesia’s network for domestic workers’ rights. Shortlisted at Cannes Lions, with silver and bronze at Citra Pariwara and two bronzes at the Clio Awards.
 order: 13
 era: earlier
+draft: true
 tone: ink
 blockText: '2011'
 image: /images/work/jala-prt/cover.jpg

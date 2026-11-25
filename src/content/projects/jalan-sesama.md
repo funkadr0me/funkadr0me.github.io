@@ -1,11 +1,11 @@
 ---
-title: Jalan Sesama
+title: Tantan’s first swing
 client: Sesame Street Indonesia
-summary: Twenty-five Muppet segments over three seasons, supervised by Sesame Workshop in New York, plus songs for the show. One of my stories was released on DVD.
+summary: Tantan the orangutan swings from a root for the first time, the way a toddler finds the nerve to try anything new. It’s one of twenty-five Muppet segments I wrote for Sesame Street in Indonesia, and the one that made the DVD.
 order: 14
 era: earlier
 tone: ink
-blockText: 2007–2009
+blockText: '2009'
 image: /images/work/jalan-sesama/cover.jpg
 imageAlt: The Jalan Sesama writing team behind a picket fence on the set, with Elmo, Tantan and other Muppets of the show
 tags:
