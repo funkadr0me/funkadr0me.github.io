@@ -1,7 +1,7 @@
 ---
 title: Exceptional in every sense
 client: Garuda Indonesia
-summary: An international campaign for Garuda’s new long-haul routes, written to change what people expect of an Indonesian airline, and of Indonesia.
+summary: Garuda’s new long-haul routes, sold as a taste of Indonesia that starts the moment you board. I wrote the TV and print for viewers abroad.
 order: 12
 era: earlier
 tone: ink

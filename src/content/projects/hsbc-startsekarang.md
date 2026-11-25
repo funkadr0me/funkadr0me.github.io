@@ -1,7 +1,7 @@
 ---
 title: '#StartSekarang'
 client: HSBC
-summary: People sent in their dreams, Wish Wizards answered each one, and HSBC made one come true. The campaign beat its targets and won HSBC more new customers than ever.
+summary: 'People shared their dreams, and the Wish Wizards answered every one: a personal email, with the HSBC product that could make it happen. I wrote the concept and scripts, and HSBC Advance sign-ups reached 135% of plan.'
 order: 11
 era: earlier
 tone: ink

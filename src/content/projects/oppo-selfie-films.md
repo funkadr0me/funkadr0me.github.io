@@ -1,7 +1,7 @@
 ---
 title: Selfies that show the truest you
 client: OPPO
-summary: Three TV commercials for OPPO’s selfie phones. Raisa looking for her moment of perfection, two of Indonesia’s powerhouse vocalists on vacation, and a break from the category’s love stories with a film about self-empowerment.
+summary: Two of Indonesia’s biggest voices on one vacation, and a phone that kept up with both. I wrote the concepts and scripts for three OPPO films, one of them a break from the category’s usual love story.
 order: 10
 era: earlier
 tone: ink
