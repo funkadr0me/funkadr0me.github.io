@@ -1,0 +1,190 @@
+---
+// The resume: one plain column of real text under standard section headings, so a screen reader, an
+// applicant tracking system (ATS) and the PDF all read it in the same order. No icons, no text in
+// images, no layout tables. The PDF (public/Purna-Anantha-Resume.pdf) is printed from this page by
+// `npm run resume:pdf`; the @media print rules at the bottom are its layout.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { resume, settings, RESUME_PDF } from '../data/site';
+
+const siteHost = new URL(Astro.site ?? 'https://funkadr0me.github.io').host;
+const linkedinText = settings.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom Indonesia: UX writing, content strategy and ten years of advertising copywriting and scriptwriting.';
+---
+
+<BaseLayout title="Resume — Purna Anantha" description={description}>
+  <div class="container resume">
+    <header class="masthead">
+      <h1 class="headline-lg">{resume.name}</h1>
+      <p class="title body-lg">{resume.title}</p>
+      <ul class="reach" aria-label="Contact">
+        <li>{resume.location}</li>
+        <li><a href={`mailto:${settings.email}`}>{settings.email}</a></li>
+        <li><a href={settings.linkedin}>{linkedinText}</a></li>
+        <li><a href="/">{siteHost}</a></li>
+      </ul>
+      <p class="download no-print">
+        <Button href={RESUME_PDF} download>Download resume (PDF)</Button>
+      </p>
+    </header>
+
+    <section class="block" aria-labelledby="summary">
+      <h2 class="headline-md" id="summary">Summary</h2>
+      <div class="body">
+        <p class="summary">{resume.summary}</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="experience">
+      <h2 class="headline-md" id="experience">Work experience</h2>
+      <div class="body">
+        {resume.experience.map((job) => (
+          <div class="entry">
+            <h3 class="entry-role">{job.role}</h3>
+            <p class="entry-org">{job.company}, {job.location}</p>
+            <p class="entry-dates body-sm muted">{job.dates}</p>
+            <ul class="bullets">
+              {job.bullets.map((bullet) => <li>{bullet}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="skills">
+      <h2 class="headline-md" id="skills">Skills</h2>
+      <div class="body">
+        <ul class="skills">
+          {resume.skills.map((skill) => <li>{skill}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="education">
+      <h2 class="headline-md" id="education">Education</h2>
+      <div class="body">
+        {resume.education.map((entry) => (
+          <div class="entry">
+            <h3 class="entry-role">{entry.degree}</h3>
+            <p class="entry-org">{entry.school}</p>
+            <p class="entry-dates body-sm muted">{entry.dates}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {resume.certifications.length > 0 && (
+      <section class="block" aria-labelledby="certifications">
+        <h2 class="headline-md" id="certifications">Certifications</h2>
+        <div class="body">
+          {resume.certifications.map((cert) => (
+            <div class="entry">
+              <h3 class="entry-role">{cert.name}</h3>
+              <p class="entry-org">{cert.issuer}</p>
+              <p class="entry-dates body-sm muted">{cert.date}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="block" aria-labelledby="awards">
+      <h2 class="headline-md" id="awards">Awards</h2>
+      <div class="body">
+        <ul class="bullets">
+          {resume.awards.map((award) => (
+            <li>{award.name}, {award.year}: {award.detail}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="languages">
+      <h2 class="headline-md" id="languages">Languages</h2>
+      <div class="body">
+        <ul class="bullets">
+          {resume.languages.map((language) => <li>{language.name}: {language.level}</li>)}
+        </ul>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .resume { padding-block: var(--space-2xl) var(--space-xl); }
+
+  /* Name, current role, contact lines, download. */
+  .masthead { display: flex; flex-direction: column; gap: var(--space-sm); padding-bottom: var(--space-md); }
+  .title { color: var(--secondary); }
+  .reach { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px var(--space-gutter); }
+  .download { margin-top: var(--space-xs); }
+
+  /* Each section: its heading in the left columns, the content beside it, under a hairline. */
+  .block {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap-columns);
+    row-gap: var(--space-sm);
+    padding-block: var(--space-md);
+    border-top: 1px solid var(--color-rule);
+  }
+  .block h2 { grid-column: 1 / span 4; }
+  .body { grid-column: 5 / -1; display: flex; flex-direction: column; gap: var(--space-margin); min-width: 0; }
+  .summary { font-size: var(--text-lead); line-height: 1.55; max-width: 62ch; }
+
+  .entry { display: flex; flex-direction: column; gap: 4px; }
+  .entry-role { font-family: var(--font-sans); font-weight: 400; font-size: var(--text-role-s); line-height: 1.25; }
+  .entry-org { font-size: 18px; line-height: 28px; }
+  .entry-dates { margin-bottom: var(--space-xs); }
+  .bullets { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: var(--space-xs); max-width: 68ch; }
+  .entry .bullets { margin-top: 0; }
+
+  .skills { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 18px; line-height: 28px; }
+  .skills li:not(:last-child)::after { content: ','; margin-right: 0.35em; }
+
+  @media (max-width: 60rem) {
+    .block h2, .body { grid-column: 1 / -1; }
+    .block { padding-block: var(--space-margin); }
+  }
+  @media (max-width: 40rem) {
+    .reach { flex-direction: column; }
+  }
+</style>
+
+<style is:global>
+  /* The PDF: A4, one column, black on white, system fonts (the site's webfonts are licensed for this
+     website only, so they are not embedded in a file anyone can pass around). */
+  @page { size: A4; margin: 12mm 15mm; }
+
+  @media print {
+    :root {
+      --font-display: Georgia, 'Times New Roman', serif;
+      --font-sans: Arial, Helvetica, sans-serif;
+      --background: #fff;
+      --claret: #000;
+      --secondary: #333;
+    }
+    html, body { background: #fff; color: #000; font-size: 9pt; line-height: 1.38; }
+    .site-header, footer, .no-print, .motion-toggle { display: none !important; }
+    a { color: #000; text-decoration: none; }
+
+    .resume { max-width: none; padding: 0; }
+    .resume .masthead { gap: 3pt; padding-bottom: 8pt; }
+    .resume .headline-lg { font-size: 26pt; line-height: 1.1; letter-spacing: 0; }
+    .resume .title { font-size: 11.5pt; line-height: 1.3; }
+    .resume .reach { gap: 0 14pt; font-size: 9pt; }
+
+    .resume .block { display: block; padding-block: 6pt 0; border-top: 0.75pt solid #999; margin-top: 6pt; }
+    .resume .block h2 { font-size: 12.5pt; line-height: 1.2; letter-spacing: 0; margin-bottom: 4pt; }
+    .resume .body { gap: 6pt; }
+    .resume .summary { font-size: 9pt; line-height: 1.45; max-width: none; }
+    .resume .entry { gap: 1pt; break-inside: avoid; }
+    .resume .entry-role { font-size: 10pt; }
+    .resume .entry-org { font-size: 9pt; line-height: 1.35; }
+    .resume .entry-dates { font-size: 8.5pt; line-height: 1.35; margin-bottom: 1.5pt; }
+    .resume .bullets { gap: 1.5pt; max-width: none; padding-left: 12pt; }
+    .resume .skills { font-size: 9pt; line-height: 1.4; }
+    .resume .block h2, .resume .entry-role { break-after: avoid; }
+  }
+</style>
