@@ -1,4 +1,4 @@
-// Shared control for the text loops (the flipping headline and the typing roles).
+// Control for the page's text loop (the flipping headline); written so more loops could share it.
 // A loop runs only while it is on screen, the tab is showing, the pointer and keyboard focus are away
 // from it, and the visitor has not paused motion with the button in the hero.
 

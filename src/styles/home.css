@@ -134,9 +134,6 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .about a { color: var(--color-accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .about a:hover { text-decoration-thickness: 2px; }
 .roles { padding-top: var(--space-sm); border-top: 1px solid var(--color-rule-on-accent); }
-/* "content strategist" can't share the line on a phone. Give every typed role its own line there,
-   so the band keeps one height while the roles change. */
-@media (max-width: 26rem) { .roles .typing { display: block; } }
 
 /* 5 · Writing: rows under the head, title left and source right ----------------------- */
 
