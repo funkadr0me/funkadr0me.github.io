@@ -45,18 +45,16 @@ First, we listed what confused our users: long copy, jargon, lines that said not
 
 The liveliest round was "Who says it?" One side pictured a sharp consultant (the kind with a slide for everything). The other pictured a barber. The barber won. You trust a barber: they remember your name, hold sharp tools to your head, and give advice when you ask.
 
-<div class="shots">
-  <figure>
+<div class="shots even">
+  <figure style="--ratio: 0.75">
     <img src="/images/work/bukalapak-tone-and-voice/workshop.jpg" alt="Workshop participants sticking colored notes on a glass wall" loading="lazy" />
     <figcaption>The workshop, March 21, 2019.</figcaption>
   </figure>
-  <figure>
+  <figure style="--ratio: 1.333">
     <img src="/images/work/bukalapak-tone-and-voice/team.jpg" alt="Eleven people posing in a meeting room after the workshop, notes on the wall behind them" loading="lazy" />
     <figcaption>The workshop team at the end of the day.</figcaption>
   </figure>
 </div>
-
-The barber stayed in our guide for a while. Then our UX researchers advised against leaning too hard on personas, and management asked us to let him go. The principles carried on without him.
 
 ## Be a good friend, not a salesman
 

@@ -37,29 +37,41 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
 </BaseLayout>
 
 <style>
+  /* A centred reading column (680px) inside a wider band (1100px) for pictures and cards, so the
+     page sits in the middle of a wide screen. Everything starts on the text column's left edge;
+     the headline may run on to the band's right edge. */
   .article {
+    max-width: calc(1100px + 2 * var(--space-margin));
     padding-block: var(--space-lg) var(--space-xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+    display: grid;
+    grid-template-columns: [wide-start] minmax(0, 1fr) [text-start] minmax(0, 680px) [text-end] minmax(0, 1fr) [wide-end];
+    row-gap: var(--space-md);
   }
+  .article > :global(*) { grid-column: text; min-width: 0; }
   .article-head {
+    grid-column: text-start / wide-end;
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
-    max-width: 960px;
   }
   .back { align-self: flex-start; color: var(--text); margin-bottom: var(--space-sm); }
   .lede { max-width: 640px; }
-  .external { max-width: 680px; }
 
-  /* Long-form text from Markdown */
-  .prose {
-    max-width: 680px;
+  /* Long-form text from Markdown: each block keeps to the text column; .shots and figure.wide
+     take the whole band, centred on the page. */
+  .article > .prose {
+    grid-column: wide;
     font-size: 18px;
     line-height: 30px;
   }
-  .prose > :global(*) { margin-block: 0; }
+  /* Every block starts on the text column's left edge, so a narrow one (a phone screen at 320px)
+     lines up with the text instead of floating in the middle of the band. */
+  .prose > :global(*) {
+    margin-block: 0;
+    max-width: 680px;
+    margin-left: max(0px, calc((100% - 680px) / 2));
+    margin-right: auto;
+  }
   .prose > :global(* + *) { margin-top: 1.1em; }
   .prose > :global(h2) {
     font-family: var(--font-display);
@@ -91,22 +103,32 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
     height: auto;
     border-radius: var(--radius-md);
   }
-  .prose :global(figure) { margin: 2em 0; display: flex; flex-direction: column; gap: var(--space-xs); }
+  .prose :global(figure) { margin-block: 2em; display: flex; flex-direction: column; gap: var(--space-xs); }
   .prose :global(figcaption) { font-size: 14px; line-height: 20px; color: var(--secondary); }
   /* A row of screens or photos, wider than the text column so phone screens stay readable. */
   .prose > :global(.shots) {
-    width: min(1100px, calc(100vw - 2 * var(--space-margin)));
     max-width: none;
-    margin: 2em 0;
+    margin-inline: 0;
+    margin-block: 2em;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: var(--space-gutter);
     align-items: start;
   }
+  /* A row kept to the text column (two phone screens side by side). */
+  .prose > :global(.shots.in-column) { max-width: 680px; margin-left: max(0px, calc((100% - 680px) / 2)); }
   .prose > :global(.shots figure) { margin: 0; }
   .prose :global(.shots img) { border: 1px solid var(--tertiary); }
+  /* An even row: pictures of different shapes at one height. Each figure carries its picture's
+     width / height as --ratio (style="--ratio: 0.75" for 3:4), and takes that share of the row. */
+  .prose > :global(.shots.even) { display: flex; }
+  .prose :global(.shots.even figure) { flex: var(--ratio, 1) 1 0; min-width: 0; }
+  @media (max-width: 40rem) {
+    .prose > :global(.shots.even) { flex-direction: column; }
+    .prose :global(.shots.even figure) { flex: none; }
+  }
   /* A figure wider than the text column (the same width as .shots). */
-  .prose > :global(figure.wide) { width: min(1100px, calc(100vw - 2 * var(--space-margin))); max-width: none; }
+  .prose > :global(figure.wide) { max-width: none; margin-inline: 0; }
 
   /* Cards of set type, for frameworks shown in a case study (principles, tones). Flat: a hairline
      border, no fill, no shadow. The names are in the display face, the rest in the body face. */

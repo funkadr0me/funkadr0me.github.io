@@ -52,13 +52,14 @@ const { Content } = await render(entry);
     border-top: 1px solid var(--tertiary);
   }
   .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
-  /* Shown whole: covers range from wide screens to tall phone screens. */
+  /* Shown whole, on the headline's left edge: covers range from wide screens to tall phone screens. */
   .cover {
+    grid-column: text-start / wide-end;
+    justify-self: start;
     width: auto;
     max-width: 100%;
     max-height: 640px;
     object-fit: contain;
-    align-self: flex-start;
     border-radius: var(--radius-md);
   }
 </style>

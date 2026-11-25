@@ -46,7 +46,7 @@ The data scientists gave me the raw numbers: when Mitras sold, how much, and wha
 
 The pictures did half the bragging. With the UI illustrator, I worked out how the Ketua RT reacts to each number and how the sky around the warung sets the mood: a sunset for the afternoon buyers, a bright morning for the restocking.
 
-<div class="shots" style="width: min(660px, 100%)">
+<div class="shots in-column">
   <figure>
     <img src="/images/work/mitra-year-end-review-2018/afternoon.jpg" alt="A warung at sunset under the words Sore Hari" loading="lazy" />
     <figcaption>Afternoon buyers, at sunset.</figcaption>

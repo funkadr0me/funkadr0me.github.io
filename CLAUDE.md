@@ -59,7 +59,7 @@ src/pages/index.astro          home page (hero, work index, about band, writing 
 src/pages/work/[id].astro      case study pages
 src/pages/writing/[id].astro   article pages
 src/layouts/BaseLayout.astro   <head>, nav, footer, motion on-switch
-src/layouts/ArticleLayout.astro  shared layout + Markdown prose styles
+src/layouts/ArticleLayout.astro  shared layout + Markdown prose styles: a centred 680px text column in a 1100px band (`.shots` and `figure.wide` take the band; narrower pictures and the cover start on the text's left edge; `.shots.in-column` keeps a row to the text column); `<div class="shots even">` with `style="--ratio: w/h"` on each figure sets mixed-shape pictures at one height
 src/components/                Nav, Button, Tag, ProjectCard (a card of the work grid, or a compact row on the advertising page), SectionHeader, Footer
 src/styles/tokens.css          design tokens + type classes
 src/styles/global.css          base styles
