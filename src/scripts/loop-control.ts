@@ -55,14 +55,17 @@ export function loopGate(el: Element, hoverEls: Element[] = [], focusEls: Elemen
   return { running, ready, rest };
 }
 
-/** The "Pause motion" button: shown only once a loop can run, pauses every loop together. */
+/** The pause button (an icon named "Pause motion" / "Play motion"): shown only once a loop can run, pauses every loop together. */
 export function initLoopToggle() {
   const toggle = document.querySelector<HTMLButtonElement>('[data-loop-toggle]');
   if (!toggle) return;
   toggle.hidden = false;
   toggle.addEventListener('click', () => {
     held = !held;
-    toggle.textContent = held ? 'Play motion' : 'Pause motion';
+    const name = held ? 'Play motion' : 'Pause motion';
+    toggle.setAttribute('aria-label', name);
+    toggle.title = name;
+    toggle.toggleAttribute('data-held', held);
     listeners.forEach((listener) => listener());
   });
 }

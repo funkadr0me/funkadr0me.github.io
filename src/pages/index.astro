@@ -35,8 +35,11 @@ const parts = (value: string) => value.split(' · ');
         </span>
         <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>
       </h1>
-      <!-- WCAG 2.2.2: the loops run past five seconds, so a visible pause control stays; it sits with the headline it holds. -->
-      <button class="loop-toggle" type="button" data-loop-toggle hidden>Pause motion</button>
+      <!-- WCAG 2.2.2: the loops run past five seconds, so a visible pause control stays, as an icon with a text name; it sits with the headline it holds. -->
+      <button class="loop-toggle" type="button" data-loop-toggle aria-label="Pause motion" title="Pause motion" hidden>
+        <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" /><rect x="9.5" y="2" width="3.5" height="12" /></svg>
+        <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" /></svg>
+      </button>
     </div>
     <div class="hero-foot grid-12">
       <p class="intro" data-intro style="--intro-delay: 0.75s">

@@ -85,30 +85,34 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .hero-foot .intro { grid-column: 1 / span 6; max-width: 36rem; font-size: var(--text-lead); line-height: 1.45; }
 .hero-foot .cue { grid-column: 1 / -1; }
 
-/* The pause control for the text loops (WCAG 2.2.2 needs it): quiet, tied to the headline it holds,
-   at its bottom right; still a real 44px target. Under the headline on a narrow screen. */
+/* The pause control for the text loops (WCAG 2.2.2 needs one): a 44px icon button, tied to the headline it holds,
+   at its bottom right; under the headline on a narrow screen. Its name is the aria-label (Pause motion / Play motion). */
 .loop-toggle {
   position: absolute;
   right: 0;
   bottom: 0;
-  min-height: 44px;
-  padding: 0 var(--space-xs);
-  border: 0;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
   background: none;
   color: var(--color-ink-2);
-  font: inherit;
-  font-size: 14px;
-  line-height: 20px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
   cursor: pointer;
-  transition: color var(--dur-short) var(--ease-out);
+  transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 }
-.loop-toggle:hover { color: var(--color-accent); }
-.loop-toggle:active { color: var(--color-ink); }
+.loop-toggle[hidden] { display: none; }
+.loop-toggle svg { grid-area: 1 / 1; inline-size: 16px; block-size: 16px; fill: currentColor; }
+.loop-toggle .icon-play { display: none; }
+.loop-toggle[data-held] .icon-pause { display: none; }
+.loop-toggle[data-held] .icon-play { display: block; }
+.loop-toggle:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.loop-toggle:active { color: var(--color-ink); border-color: var(--color-ink); }
 .loop-toggle:disabled { opacity: 0.55; cursor: not-allowed; }
 @media (max-width: 60rem) {
-  .loop-toggle { position: static; margin-top: var(--space-sm); padding-left: 0; }
+  .loop-toggle { position: static; margin-top: var(--space-sm); }
 }
 
 /* Scroll cues: the line that ends a section and leads to the next. A link, so a click does what a scroll does. */
