@@ -43,6 +43,12 @@ content:
       - name: about
         label: About band — text
         type: text
+      - name: portrait
+        label: About band — photo (square, shown in black and white)
+        type: image
+      - name: portraitAlt
+        label: About band — photo description for screen readers
+        type: string
       - name: contactHeadline
         label: Contact headline
         type: string

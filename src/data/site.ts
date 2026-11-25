@@ -42,6 +42,8 @@ export interface Settings {
   intro: string;
   aboutLabel: string;
   about: string;
+  portrait?: string;        // About band photo, shown in black and white
+  portraitAlt?: string;
   contactHeadline: string;
   contactText: string;
   email: string;

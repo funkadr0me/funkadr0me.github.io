@@ -56,6 +56,7 @@ const parts = (value: string) => value.split(' · ');
   <section class="about" data-wipe>
     <div class="container about-inner grid-12">
       <h2 class="headline-lg about-head">{settings.aboutLabel}</h2>
+      {settings.portrait && <img class="about-portrait" src={settings.portrait} alt={settings.portraitAlt ?? ''} width="900" height="900" loading="lazy" />}
       <div class="about-body">
         <p class="about-text">{settings.about}</p>
         {!writingSection && writing.length > 0 && (

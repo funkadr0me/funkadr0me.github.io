@@ -117,7 +117,8 @@ html.motion [data-wipe] {
   transform: none;
   transition-delay: 0.45s;
 }
-.js.motion [data-wipe][data-revealed] .about-inner > *:nth-child(2) { transition-delay: 0.55s; }
+.js.motion [data-wipe][data-revealed] .about-portrait { transition-delay: 0.5s; }
+.js.motion [data-wipe][data-revealed] .about-body { transition-delay: 0.55s; }
 
 /* 5 · Sticky nav — frosted Paper once past the hero ----------------------- */
 
