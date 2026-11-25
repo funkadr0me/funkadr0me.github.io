@@ -27,6 +27,7 @@ const links = [
   <nav aria-label="Main" class="container">
     <div class="id">
       <a class="name" href="/">Purna Anantha</a>
+      <span class="sep muted" aria-hidden="true">•</span>
       <span class="role body-sm muted">{settings.label}</span>
     </div>
     <div class="links">
@@ -89,6 +90,11 @@ const links = [
   }
   a { color: var(--text); text-decoration: none; white-space: nowrap; }
   .id { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-sm); }
+  /* The dot sits between the name and the label while they share a line. Below about 460px the label
+     drops under the name (with today's label), so the dot goes rather than start a line on its own. */
+  /* Same type as the label beside it (which takes the global `.role` style from home.css). */
+  .sep { font-family: var(--font-display); font-size: var(--text-role-s); line-height: 1.2; }
+  @media (max-width: 30rem) { .sep { display: none; } }
   .name { padding: 12px 0; font-family: var(--font-display); font-size: 28px; line-height: 32px; letter-spacing: -0.36px; }
   .links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
   .item {
