@@ -74,7 +74,7 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
    space, the scroll cue along the bottom, so the work section starts at the fold and never peeks in. */
 .hero {
   min-height: calc(100svh - var(--header-h));
-  padding-block: var(--space-md);
+  padding-block: var(--space-md) var(--space-xs);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -119,20 +119,30 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
   align-items: center;
   align-self: flex-start;
   gap: var(--space-xs);
-  min-height: 44px;
+  min-height: 44px; /* a quiet 12px label, but a real 44px target */
   color: var(--color-ink-2);
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 16px;
   text-decoration: none;
   transition: color var(--dur-short) var(--ease-out);
 }
 .cue-text { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color var(--dur-short) var(--ease-out); }
 .cue:hover { color: var(--color-accent); }
 .cue:hover .cue-text, .cue:focus-visible .cue-text { text-decoration-color: currentColor; }
-.section > .cue { margin-top: calc(-1 * var(--space-sm)); }
+/* Each cue sits 8px above the bottom of its screen, on the left margin, in the section's bottom padding. */
+.section, .about-inner { position: relative; }
+.section > .cue, .about-inner > .cue { position: absolute; left: var(--space-margin); bottom: var(--space-xs); }
+.section.top:has(> .cue) { padding-bottom: calc(44px + var(--space-sm)); } /* room for the cue under the last row */
 .about .cue { color: var(--color-accent-ink); }
 .about .cue:hover { color: var(--color-accent-ink); }
-.about-cue { grid-column: 1 / -1; margin-top: calc(-1 * var(--space-xs)); }
+
+/* Work, About and Experience are each one screen tall at least (the hero is too), so every cue lands in the same
+   place. The sections are scrolled to just under the header, so each height takes off what its scroll margin leaves. */
+:root { --screen: calc(100svh - var(--header-h)); }
+#work { min-height: calc(var(--screen) - var(--space-sm)); }
+.section.top[id]:not(.contact) { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm)); }
+.about { min-height: var(--screen); display: flex; }
+.about-inner { flex: 1 1 auto; align-content: start; }
 
 /* A soft scroll snap: each screen settles into place when the scroll stops near it, and never pulls
    a visitor who is stopping partway. Off with reduced motion (no `motion` class) and on pages without the hero. */
@@ -232,7 +242,7 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 .contact-links { grid-column: 7 / -1; justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-sm); }
 
 @media (max-width: 60rem) {
-  .hero { padding-block: var(--space-md); gap: var(--space-md); }
+  .hero { padding-block: var(--space-md) var(--space-xs); gap: var(--space-md); }
   .about-head, .about-body, .post-title, .post-source, .contact-text, .contact-links { grid-column: 1 / -1; }
   .contact-links { justify-self: stretch; justify-content: flex-start; }
   .about-portrait, .about-body { grid-row: auto; }
@@ -246,6 +256,6 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 /* The smallest or shortest phones (a 320px wide one wraps the header to 163px): less air in the hero, so it
    still fits the one screen under the header. */
 @media (max-width: 24rem), (max-width: 60rem) and (max-height: 40rem) {
-  .hero { padding-block: var(--space-sm); gap: var(--space-sm); }
+  .hero { padding-block: var(--space-sm) var(--space-xs); gap: var(--space-sm); }
   .hero-title { gap: var(--space-sm); }
 }

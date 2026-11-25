@@ -55,28 +55,37 @@ const links = [
     if ('ResizeObserver' in window) new ResizeObserver(setHeaderHeight).observe(siteHeader);
   }
 
-  // Home page: underline the nav link of the section in view. A section counts once its top passes
-  // into the upper part of the screen, below the nav; the hero leaves every link plain.
-  if (location.pathname === '/' && 'IntersectionObserver' in window) {
+  // Home page: underline the nav link of the section in view. A section counts while any of it is in the band
+  // between the header and 40% of the screen; one that only touches the header's edge (the section above, once the
+  // next is snapped under the header) does not. The hero and the About band have no link, so they leave all plain.
+  if (location.pathname === '/' && siteHeader) {
     const links = [...document.querySelectorAll<HTMLAnchorElement>('.site-header [data-section]')];
     const sections = links
       .map((link) => document.getElementById(link.dataset.section ?? ''))
       .filter((section): section is HTMLElement => section !== null);
-    const navHeight = document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 0;
-    const inView = new Set<string>();
     const mark = (id?: string) =>
       links.forEach((link) => {
         if (link.dataset.section === id) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
       });
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => (entry.isIntersecting ? inView.add(entry.target.id) : inView.delete(entry.target.id)));
-        mark(sections.map((section) => section.id).filter((id) => inView.has(id)).pop());
-      },
-      { rootMargin: `-${navHeight}px 0px -60% 0px` },
-    );
-    sections.forEach((section) => observer.observe(section));
+    const update = () => {
+      const top = siteHeader.offsetHeight + 1;
+      const bottom = innerHeight * 0.4;
+      let current: string | undefined;
+      for (const section of sections) {
+        const box = section.getBoundingClientRect();
+        if (box.bottom > top && box.top < bottom) current = section.id;
+      }
+      mark(current);
+    };
+    let queued = false;
+    addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; update(); });
+    }, { passive: true });
+    addEventListener('resize', update);
+    update();
   }
 </script>
 

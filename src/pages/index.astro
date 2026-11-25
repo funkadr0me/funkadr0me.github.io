@@ -73,9 +73,7 @@ const parts = (value: string) => value.split(' · ');
         )}
         <p class="roles">{settings.label} in {settings.location}: {rolesSentence}.</p>
       </div>
-      <div class="about-cue">
-        <ScrollCue href={writingSection ? '#writing' : '#experience'} label={writingSection ? 'Scroll to see writing' : 'Scroll to see experience'} />
-      </div>
+      <ScrollCue href={writingSection ? '#writing' : '#experience'} label={writingSection ? 'Scroll to see writing' : 'Scroll to see experience'} />
     </div>
   </section>
 
