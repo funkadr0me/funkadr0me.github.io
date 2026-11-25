@@ -43,6 +43,12 @@ content:
       - name: about
         label: About band — text
         type: text
+      - name: portrait
+        label: About band — photo (square, shown in black and white)
+        type: image
+      - name: portraitAlt
+        label: About band — photo description for screen readers
+        type: string
       - name: contactHeadline
         label: Contact headline
         type: string
@@ -53,9 +59,6 @@ content:
         type: string
       - name: linkedin
         label: LinkedIn URL
-        type: string
-      - name: twitter
-        label: Twitter URL
         type: string
       - name: resume
         label: Resume URL
@@ -110,6 +113,9 @@ content:
         type: string
       - name: role
         label: Your role (shown at the top of the case study)
+        type: string
+      - name: cardRole
+        label: Short role on the home card, a few words (e.g. UX writing lead)
         type: string
       - name: tags
         type: object

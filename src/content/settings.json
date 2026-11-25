@@ -3,31 +3,33 @@
   "location": "Jakarta",
   "roles": [
     "UX writer",
+    "content strategist",
     "copywriter",
     "scriptwriter"
   ],
   "verbs": [
     "Shuffling",
     "Juggling",
-    "Strategizing",
-    "Fathoming",
+    "Trimming",
+    "Tuning",
     "Crafting"
   ],
   "nouns": [
     "words",
-    "thoughts",
-    "content",
-    "ideas",
+    "tone",
+    "labels",
+    "scripts",
     "stories"
   ],
   "headlineTail": "across platforms.",
-  "intro": "A decade in advertising and user experience design — from Sesame Street scripts and award-winning print ads to product tone and voice. Currently leading the UX Writer Hub at Telkom Indonesia.",
+  "intro": "I write and strategize for experiences on every medium (and lately, I lead). Today that’s the UX Writer Hub at Telkom Indonesia.",
   "aboutLabel": "So, who is Purna Anantha?",
-  "about": "Born when David Bowie and Mick Jagger’s “Dancing in the Street” topped the UK chart. Gave up drawing after only a year in kindergarten. Now thoroughly enjoying life as a writer — after splitting my time between advertising, TV scriptwriting and, occasionally, music, I took the leap to UX writing.",
+  "about": "I was born when David Bowie and Mick Jagger’s “Dancing in the Street” topped the UK chart, and I gave up drawing after a year of kindergarten. Words stuck. I wrote ads, TV scripts and the odd song before I took the leap to UX writing. Whoever I write for, I try to see through their eyes (yes, even a toddler’s).",
+  "portrait": "/images/about/portrait.jpg",
+  "portraitAlt": "Purna smiling by an office window, in a hoodie with Elmo on it",
   "contactHeadline": "Give me a shout.",
-  "contactText": "Message me to hear about my latest maneuver — or to find out where the best fried rice hawker in town is.",
+  "contactText": "Write to me about a full-time role, remote freelance work or a talk (or ask where to find the best fried rice in Jakarta).",
   "email": "purnadyka@gmail.com",
   "linkedin": "https://www.linkedin.com/in/pdanantha/",
-  "twitter": "https://twitter.com/funkadrome",
   "resume": "https://pdanantha.notion.site/A-Resume-of-Purna-Anantha-45629279d4d94263831cfe6398591046"
 }
