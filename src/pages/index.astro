@@ -62,7 +62,9 @@ const parts = (value: string) => value.split(' · ');
       <h2 class="headline-lg about-head">{settings.aboutLabel}</h2>
       {settings.portrait && <img class="about-portrait" src={settings.portrait} alt={settings.portraitAlt ?? ''} width="900" height="900" loading="lazy" />}
       <div class="about-body">
-        <p class="about-text">{settings.about}</p>
+        <div class="about-text">
+          {settings.about.split(/\n+/).filter(Boolean).map((paragraph) => <p>{paragraph}</p>)}
+        </div>
         {!writingSection && writing.length > 0 && (
           <p class="about-writing">
             I also write about the craft:{' '}

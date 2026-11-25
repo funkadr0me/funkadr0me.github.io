@@ -188,7 +188,12 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 .about-body { grid-column: 6 / -1; grid-row: 1 / span 2; display: flex; flex-direction: column; gap: var(--space-md); }
 /* The photo sits under the heading, in black and white so it doesn't fight the claret. */
 .about-portrait { grid-column: 1 / span 5; grid-row: 2; display: block; width: min(100%, 16rem); height: auto; aspect-ratio: 1; object-fit: cover; filter: grayscale(1); border-radius: var(--radius-md); }
-.about-text { max-width: 24em; font-family: var(--font-display); font-size: var(--text-statement); line-height: 1.25; letter-spacing: -0.36px; }
+/* The statement is paragraphs (a new line in the CMS text starts one); each is balanced, so no paragraph
+   ends on a short widow line. */
+.about-text { max-width: 24em; display: flex; flex-direction: column; gap: 0.6em; font-family: var(--font-display); font-size: var(--text-statement); line-height: 1.25; letter-spacing: -0.36px; }
+.about-text p { text-wrap: balance; }
+/* Balancing stops past six lines in some browsers, so on the narrowest phones the statement steps down to stay inside that. */
+@media (max-width: 22.5rem) { .about-text { font-size: 1.3rem; } }
 .about-writing { max-width: 36rem; }
 .about a { color: var(--color-accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .about a:hover { text-decoration-thickness: 2px; }
