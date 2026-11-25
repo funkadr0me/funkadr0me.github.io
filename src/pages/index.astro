@@ -67,10 +67,7 @@ const parts = (value: string) => value.split(' · ');
             ))}.
           </p>
         )}
-        <p class="roles">
-          <span class="sr-only">{settings.label}: {rolesSentence}, based in {settings.location}</span>
-          <span aria-hidden="true">{settings.label} in {settings.location}: <span class="typing" data-typing={JSON.stringify(roles)}><span class="typing-text">{roles[0]}</span><span class="typing-caret"></span></span></span>
-        </p>
+        <p class="roles">{settings.label} in {settings.location}: {rolesSentence}.</p>
       </div>
     </div>
   </section>
