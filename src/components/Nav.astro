@@ -49,8 +49,10 @@ const links = [
   // The header's real height (it grows to two or three rows on a phone) as --header-h: the home page's hero is one
   // screen under it, and nav jumps land below it.
   const siteHeader = document.querySelector<HTMLElement>('.site-header');
-  if (siteHeader && 'ResizeObserver' in window) {
-    new ResizeObserver(() => document.documentElement.style.setProperty('--header-h', `${siteHeader.offsetHeight}px`)).observe(siteHeader);
+  if (siteHeader) {
+    const setHeaderHeight = () => document.documentElement.style.setProperty('--header-h', `${siteHeader.offsetHeight}px`);
+    setHeaderHeight(); // at once, then whenever the header's size changes (a font loading, a turned phone)
+    if ('ResizeObserver' in window) new ResizeObserver(setHeaderHeight).observe(siteHeader);
   }
 
   // Home page: underline the nav link of the section in view. A section counts once its top passes
