@@ -126,16 +126,18 @@ const parts = (value: string) => value.split(' · ');
     <ScrollCue href="#contact" label="Scroll to contact me" />
   </section>
 
-  <!-- Contact -->
-  <section class="container section top contact" id="contact">
-    <h2 class="headline-display" data-reveal>{settings.contactHeadline}</h2>
-    <div class="contact-body grid-12">
-      <p class="contact-text" data-reveal style="--d: 0.1s">
-        {settings.contactText}
-      </p>
-      <div class="contact-links" data-reveal style="--d: 0.2s">
-        <Email button />
-        <Button href={links.linkedin} variant="secondary">LinkedIn</Button>
+  <!-- Contact: the second claret band; with the footer it makes the last screen -->
+  <section class="contact" id="contact" data-wipe>
+    <div class="container contact-inner">
+      <h2 class="headline-display">{settings.contactHeadline}</h2>
+      <div class="contact-body grid-12">
+        <p class="contact-text">
+          {settings.contactText}
+        </p>
+        <div class="contact-links">
+          <Email button />
+          <Button href={links.linkedin} variant="secondary">LinkedIn</Button>
+        </div>
       </div>
     </div>
   </section>
