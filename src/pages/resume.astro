@@ -2,13 +2,16 @@
 // The resume: one plain column of real text under standard section headings, so a screen reader, an
 // applicant tracking system (ATS) and the PDF all read it in the same order. No icons, no text in
 // images, no layout tables. The PDF (public/Purna-Anantha-Resume.pdf) is printed from this page by
-// `npm run resume:pdf`; the @media print rules at the bottom are its layout.
+// `npm run resume:pdf`; the @media print rules at the bottom are its layout. One difference: on the page
+// the email, LinkedIn and website close it under "Contact"; the PDF keeps them under the name.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import Email from '../components/Email.astro';
 import { resume, settings, RESUME_PDF } from '../data/site';
 
 const siteHost = new URL(Astro.site ?? 'https://funkadr0me.github.io').host;
+// The domain isn't chosen yet: a reserved ".example" address shows as plain text, a real one as a link.
+const isPlaceholder = resume.website.endsWith('.example');
 const linkedinText = settings.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 
 const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom Indonesia: UX writing, content strategy and ten years of advertising copywriting and scriptwriting.';
@@ -21,9 +24,9 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
       <p class="title body-lg">{resume.title}</p>
       <ul class="reach" aria-label="Contact">
         <li>{resume.location}</li>
-        <li><Email /></li>
-        <li><a href={settings.linkedin}>{linkedinText}</a></li>
-        <li><a href="/">{siteHost}</a></li>
+        <li class="print-only"><Email /></li>
+        <li class="print-only"><a href={settings.linkedin}>{linkedinText}</a></li>
+        <li class="print-only"><a href="/">{siteHost}</a></li>
       </ul>
       <p class="download no-print">
         <Button href={RESUME_PDF} download>Download resume (PDF)</Button>
@@ -109,17 +112,33 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
         </ul>
       </div>
     </section>
+
+    <section class="block no-print" aria-labelledby="contact">
+      <h2 class="headline-md" id="contact">Contact</h2>
+      <div class="body">
+        <ul class="reach-list">
+          <li>Email: <Email /></li>
+          <li>LinkedIn: <a href={settings.linkedin}>{linkedinText}</a></li>
+          {resume.website && (
+            <li>Website: {isPlaceholder ? resume.website : <a href={`https://${resume.website}`}>{resume.website}</a>}</li>
+          )}
+        </ul>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
   .resume { padding-block: var(--space-2xl) var(--space-xl); }
 
-  /* Name, current role, contact lines, download. */
+  /* Name, current role, location, download. The other contact lines under the name are the PDF's. */
   .masthead { display: flex; flex-direction: column; gap: var(--space-sm); padding-bottom: var(--space-md); }
   .title { color: var(--secondary); }
   .reach { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px var(--space-gutter); }
   .download { margin-top: var(--space-xs); }
+  @media screen {
+    .reach .print-only { display: none; }
+  }
 
   /* Each section: its heading in the left columns, the content beside it, under a hairline. */
   .block {
@@ -144,13 +163,12 @@ const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom In
   .skills { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 18px; line-height: 28px; }
   .skills li:not(:last-child)::after { content: ','; margin-right: 0.35em; }
 
+  .reach-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-xs); font-size: 18px; line-height: 28px; overflow-wrap: anywhere; }
+
   @media (max-width: 60rem) {
     .block h2, .body { grid-column: 1 / -1; }
     /* One column, so the 32px gaps of the twelve tracks don't add up wider than a phone. */
     .block { grid-template-columns: minmax(0, 1fr); column-gap: 0; padding-block: var(--space-margin); }
-  }
-  @media (max-width: 40rem) {
-    .reach { flex-direction: column; }
   }
 </style>
 

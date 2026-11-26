@@ -252,6 +252,9 @@ content:
         type: string
       - name: location
         type: string
+      - name: website
+        label: Website under Contact on the page, not the PDF (without https://; a .example address is a placeholder, shown without a link)
+        type: string
       - name: summary
         type: text
       - name: experience
