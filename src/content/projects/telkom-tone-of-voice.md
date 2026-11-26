@@ -11,6 +11,10 @@ tags:
   tone: oxford
 - label: Tone of voice
   tone: claret
+image: /images/work/telkom-tone-of-voice/cover.jpg
+imageAlt: Six people around a long white table with laptops in a meeting room, turned toward a screen at the far end, during the INAProc tone of voice workshop
+thumb: /images/work/telkom-tone-of-voice/thumb.jpg
+thumbAlt: An ink-and-wash drawing of a workshop, with people at laptops around a long white table, a wall of yellow sticky notes covered in colored dots behind them, and a screen at the far end
 ---
 
 ## One size fits some
