@@ -44,7 +44,7 @@ const parts = (value: string) => value.split(' · ');
         <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z" /></svg>
       </button>
     </div>
-    <ScrollCue href="#work" label="Scroll to see work" />
+    <ScrollCue href="#work" label="Next: Work" />
   </section>
 
   <!-- Work -->
@@ -53,7 +53,7 @@ const parts = (value: string) => value.split(' · ');
     <div class="index cards">
       {current.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} />)}
     </div>
-    <ScrollCue href="#about" label="Scroll to see profile" />
+    <ScrollCue href="#about" label="Next: About" />
   </section>
 
   <!-- About band -->
@@ -75,7 +75,7 @@ const parts = (value: string) => value.split(' · ');
         )}
         <p class="roles">{rolesSentence}.</p>
       </div>
-      <ScrollCue href={writingSection ? '#writing' : '#experience'} label={writingSection ? 'Scroll to see writing' : 'Scroll to see experience'} />
+      <ScrollCue href={writingSection ? '#writing' : '#experience'} label={writingSection ? 'Next: Writing' : 'Next: Experience'} />
     </div>
   </section>
 
@@ -91,7 +91,7 @@ const parts = (value: string) => value.split(' · ');
         </a>
       ))}
     </div>
-    <ScrollCue href="#experience" label="Scroll to see experience" />
+    <ScrollCue href="#experience" label="Next: Experience" />
   </section>
   )}
 
@@ -123,7 +123,7 @@ const parts = (value: string) => value.split(' · ');
         ))}
       </div>
     </div>
-    <ScrollCue href="#contact" label="Scroll to contact me" />
+    <ScrollCue href="#contact" label="Next: Contact" />
   </section>
 
   <!-- Contact: the second claret band; with the footer it makes the last screen -->
