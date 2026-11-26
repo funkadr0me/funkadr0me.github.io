@@ -1,15 +1,10 @@
 ---
-// `toTop`: the "Back to the top" line. The home page turns it off: its contact band ends in the same line as a scroll cue.
-const { toTop = true } = Astro.props;
 ---
 
 <footer>
   <div class="container colophon">
     <p class="mark headline-md">Purna Anantha</p>
-    <div class="end">
-      {toTop && <p class="bottom body-sm">That’s me, top to bottom. <a class="to-top" href="#top">Back to the top<span aria-hidden="true">&nbsp;↑</span></a></p>}
-      <p class="where body-sm muted">Jakarta, Indonesia &amp; beyond<br />Bahasa Indonesia and English</p>
-    </div>
+    <p class="where body-sm muted">Jakarta, Indonesia &amp; beyond<br />Bahasa Indonesia and English</p>
   </div>
 </footer>
 
@@ -34,12 +29,8 @@ const { toTop = true } = Astro.props;
     align-items: flex-end;
     gap: var(--space-sm) var(--space-md);
   }
-  .end { display: flex; flex-direction: column; gap: var(--space-xs); text-align: right; }
-  .bottom { margin: 0; }
-  /* A 14px link with a 44px target: the padding widens the hit area without moving the line. */
-  .to-top { display: inline-block; padding-block: 12px; margin-block: -12px; white-space: nowrap; }
-  .where { margin: 0; }
+  .where { text-align: right; }
   @media (max-width: 640px) {
-    .end { text-align: left; }
+    .where { text-align: left; }
   }
 </style>
