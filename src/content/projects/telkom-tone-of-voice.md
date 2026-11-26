@@ -4,15 +4,13 @@ client: Telkom Indonesia
 summary: Telkom's products had outgrown one shared voice. I led the hub that found each one its own, together with the teams who build them.
 order: 4
 tone: claret
-role: Head of UX Writer Hub
-cardRole: UX writing lead
+role: Head and team lead, UX Writer Hub
+cardRole: UX Writer Hub lead
 tags:
 - label: Content strategy
   tone: oxford
 - label: Tone of voice
   tone: claret
-image: /images/work/telkom-tone-of-voice/cover.jpg
-imageAlt: Rows of sticky notes with tone words such as Trustworthy, Informative and Considerate, covered in colored voting dots
 ---
 
 ## One size fits some
@@ -107,7 +105,12 @@ Written by Prilidanti Oktarizkia, from the recommendation to the website. [Visit
 
 OCA helps businesses talk to their customers from one dashboard, from WhatsApp to email, and send broadcasts. It already had a brand voice, but the voice never reached the product, and the English screens confused people. One user in a usability test put it plainly: "Desainnya bagus untuk bahasa masih kurang dimengerti" (The design is good, but the language is still hard to understand).
 
-So the team put Bahasa Indonesia first, in two tiers. Regular is for most users. Lite is for people with less digital experience and little English, and it trades formal words for everyday ones like "bisa" (can) and "lagi" (again).
+So the team recommended Bahasa Indonesia first, with English versions alongside, in two tiers. Regular is for most users. Lite is for people with less digital experience and little English, and it trades formal words for everyday ones like "bisa" (can) and "lagi" (again).
+
+<figure class="wide">
+  <img src="/images/work/telkom-tone-of-voice/oca-board.png" alt="OCA's tone word board in FigJam: four rows of yellow sticky notes with voting dots, piled on Conversational, Smart, Professional, Informative, Respectful and Matter-of-fact" loading="lazy" />
+  <figcaption>OCA's own board. The dots piled up on Conversational, Smart, Informative, Respectful and Matter-of-fact.</figcaption>
+</figure>
 
 <figure>
   <ol class="card principles">
@@ -125,7 +128,14 @@ So the team put Bahasa Indonesia first, in two tiers. Regular is for most users.
   <figcaption>Back to active mode, before and after, from OCA's recommendation (Regular tier).</figcaption>
 </figure>
 
-Recommendation by [Aisyah Ardine](https://www.linkedin.com/in/aisyahardine), [Firstrianisa Gustiawati](https://www.linkedin.com/in/firstrianisa) and Prilidanti Oktarizkia. [See OCA's screens](https://docs.ocaindonesia.co.id/oca-interaction)
+The dashboard still speaks English today, but it speaks in the new voice. Its messages say what happened, then what you can do next.
+
+<figure class="wide">
+  <img src="/images/work/telkom-tone-of-voice/oca-messages.jpg" alt="Five messages from OCA Interaction: a You're Away banner with a Back to Active button, a You're out of Quota alert with Add Quota, a Contact Added Successfully toast, a report-ready notification, and a Switch to Away Mode dialog" loading="lazy" />
+  <figcaption>Messages in OCA Interaction, from its product guide.</figcaption>
+</figure>
+
+Recommendation by [Aisyah Ardine](https://www.linkedin.com/in/aisyahardine), [Firstrianisa Gustiawati](https://www.linkedin.com/in/firstrianisa) and Prilidanti Oktarizkia.
 
 ## A standard you can check
 
@@ -148,8 +158,8 @@ When I joined, one guideline spoke for every product. Now each product has a voi
     <img src="/images/work/telkom-tone-of-voice/inaproc-live.jpg" alt="The INAProc portal's home page: a banner announcing the new look, then PORTAL INAPROC over a photo of the LKPP building, with the line Lihat, pahami, dan ikut berpartisipasi dalam pengadaan pemerintah melalui satu ekosistem INAPROC" loading="lazy" />
     <figcaption>INAProc</figcaption>
   </figure>
-  <figure style="--ratio: 2.286">
-    <img src="/images/work/telkom-tone-of-voice/oca-live.jpg" alt="OCA Interaction's documentation in Bahasa Indonesia, addressing the reader as Anda" loading="lazy" />
+  <figure style="--ratio: 1.778">
+    <img src="/images/work/telkom-tone-of-voice/oca-live.jpg" alt="The OCA Interaction inbox, with a You're out of Quota alert above a customer conversation" loading="lazy" />
     <figcaption>OCA</figcaption>
   </figure>
 </div>
