@@ -18,8 +18,9 @@ const links = [
   { href: '/#work', label: 'Work' },
   ...(hasWritingSection ? [{ href: '/#writing', label: 'Writing' }] : []),
   { href: '/#experience', label: 'Experience' },
-  { href: '/resume/', label: 'Resume' },
-  { href: '/#contact', label: 'Contact', action: true },
+  { href: '/#contact', label: 'Contact' },
+  // The look says what a click does: plain links go to a part of the home page; the button opens another page.
+  { href: '/resume/', label: 'Resume', action: true },
 ];
 ---
 
@@ -32,14 +33,17 @@ const links = [
     </div>
     <div class="links">
       {links.map((link) => (
-        <a
-          class:list={['item', { action: link.action }]}
-          href={link.href}
-          aria-current={link.href === current ? 'page' : undefined}
-          data-section={link.href.split('#')[1]}
-        >
-          {link.label}
-        </a>
+        <>
+          {link.action && <span class="divider" aria-hidden="true" />}
+          <a
+            class:list={['item', { action: link.action }]}
+            href={link.href}
+            aria-current={link.href === current ? 'page' : undefined}
+            data-section={link.href.split('#')[1]}
+          >
+            {link.label}
+          </a>
+        </>
       ))}
     </div>
   </nav>
@@ -97,7 +101,7 @@ const links = [
     justify-content: space-between;
     align-items: center;
     column-gap: var(--space-xs);
-    /* The padding keeps the header's line clear of the Contact button when the bar wraps to two rows (a phone,
+    /* The padding keeps the header's line clear of the Resume button when the bar wraps to two rows (a phone,
        a tablet); on one row it sits inside the 72px, so nothing moves. No row gap: the name and the links
        already pad each other apart. */
     padding-block: var(--space-xs);
@@ -119,9 +123,9 @@ const links = [
   }
   .item:hover { border-bottom-color: var(--tertiary); color: var(--text); }
   .item:not(.action)[aria-current] { color: var(--text); border-bottom-color: var(--claret); }
-  /* The hire action: outlined, quieter than the hero's filled button. */
+  /* The resume is a page of its own: set apart by a hairline, outlined, and filled while you are on it. */
+  .divider { width: 1px; height: 24px; margin-inline: var(--space-xs); background: var(--tertiary); }
   .item.action {
-    margin-left: var(--space-xs);
     display: inline-flex;
     align-items: center;
     min-height: 48px; /* as tall as the page's buttons */
@@ -129,11 +133,22 @@ const links = [
     border: 1px solid var(--primary);
     border-radius: var(--radius-sm);
   }
-  .item.action:hover { background: var(--primary); color: var(--neutral); border-color: var(--primary); }
+  .item.action:hover, .item.action[aria-current] { background: var(--primary); color: var(--neutral); border-color: var(--primary); }
   @media (max-width: 640px) {
     .id .role, .id .sep { display: none; } /* the name and the links are enough of a bar on a phone */
     .links { margin-inline: calc(-1 * var(--space-xs)); gap: 0; }
     .item { padding-inline: var(--space-xs); }
-    .item.action { margin-left: var(--space-2xs, 4px); padding-inline: var(--space-sm); }
+    .divider { margin-inline: 4px; }
+    .item.action { padding-inline: var(--space-sm); }
+  }
+  /* The narrowest phones: tighter sides, so the four links and the divider stay on one row down to 320px. */
+  @media (max-width: 23rem) {
+    .links { margin-inline: -4px; }
+    .item { padding-inline: 4px; }
+    .item.action { padding-inline: 12px; }
+  }
+  @media (max-width: 20.5rem) {
+    .divider { margin-inline: 0; }
+    .item.action { padding-inline: var(--space-xs); }
   }
 </style>
