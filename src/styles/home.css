@@ -3,7 +3,7 @@
  * axes: light/roman-serif/warm · posture: Restrained · contrast: pass · fold: pass · hero-review: fix · 5 findings · 3 resolved 2 owner's · finish-review: subagent · 8 findings · 6 resolved 2 owner's · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
 /* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
-/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, subheadline, a scroll cue), so the densest windows are the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, and the About statement running into the experience table (seven rows of years, role and a company logo, one idea: the career in order), at most 190 words over 900px at 1440 */
+/* Hallmark · dismissed 58 · the hero is one screen of its own (headline, subheadline, a scroll cue), so the densest windows are the work cards (four, or five with the archive as a strip under them; client, title, a short summary and a link each, tags left to the case studies, about 200 words with five and the strip) running into the About band's opening statement, and the About statement running into the experience table (seven rows of years, role and a company logo, one idea: the career in order), at most 190 words over 900px at 1440 */
 /* Hallmark · dismissed 77 · the resume and the work pages are documents (a headline, then one column of work history or one case), not landing pages, so a page of one or two sections is the right shape for them */
 /* Hallmark · waive 79 · surface: the hero is one screen, the headline and its subheadline centred in the free space with the scroll cue at the bottom (visible in the 1440x900 screenshot) · the check counts the headline as the last content and misses the subheadline and the cue */
 /* Hallmark · waive 59 · surface: sections sit 96px apart (the --rhythm token, 64px on a phone), and Work, About and Experience each fit one 1440x900 screen with their scroll cue; the smallest gap, 63px, is the room the Experience cue takes above the contact band · the owner asked for tighter sections than the earlier 160px, so the gaps stay under the 120px the check asks for */
@@ -168,8 +168,9 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 
 /* 3 · Work index ----------------------------------------------------------------- */
 /* Cards are in ProjectCard.astro; the grid sets how many sit across: four on a wide screen, so the
-   whole index fits one screen, two on a tablet, one on a phone. (The advertising page's `.index`
-   stays a column of rows.) */
+   whole index fits one screen, two on a tablet, one on a phone. With five case cards (`.five`) it is
+   five across, with the archive as a strip under them (8px below the row, so the section still fits
+   1440 x 900), and three across below 80rem. (The advertising page's `.index` stays a column of rows.) */
 .index { display: flex; flex-direction: column; }
 .index.cards {
   display: grid;
@@ -177,11 +178,15 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
   column-gap: var(--gap-columns);
   row-gap: var(--space-md);
 }
+.index.cards.five { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: var(--space-xs); }
+@media (max-width: 80rem) {
+  .index.cards.five { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-md); }
+}
 @media (max-width: 72rem) {
-  .index.cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .index.cards, .index.cards.five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 40rem) {
-  .index.cards { grid-template-columns: minmax(0, 1fr); }
+  .index.cards, .index.cards.five { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* 4 · About band: a field of the lead colour, heading and statement split ---------- */
