@@ -98,6 +98,7 @@ Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: exactly one
 - Everything is gated by the `motion` class on `<html>` (set in BaseLayout unless `prefers-reduced-motion`). Without JS or with reduced motion the page is static and fully visible — keep it that way.
 - Easing `cubic-bezier(0.22, 1, 0.36, 1)`; reveals rise 32px and fade; the two claret bands (About, Contact) wipe in (colour on a `::before` so IntersectionObserver still sees the section).
 - No libraries (no GSAP/Lenis); plain CSS + a small script.
+- The frosted header declares only `backdrop-filter`. A hand-written `-webkit-backdrop-filter` line after it made the build's minifier keep only the prefixed one, so Chrome and Firefox showed the page through the header (fixed November 26, 2026). Check CSS effects on the built site, not only the dev server.
 
 ## Split-flap hero headline
 

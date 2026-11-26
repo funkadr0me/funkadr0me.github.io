@@ -111,8 +111,9 @@ html.motion [data-wipe] {
 }
 .site-header[data-past-hero] {
   background-color: var(--color-frost);
+  /* No hand-written -webkit- line: the build's CSS minifier then kept only that one, and Chrome and Firefox showed
+     the page unblurred through the header. A browser without this property takes the solid fallback below. */
   backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 @supports not (backdrop-filter: blur(1px)) {
   .site-header[data-past-hero] { background-color: var(--background); }
