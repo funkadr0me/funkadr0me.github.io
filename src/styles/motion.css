@@ -87,12 +87,12 @@ html.motion [data-wipe] {
 .motion [data-wipe][data-revealed]::before {
   animation: wipe-in 0.9s var(--ease-out) both;
 }
-.js.motion [data-wipe] .about-inner > * {
+.js.motion [data-wipe] :is(.about-inner, .contact-inner) > * {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
-.js.motion [data-wipe][data-revealed] .about-inner > * {
+.js.motion [data-wipe][data-revealed] :is(.about-inner, .contact-inner) > * {
   opacity: 1;
   transform: none;
   transition-delay: 0.45s;
@@ -111,8 +111,9 @@ html.motion [data-wipe] {
 }
 .site-header[data-past-hero] {
   background-color: var(--color-frost);
+  /* No hand-written -webkit- line: the build's CSS minifier then kept only that one, and Chrome and Firefox showed
+     the page unblurred through the header. A browser without this property takes the solid fallback below. */
   backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 @supports not (backdrop-filter: blur(1px)) {
   .site-header[data-past-hero] { background-color: var(--background); }
@@ -145,6 +146,8 @@ html.motion [data-wipe] {
 .flip-rest { display: block; }
 /* The static headline sizes itself; the script then fits it to the longest pair. */
 .headline-display[data-flip] { font-size: var(--fs-hero); } /* the hero size, set in home.css */
+/* Without motion no script fits the headline to the screen, so on a phone it starts small enough to hold two lines. */
+@media (max-width: 40rem) { html:not(.motion) .headline-display[data-flip] { font-size: 2.25rem; } }
 
 .flip-ready .flip-line { flex-wrap: nowrap; white-space: nowrap; }
 .flip-slot { position: relative; display: inline-flex; }
@@ -223,7 +226,7 @@ html.motion [data-wipe] {
     animation: none !important;
     transition: none !important;
   }
-  [data-reveal], [data-wipe]::before, [data-wipe] .about-inner > * {
+  [data-reveal], [data-wipe]::before, [data-wipe] :is(.about-inner, .contact-inner) > * {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;

@@ -4,9 +4,9 @@
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the Index rows have no pictures yet; led with set type and the lead row at 76px instead of empty colour blocks */
 /* Hallmark · waive 7b · surface: absolute, 40 and 41 pass · the design system's white (neutral) is the text on the ink button, 15.7:1, and the page's paper stays Paper */
 /* Hallmark · dismissed 58 · the hero is one screen of its own (headline, subheadline, a scroll cue), so the densest windows are the four work cards (client, title, a one-line summary and a link each, tags left to the case studies, about 90 words) running into the About band's opening statement, and the About statement running into the experience table (seven rows of years, role and a company logo, one idea: the career in order), at most 190 words over 900px at 1440 */
-/* Hallmark · waive 77 · surface: the contact section closes the page, a statement and two buttons (the address, LinkedIn), then the footer · the owner asked for the large email to become buttons, so the page ends on a quiet statement and needs no more mass */
+/* Hallmark · dismissed 77 · the resume and the work pages are documents (a headline, then one column of work history or one case), not landing pages, so a page of one or two sections is the right shape for them */
 /* Hallmark · waive 79 · surface: the hero is one screen, the headline and its subheadline centred in the free space with the scroll cue at the bottom (visible in the 1440x900 screenshot) · the check counts the headline as the last content and misses the subheadline and the cue */
-/* Hallmark · waive 59 · surface: sections sit 96px apart (the --rhythm token, 64px on a phone), and Work, About and Experience each fit one 1440x900 screen with their scroll cue · the owner asked for tighter sections than the earlier 160px, so the gap stays at 96px instead of the 120px the check asks for */
+/* Hallmark · waive 59 · surface: sections sit 96px apart (the --rhythm token, 64px on a phone), and Work, About and Experience each fit one 1440x900 screen with their scroll cue; the smallest gap, 63px, is the room the Experience cue takes above the contact band · the owner asked for tighter sections than the earlier 160px, so the gaps stay under the 120px the check asks for */
 /* Hallmark · waive 37 · surface: the resume's print block swaps in Georgia and Arial on top of Novela and Basier Circle · the PDF uses system fonts because the site's webfonts are licensed for this website only and cannot travel inside a file */
 
 /* The home page. Brand tokens (tokens.css) stay the source; these add the roles the page's layout needs
@@ -142,15 +142,18 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 :root { --screen: calc(100svh - var(--header-h)); }
 #work { min-height: calc(var(--screen) - var(--space-sm)); }
 .section.top[id] { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm)); }
-.section.top.contact { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm) - var(--footer-h)); } /* the footer takes the rest of the last screen */
 .about { min-height: var(--screen); display: flex; }
 .about-inner { flex: 1 1 auto; align-content: start; }
 
 /* A soft scroll snap: each screen settles into place when the scroll stops near it, and never pulls
    a visitor who is stopping partway. Off with reduced motion (no `motion` class) and on pages without the hero. */
 html.motion:has(.hero) { scroll-snap-type: y proximity; }
-.hero, .section[id]:not(.contact), .about { scroll-snap-align: start; }
-.hero, .about { scroll-margin-top: var(--header-h); }
+.hero, .section[id], .about { scroll-snap-align: start; }
+.about, .contact { scroll-margin-top: var(--header-h); }
+/* The hero's snap position is the very top of the page, whatever the header's height. A margin larger than the
+   header puts it above the page, where it clamps to 0. With var(--header-h), a phone (taller header) loaded
+   already scrolled by the difference from the default, before Nav.astro had measured the header. */
+.hero { scroll-margin-top: 50vh; }
 
 /* 2 · Sections ----------------------------------------------------------------- */
 
@@ -238,18 +241,24 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 .award-logo { flex-shrink: 0; object-fit: contain; object-position: left center; filter: brightness(0); opacity: 0.88; }
 .award-name { font-family: var(--font-display); font-size: var(--text-role-s); line-height: 1.15; letter-spacing: -0.36px; overflow-wrap: break-word; min-width: 0; }
 
-/* 8 · Contact: the statement, then the plain way to reach me ------------------------- */
+/* 8 · Contact: the claret band: the statement, then the plain way to reach me --------- */
 
-/* Contact and the footer make the last screen, so the jump from Experience lands on a clean screen instead of the
-   end of the awards, and the statement sits in the middle of the space above the footer. It is not a snap point:
-   the jump position is also the end of the page, so there is nothing to settle into. */
-.contact { gap: var(--space-md); justify-content: center; }
-.section.top.contact { padding-bottom: var(--rhythm); }
-.contact h2 { max-width: 14ch; }
+/* The second claret band (the About band's treatment, wiping in). Contact and the footer make the last screen,
+   so the jump from Experience lands on a clean screen, and the statement sits in the middle of the band. It is not
+   a snap point: the jump position is also the end of the page, so there is nothing to settle into. */
+.contact { min-height: calc(var(--screen) - var(--footer-h)); display: flex; background: var(--color-accent); color: var(--color-accent-ink); }
+.contact-inner { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: var(--space-md); padding-block: var(--rhythm); }
+.contact h2 { max-width: 14ch; color: var(--color-accent-ink); }
 .contact-body { row-gap: var(--space-md); align-items: end; }
 .contact-text { grid-column: 1 / span 6; font-size: var(--text-lead); line-height: 1.45; max-width: 32rem; }
-/* The address and LinkedIn are buttons, the same pair as the hero's, on the right edge. */
+/* The address and LinkedIn are a pair of buttons on the right edge. */
 .contact-links { grid-column: 7 / -1; justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-sm); }
+/* On claret the pair inverts: the address is a paper button with ink text, LinkedIn an outline in paper. */
+.contact .contact-links .btn.primary { background: var(--color-accent-ink); color: var(--color-ink); border-color: var(--color-accent-ink); }
+.contact .contact-links .btn.primary:hover { background: transparent; color: var(--color-accent-ink); }
+.contact .contact-links .btn.secondary { background: transparent; color: var(--color-accent-ink); border-color: var(--color-accent-ink); }
+.contact .contact-links .btn.secondary:hover { background: var(--color-accent-ink); color: var(--color-ink); }
+.contact .contact-links .btn:focus-visible { outline-color: var(--color-accent-ink); }
 
 @media (max-width: 60rem) {
   .hero { padding-block: var(--space-md) var(--space-xs); gap: var(--space-md); }
@@ -258,6 +267,9 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
   .about-portrait, .about-body { grid-row: auto; }
   .about-portrait { grid-column: 1 / -1; width: min(100%, 12rem); }
   .years, .role, .org { grid-column: 1 / -1; }
+  /* Stacked, a row needs air: the logo 12px under the role and 16px clear of each hairline. */
+  .job { padding-block: var(--space-sm); }
+  .org { margin-top: var(--space-xs); }
   .awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .award:nth-child(odd) { padding-left: 0; border-left: 0; }
   .award:nth-child(n + 3) { border-top: 1px solid var(--color-rule); }
@@ -268,4 +280,11 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 @media (max-width: 24rem), (max-width: 60rem) and (max-height: 40rem) {
   .hero { padding-block: var(--space-sm) var(--space-xs); gap: var(--space-sm); }
   .hero-title { gap: var(--space-sm); }
+}
+
+/* Phone browsers (iPhone Safari above all) keep showing the page behind their floating toolbar, below the height
+   the hero is sized to (svh). The space keeps the work section under that strip. Not lvh, which would put the
+   scroll cue behind the toolbar, nor dvh, which resizes the hero while scrolling. */
+@media (pointer: coarse) and (max-width: 40rem) {
+  .hero { margin-bottom: 100px; }
 }
