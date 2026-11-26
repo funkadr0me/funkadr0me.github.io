@@ -151,6 +151,9 @@ content:
           values:
             - { name: now, label: Home page }
             - { name: earlier, label: Advertising & scriptwriting page }
+      - name: strip
+        label: On the home page, a slim strip under the case cards (for the archive)
+        type: boolean
       - name: draft
         label: Hide from the site
         type: boolean

@@ -31,6 +31,7 @@ export interface Project {
   blockText?: string;
   tags: { label: string; tone: TagTone }[];
   era: 'now' | 'earlier';   // 'earlier' work is listed on /work/advertising-and-scriptwriting/, not the home page
+  strip: boolean;           // the archive: a strip under the case cards once their row is full
 }
 
 export interface Settings {
@@ -119,6 +120,7 @@ export async function getProjects(): Promise<Project[]> {
       blockText: data.blockText,
       tags: data.tags,
       era: data.era,
+      strip: data.strip,
     };
   });
 }

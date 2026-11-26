@@ -16,4 +16,5 @@ tags:
   tone: ink
 link: /work/advertising-and-scriptwriting/
 linkLabel: Browse the archive
+strip: true
 ---

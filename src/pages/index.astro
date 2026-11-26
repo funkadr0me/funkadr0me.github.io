@@ -10,6 +10,11 @@ import { settings, getProjects, getWriting, experience, awards, companyLogos, lo
 const projects = await getProjects();
 // Earlier work lives on its own page (/work/advertising-and-scriptwriting/), reached from the archive row.
 const current = projects.filter((project) => project.era === 'now');
+// The case cards share one row on a wide screen: four across, five once there are five. The archive (`strip`) is a
+// card in that row while the row has room; once the cases fill it, it becomes a slim strip under them.
+const cases = current.filter((project) => !project.strip);
+const stripped = cases.length >= 4;
+const work = [...cases, ...current.filter((project) => project.strip)];
 const writing = await getWriting();
 const writingSection = writing.length >= WRITING_SECTION_MIN; // otherwise the pieces get a line in the About band
 
@@ -50,8 +55,8 @@ const parts = (value: string) => value.split(' · ');
   <!-- Work -->
   <section class="container section" id="work">
     <SectionHeader title="Words at work">Product writing since 2018, ads before that</SectionHeader>
-    <div class="index cards">
-      {current.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} />)}
+    <div class:list={['index cards', { five: stripped && cases.length >= 5 }]}>
+      {work.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} strip={stripped && project.strip} />)}
     </div>
     <ScrollCue href="#about" label="Next: About" />
   </section>

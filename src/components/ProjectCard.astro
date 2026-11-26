@@ -2,8 +2,9 @@
 import Tag from './Tag.astro';
 import type { Project } from '../data/site';
 
-// One piece of work. On the home page it is a card in a four-across grid: picture, who it was for,
+// One piece of work. On the home page it is a card in the work grid: picture, who it was for,
 // what it was, where to read it; its tags are left to the case study, to keep the grid light.
+// `strip` lays the archive out as one slim line under the case cards (the home page decides when).
 // `compact` makes it a quieter row instead, tags included, for the earlier work on the advertising page.
 interface Props {
   project: Project;
@@ -11,9 +12,10 @@ interface Props {
   lead?: boolean;      // the first card or row: its picture loads first
   compact?: boolean;   // a row of earlier work instead of a card
   level?: 2 | 3;       // heading level of the title: 3 under a section head, 2 straight under a page title
+  strip?: boolean;     // a strip across the grid instead of a card
 }
 
-const { project, index = 0, lead = false, compact = false, level = 3 } = Astro.props;
+const { project, index = 0, lead = false, compact = false, level = 3, strip = false } = Astro.props;
 const linkLabel = project.linkLabel ?? 'View project';
 // A bracketed summary is the CMS's "still to fill in" marker; it stays in the CMS but is not shown.
 const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
@@ -44,7 +46,7 @@ const Title = level === 2 ? 'h2' : 'h3';
     </div>
   </article>
 ) : (
-  <article class="item card" data-reveal style={`--d: ${index * 0.08}s`}>
+  <article class:list={['item card', { strip }]} data-reveal style={`--d: ${index * 0.08}s`}>
     {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
     <p class="client body-sm muted">{project.client}{(project.cardRole || project.blockText) && <span> · {project.cardRole || project.blockText}</span>}</p>
     <Title class="title card-title">{project.title}</Title>
@@ -86,6 +88,31 @@ const Title = level === 2 ? 'h2' : 'h3';
     text-wrap: balance;
   }
   .card .links { margin-top: auto; padding-top: var(--space-xs); }
+
+  /* Strip: the archive under a full row of case cards. It stands for a whole page of work, so it takes
+     another shape: a small picture, then its name, summary and link in one line across the grid.
+     On a phone it is a card like the rest. */
+  @media (min-width: 40rem) {
+    .card.strip {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 4.25rem minmax(0, 18rem) minmax(0, 1fr) auto;
+      column-gap: var(--gap-columns);
+      row-gap: 4px;
+      align-items: center;
+    }
+    .strip .media { grid-row: 1 / 3; margin: 0; }
+    .strip .client { grid-column: 2; margin: 0; }
+    .strip .title { grid-column: 2; font-size: var(--text-role-s); }
+    .strip .summary { grid-column: 3; grid-row: 1 / 3; max-width: 52ch; }
+    .strip .links { grid-column: 4; grid-row: 1 / 3; margin: 0; padding: 0; }
+  }
+  /* Too narrow for one line: the words stack beside the picture. */
+  @media (min-width: 40rem) and (max-width: 60rem) {
+    .card.strip { grid-template-columns: 4.25rem minmax(0, 1fr); align-items: start; }
+    .strip .media { grid-row: 1 / 5; }
+    .strip .summary, .strip .links { grid-column: 2; grid-row: auto; }
+  }
 
   /* Row: the earlier work on the advertising page. */
   .row {
