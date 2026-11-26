@@ -2,7 +2,7 @@
 title: Advertising & scriptwriting
 client: Archive
 summary: 'Ten years of making people stop and look: TV, radio, print and digital campaigns, plus scripts and songs for Sesame Street in Indonesia.'
-order: 4
+order: 6
 tone: ink
 blockText: 2008–2018
 thumb: /images/work/advertising-and-scriptwriting/thumb.jpg
