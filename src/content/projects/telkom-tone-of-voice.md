@@ -21,15 +21,15 @@ thumbAlt: An ink-and-wash drawing of a workshop, with people at laptops around a
 
 When I joined Telkom in January 2023, the voice was already written down. Legion, our design system, had [tone of voice principles](https://legion.digitaltelkom.id/content/overview) and the mechanics to go with them. One set, for every product.
 
-And Telkom makes a lot of products. Some run schools, some connect farmers with buyers, some handle government procurement, and some help businesses answer their customers. A teacher checking attendance and a procurement officer reading a rejection don't need the same voice. One voice, very different rooms.
+And Telkom makes a lot of products. Some run schools, some connect farmers with buyers, some handle government procurement, and some help businesses answer their customers. A teacher checking attendance and a procurement officer reading a rejection don't need the same voice.
 
 Nobody owned the difference, either. A product's voice came from its marketing team, if the tribe had one. If not, a designer or a product manager picked it on the go.
 
 ## Standardize everything, even the voice
 
-Our chapter, AIX, lived by one mantra: standardize everything. A tone of voice fit right in, with one twist. It didn't have to be handed down by one powerful person. The people who build a product could write it together.
+Our chapter, AIX, lived by one mantra: standardize everything. A tone of voice fit right in, and it didn't need one powerful person to hand it down. The people who build a product could write it together.
 
-So we took the idea on tour. In our intro sessions for the tribes, we showed IBM (close to Telkom's own digital business) and Gojek (a brand whose voice people actually notice). Agree's product lead was sold after the session, and in June 2024, Agree became our first.
+So we took the idea on tour. In our intro sessions for the tribes, we showed IBM (close to Telkom's own digital business) and Gojek (a brand whose voice people notice). Agree's product lead was sold after the session, and in June 2024, Agree became our first.
 
 ## Dots before words
 
@@ -41,12 +41,12 @@ Then each person puts a dot on NN/g's four dimensions of tone: formal or casual,
 
 <figure style="max-width: 560px">
     <img src="/images/work/telkom-tone-of-voice/dimensions.png" alt="NN/g's four dimensions of tone of voice, with clusters of colored dots on each scale, mostly toward formal, serious, respectful and matter-of-fact" loading="lazy" />
-    <figcaption>Dots first, on NN/g's four dimensions (chart by NN/g).</figcaption>
+    <figcaption>Dot votes on NN/g's four dimensions of tone (chart by NN/g).</figcaption>
 </figure>
 
 <figure class="wide">
     <img src="/images/work/telkom-tone-of-voice/tone-words.png" alt="Four rows of tone words on sticky notes, one row per dimension, with voting dots on Trustworthy, Professional, Informative, Precise, Considerate and Empowering" loading="lazy" />
-    <figcaption>Then the words. The INAProc workshop, June 16, 2025.</figcaption>
+    <figcaption>Tone-word votes at the INAProc workshop, June 16, 2025.</figcaption>
 </figure>
 
 After the workshop, a writer from the hub turns the votes into four named principles, with old copy and new side by side.
@@ -59,7 +59,7 @@ Here are three of them, each written by someone on my team.
 
 ### Pijar
 
-Pijar runs schools, for the people who manage them, the teachers, and the students and their parents. Its voice is the lightest of the three. It even calls users "kamu" (the casual "you"), because students use it too. Every other product here says "Anda."
+Pijar helps run schools, for the people who manage them, the teachers, and the students and their parents. Its voice is the lightest of the three. It even calls users "kamu" (the casual "you"), because students use it too. Every other product here says "Anda."
 
 We pictured it as The Body Shop for schools and Lush for students (one educates, the other plays).
 
@@ -72,7 +72,7 @@ We pictured it as The Body Shop for schools and Lush for students (one educates,
   </ol>
 </figure>
 
-When a student didn't link their account, the old screen said "Akun Gagal Terhubung" (Account failed to connect). The new one says what happened, "Siswa Menolak Menghubungkan Akun" (The student declined to connect the account), and what to do next: "Silakan coba konfirmasi ulang pada siswa dan coba hubungkan akunmu lagi." (Please check with the student and try connecting your account again.)
+When a student didn't link their account, the old screen said "Akun Gagal Terhubung" (Account failed to connect). The recommended one says what happened, "Siswa Menolak Menghubungkan Akun" (The student declined to connect the account), and what to do next: "Silakan coba konfirmasi ulang pada siswa dan coba hubungkan akunmu lagi." (Please check with the student and try connecting your account again.)
 
 <figure class="wide">
   <img src="/images/work/telkom-tone-of-voice/pijar-before-after.jpg" alt="A slide from Pijar's tone of voice recommendation: the old Akun Gagal Terhubung dialog beside the new title, body and the reason for the change" loading="lazy" />
@@ -96,7 +96,7 @@ It comes in three registers: official for policies and terms, everyday for most 
   </ol>
 </figure>
 
-One principle, Informed Action, came straight from Pijar. Some principles travel well across products.
+One principle, Informed Action, came straight from Pijar.
 
 <figure class="wide">
   <img src="/images/work/telkom-tone-of-voice/inaproc-roles.jpg" alt="Four cards on the INAProc portal, one per role: Masyarakat, Calon Penyedia, Instansi Pemerintah and Media dan Organisasi Masyarakat, each with an illustration and a short line on what they can do" loading="lazy" />
@@ -125,7 +125,7 @@ So the team recommended Bahasa Indonesia first, with English versions alongside,
   </ol>
 </figure>
 
-"Your status is back to active." became "Anda Kembali Dalam Mode Aktif" (You're back in active mode), followed by "Anda bisa kembali menerima pesan pelanggan…" (You can receive customer messages again…). On Lite, it reads "Anda bisa membalas pesan pelanggan lagi…" (You can reply to customer messages again…).
+In the recommendation, "Your status is back to active." becomes "Anda Kembali Dalam Mode Aktif" (You're back in active mode), followed by "Anda bisa kembali menerima pesan pelanggan…" (You can receive customer messages again…). On Lite, it reads "Anda bisa membalas pesan pelanggan lagi…" (You can reply to customer messages again…).
 
 <figure class="wide">
   <img src="/images/work/telkom-tone-of-voice/oca-before-after.jpg" alt="A slide from OCA's tone of voice recommendation: the old English toast Your status is back to active beside the new Bahasa Indonesia and English versions, with the reason" loading="lazy" />
@@ -145,13 +145,13 @@ Recommendation by [Aisyah Ardine](https://www.linkedin.com/in/aisyahardine), [Fi
 
 The voices live in our standardization repo, next to the hub's other standards. Writers go back to them as they work. When we audit a product's content, the rubric scores its copy against that product's own voice.
 
-Some of the principles now also live as Markdown instructions for an AI design agent, so it can apply them as it designs. Down the line, whoever writes on a design, writer or not, can play with the words without worrying about the rules.
+Some of the principles now also live as Markdown instructions for an AI design agent, so it can apply them as it designs. The hope is that, down the line, whoever writes on a design, writer or not, can play with the words without worrying about the rules.
 
 ## Hear it slip
 
-The voices also tie the products' design standards together. And they changed what teams listen for. Product teams and their managers know how their product should sound, and they notice when a line doesn't.
+The voices also tie the products' design standards together.
 
-When I joined, one guideline spoke for every product. Now each product has a voice of its own, and the people who build it can hear when it slips.
+When I joined, one guideline spoke for every product. Now each product we worked with has a voice of its own, and its product teams and managers can hear when it slips.
 
 <div class="shots even">
   <figure style="--ratio: 1.6">
