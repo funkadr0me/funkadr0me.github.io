@@ -2,7 +2,7 @@
 title: Designing GenAI interaction
 client: Telkom Indonesia
 summary: Telkom built its own AI assistant so company data would stay in the company. I gave it a voice, from the persona and the system prompt to every word around the chat.
-order: 5
+order: 2
 tone: teal
 role: Conversation designer and UX writer
 cardRole: Conversation designer, UX writer

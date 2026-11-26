@@ -141,6 +141,9 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
    place. The sections are scrolled to just under the header, so each height takes off what its scroll margin leaves. */
 :root { --screen: calc(100svh - var(--header-h)); }
 #work { min-height: calc(var(--screen) - var(--space-sm)); }
+/* Like Experience, Work keeps only the cue's room under its last row (not the full rhythm), so five cards
+   and the archive strip fit one 1440 x 900 screen. The next section starts a screen down either way. */
+#work { padding-bottom: calc(44px + var(--space-sm)); }
 .section.top[id] { min-height: calc(var(--screen) - var(--space-sm) + var(--rhythm)); }
 .about { min-height: var(--screen); display: flex; }
 .about-inner { flex: 1 1 auto; align-content: start; }
@@ -169,8 +172,8 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
 /* 3 · Work index ----------------------------------------------------------------- */
 /* Cards are in ProjectCard.astro; the grid sets how many sit across: four on a wide screen, so the
    whole index fits one screen, two on a tablet, one on a phone. With five case cards (`.five`) it is
-   five across, with the archive as a strip under them (8px below the row, so the section still fits
-   1440 x 900), and three across below 80rem. (The advertising page's `.index` stays a column of rows.) */
+   five across, with the archive as a strip under them (24px below the row, so the links clear its
+   hairline), and three across below 80rem. (The advertising page's `.index` stays a column of rows.) */
 .index { display: flex; flex-direction: column; }
 .index.cards {
   display: grid;
@@ -178,7 +181,7 @@ html.motion:has(.hero) { scroll-snap-type: y proximity; }
   column-gap: var(--gap-columns);
   row-gap: var(--space-md);
 }
-.index.cards.five { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: var(--space-xs); }
+.index.cards.five { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: var(--space-gutter); }
 @media (max-width: 80rem) {
   .index.cards.five { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-md); }
 }
