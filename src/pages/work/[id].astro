@@ -23,6 +23,8 @@ const { Content } = await render(entry);
   backLabel="All work"
   externalLink={data.link}
   externalLabel={data.linkLabel ?? 'See it live'}
+  image={data.thumb ?? data.image}
+  imageAlt={data.thumb ? data.thumbAlt : data.imageAlt}
 >
   <div slot="meta" class="meta" data-intro style="--intro-delay: 0.3s">
     {data.role && (

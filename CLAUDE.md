@@ -62,8 +62,11 @@ src/pages/index.astro          home page (hero, work index, about band, writing 
 src/pages/work/[id].astro      case study pages
 src/pages/writing/[id].astro   article pages
 src/pages/resume.astro         the resume page (/resume/), also the source of the PDF
+src/pages/404.astro            the not-found page GitHub Pages serves for any missing address
+src/pages/sitemap.xml.ts       the sitemap; add a new hand-made page to its list (project and writing pages are automatic)
+src/pages/robots.txt.ts        robots.txt: everything may be crawled; points at the sitemap
 scripts/resume-pdf.mjs         prints /resume/ to public/Purna-Anantha-Resume.pdf with headless Chrome
-src/layouts/BaseLayout.astro   <head>, nav, footer, motion on-switch
+src/layouts/BaseLayout.astro   <head> (canonical address and shared-link tags), nav, footer, motion on-switch
 src/layouts/ArticleLayout.astro  shared layout + Markdown prose styles: a centred 680px text column in a 1100px band (`.shots` and `figure.wide` take the band; narrower pictures and the cover start on the text's left edge; `.shots.in-column` keeps a row to the text column); `<div class="shots even">` with `style="--ratio: w/h"` on each figure sets mixed-shape pictures at one height
 src/components/                Nav, Button, Tag, ProjectCard (a card of the work grid, or a compact row on the advertising page), SectionHeader, Footer
 src/styles/tokens.css          design tokens + type classes
@@ -92,6 +95,12 @@ Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: exactly one
 - Built to be ATS-friendly: one column of real text, standard headings (Summary, Work experience, Skills, Education, Certifications, Awards, Languages), plain dates ("January 2023 - Present"), role / company / dates on separate lines, no icons, no text in images, no layout tables, no motion hooks (`data-reveal`). Keep it that way.
 - The PDF is the same page printed with its `@media print` rules (A4, black on white, Georgia and Arial: the Novela and Basier webfonts are licensed for this website only, so they are not embedded). It is tagged, titled and about 150 KB. **After any change to `resume.json` or the print rules, run `npm run resume:pdf` and commit the PDF**; Pages CMS edits don't regenerate it, and the deploy workflow doesn't either.
 - The home page's `.job`, `.awards`, `.contact` classes are global (home.css); the resume page's own classes are named `.entry`, `.reach` and so on to stay clear of them.
+
+## Search and shared links
+
+- Every page but the 404 has a canonical address and Open Graph tags (`BaseLayout.astro`), built from `site` in `astro.config.mjs`, so a custom domain carries over to them, the sitemap and robots.txt.
+- A shared link shows the project's `thumb` (or `image`) on work pages, and `public/images/share.jpg` (1200 x 630: the portrait in black and white on claret, no type, so no webfont is baked into a picture) everywhere else. Remake it if the portrait changes.
+- The 404 is `noindex` and out of the sitemap, and no nav link is marked on it.
 
 ## Motion
 
