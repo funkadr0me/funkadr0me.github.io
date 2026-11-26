@@ -10,17 +10,27 @@
   ],
   "verbs": [
     "Shuffling",
+    "Designing",
     "Juggling",
+    "Mapping",
     "Trimming",
+    "Testing",
     "Tuning",
-    "Crafting"
+    "Shaping",
+    "Crafting",
+    "Making"
   ],
   "nouns": [
     "words",
+    "prompts",
     "tone",
+    "personas",
     "labels",
+    "flows",
     "scripts",
-    "stories"
+    "voices",
+    "stories",
+    "journeys"
   ],
   "headlineTail": "across platforms.",
   "intro": "I write and strategize for experiences on every medium (and lately, I lead). Today that’s the UX Writer Hub at Telkom Indonesia.",
