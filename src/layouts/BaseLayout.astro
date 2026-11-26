@@ -12,6 +12,7 @@ interface Props {
   image?: string;       // the picture a shared link shows (a path under public/); the share card when unset
   imageAlt?: string;
   noindex?: boolean;    // a page search engines should skip (the 404): no canonical address, no share tags
+  footerToTop?: boolean; // the footer's "Back to the top" link; off on the home page, whose contact band ends in it as a cue
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   image,
   imageAlt,
   noindex = false,
+  footerToTop = true,
 } = Astro.props;
 
 // The page's one official address, and the picture as a full address: shared-link previews need both absolute.
@@ -70,7 +72,7 @@ const shareAlt = image ? imageAlt : 'Purna Anantha, smiling, in black and white 
     <main id="top">
       <slot />
     </main>
-    <Footer />
+    <Footer toTop={footerToTop} />
     <script>
       import '../scripts/motion';
     </script>

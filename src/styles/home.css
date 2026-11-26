@@ -131,11 +131,11 @@ html { scrollbar-color: var(--color-rule) var(--color-paper); }
 .cue:hover { color: var(--color-accent); }
 .cue:hover .cue-text, .cue:focus-visible .cue-text { text-decoration-color: currentColor; }
 /* Each cue sits 8px above the bottom of its screen, on the left margin, in the section's bottom padding. */
-.section, .about-inner { position: relative; }
-.section > .cue, .about-inner > .cue { position: absolute; left: var(--space-margin); bottom: var(--space-xs); }
+.section, .about-inner, .contact-inner { position: relative; }
+.section > .cue, .about-inner > .cue, .contact-inner > .cue { position: absolute; left: var(--space-margin); bottom: var(--space-xs); }
 .section.top:has(> .cue) { padding-bottom: calc(44px + var(--space-sm)); } /* room for the cue under the last row */
-.about .cue { color: var(--color-accent-ink); }
-.about .cue:hover { color: var(--color-accent-ink); }
+.about .cue, .contact .cue { color: var(--color-accent-ink); }
+.about .cue:hover, .contact .cue:hover { color: var(--color-accent-ink); }
 
 /* Work, About and Experience are each one screen tall at least (the hero is too), so every cue lands in the same
    place. The sections are scrolled to just under the header, so each height takes off what its scroll margin leaves. */

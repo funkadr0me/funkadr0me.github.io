@@ -29,7 +29,7 @@ const rolesSentence = roles.length > 1 ? `${roles.slice(0, -1).join(', ')} and $
 const parts = (value: string) => value.split(' · ');
 ---
 
-<BaseLayout>
+<BaseLayout footerToTop={false}>
   <!-- Hero -->
   <section class="container hero">
     <div class="hero-title">
@@ -144,6 +144,7 @@ const parts = (value: string) => value.split(' · ');
           <Button href={links.linkedin} variant="secondary">LinkedIn</Button>
         </div>
       </div>
+      <ScrollCue href="#top" label="That’s me, top to bottom. Back to the top" arrow="↑" />
     </div>
   </section>
 </BaseLayout>

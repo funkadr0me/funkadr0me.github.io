@@ -3,6 +3,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* "Back to the top" (in the footer) goes to <main id="top">; the large margin lands it at the very top of the page,
+   above the sticky header, where the scroll clamps to 0. */
+#top { scroll-margin-top: 100vh; }
 
 body {
   margin: 0;
