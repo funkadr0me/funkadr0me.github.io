@@ -6,8 +6,10 @@ import ScrollCue from '../components/ScrollCue.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { settings, getProjects, getWriting, experience, awards, companyLogos, logoSize, links, WRITING_SECTION_MIN } from '../data/site';
+import { PORTRAIT_WIDTHS, responsive } from '../data/pictures';
 
 const projects = await getProjects();
+const portrait = settings.portrait ? await responsive(settings.portrait, PORTRAIT_WIDTHS) : undefined;
 // Earlier work lives on its own page (/work/advertising-and-scriptwriting/), reached from the archive row.
 const current = projects.filter((project) => project.era === 'now');
 // The case cards share one row on a wide screen: four across, five once there are five. The archive (`strip`) is a
@@ -65,7 +67,7 @@ const parts = (value: string) => value.split(' · ');
   <section class="about" id="about" data-wipe>
     <div class="container about-inner grid-12">
       <h2 class="headline-lg about-head">{settings.aboutLabel}</h2>
-      {settings.portrait && <img class="about-portrait" src={settings.portrait} alt={settings.portraitAlt ?? ''} width="900" height="900" loading="lazy" />}
+      {portrait && <img class="about-portrait" {...portrait} sizes={portrait.srcset && '(max-width: 60rem) 192px, 256px'} alt={settings.portraitAlt ?? ''} loading="lazy" />}
       <div class="about-body">
         <div class="about-text">
           {settings.about.split(/\n+/).filter(Boolean).map((paragraph) => <p>{paragraph}</p>)}

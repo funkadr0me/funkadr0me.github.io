@@ -40,6 +40,7 @@ Content and code are separate; the CMS only touches `src/content/` and `public/i
 - A project/article with text below its frontmatter gets its own page (`/work/<file>/`, `/writing/<file>/`); with no text it links to `link`.
 - The email is stored in two parts, `emailUser` and `emailDomain` in `settings.json`, and `src/components/Email.astro` joins them in the browser, so the address isn't one plain string in the page HTML or the repo file (light spam protection, November 2026). Without JavaScript it reads "name [at] domain". Use `<Email />` wherever the address is shown. The resume PDF still carries the full address (Chrome runs the script when printing), as it should for applications. When the custom domain is bought, the plan is a forwarding address (e.g. hello@domain) in place of the Gmail.
 - `src/data/site.ts` loads everything for the pages (`getProjects`, `getWriting`, `settings`, …).
+- Upload pictures at full size. At build the home page's work thumbs and the portrait get smaller WebP copies (`src/pages/resized/[...file].ts`, widths in `src/data/pictures.ts`, served with `srcset`), and any picture from `/images/` without a size, mostly those in case-study Markdown, is given its width and height (`src/integrations/image-sizes.mjs`, build only), so keep `height: auto` on picture styles. The `sizes` string in `ProjectCard.astro` follows the work grid's columns in `home.css`: change them together.
 - **When adding or renaming a content field, update both `src/content.config.ts` and `.pages.yml`.**
 
 ## Design system
@@ -75,6 +76,9 @@ src/styles/home.css            the home page's layout (Hallmark stamp on line 1)
 src/styles/motion.css          all animation (one easing curve, durations at the top)
 src/scripts/motion.ts          scroll reveals, frosted nav past hero, starts the split-flap headline
 src/scripts/flip-headline.ts   the split-flap hero headline
+src/data/pictures.ts           picture sizes and the names of the smaller copies
+src/pages/resized/[...file].ts makes those copies at build
+src/integrations/image-sizes.mjs adds width and height to pictures after the build
 prototypes/                    standalone HTML experiments — not part of the build
 ```
 
@@ -116,11 +120,11 @@ Ported from `prototypes/split-flap.html`, look **"C · Type"** (kept as the refe
 - Content: `verbs`, `nouns` (two lists, any lengths) and `headlineTail` in `settings.json`, editable in Pages CMS. The static HTML shows the first verb and the first noun; the loop turns both wheels one step at a time, so with different lengths the combinations keep shifting.
 - Motion: at rest it is plain type. When a word changes, the script has split it into letter cells, and each letter folds about its middle like an airport departure board, passing through two to five other letters before it lands (an unchanged letter stays put; a capital passes through capitals). The verb flips first, left to right; the noun starts once it has landed. A hairline shows across a letter only while it turns. Each cell is as wide as its glyph and snaps to the new letter's width as it lands (no width transition: Hallmark gate 10a). Timings are constants at the top of `src/scripts/flip-headline.ts`; styles are section 6 of `motion.css`.
 - Each word keeps as many cells as its wheel's longest word; spare cells hold a blank of no width. Letter cells break Novela's ligatures (ffl), which reads fine at this size.
-- Verb and noun always share one line; the script fits the headline font size to the longest pair (128px, the clamp's top, at 1440). The current words are short enough that no pair needs shrinking (36px on a 375px phone); a long word would shrink every pair, so keep them short.
+- Verb and noun always share one line; the script fits the headline font size to the longest pair (128px, the clamp's top, at 1440). The longest pair is shrunk to fit a phone (about 39px on a 375px one); a longer word would shrink every pair further, so keep them short.
 - Accessibility: `aria-label` on the `<h1>` holds the current full sentence; the letter cells are `aria-hidden`. Without JS or with reduced motion it is the first pair, static, wrapping normally (36px under 40rem, set in `motion.css`, since nothing fits it to the screen then).
 - Loops pause (Hallmark gate 18, WCAG 2.2.2): `src/scripts/loop-control.ts` gates the headline on being on screen, tab visible, pointer/focus away, and the pause button, a 44px icon (pause bars, play triangle once held; named "Pause motion" / "Play motion" by `aria-label`) at the headline's bottom right (under it on a narrow screen), not in a button row. WCAG 2.2.2 (level A) asks for a pause control on anything that moves past five seconds, so it stays; sloplint itself only warns about CSS loops without a pause state. A change that has begun always finishes.
 - Verb and noun are two wheels: a click on the verb flips just the verb, a click on the noun just the noun, so new combinations appear. Each word is a real button laid over its slot (`flip-hit`) with a claret hairline cue on hover/focus (always faint on touch); a visitor's click restarts the 4.5s rest; keyboard focus pauses the loop. The sentence lives in the `<h1>` aria-label plus a polite status line.
-- Words chosen November 2026: verbs Shuffling, Juggling, Trimming, Tuning, Crafting; nouns words, tone, labels, scripts, stories. Every verb has to read with every noun.
+- Words chosen November 2026, in turning order: Shuffling words, Designing prompts, Juggling tone, Mapping personas, Trimming labels, Testing flows, Tuning scripts, Shaping voices, Crafting stories, Making journeys. Ten verbs and ten nouns, so the loop keeps these ten pairs (the owner paired them; "Making journeys" is deliberate); a click on one word still mixes them, so every verb has to read with every noun.
 - Hero button: one, "Read the case studies" (to #work). Resume and Contact are left to the nav, which shows on every page, so the hero repeats neither; "Give me a shout." is only the contact headline, and "Full resume" stays in the road-so-far header.
 - Open: whether a combination should link to a project (not built).
 

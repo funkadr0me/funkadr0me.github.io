@@ -1,6 +1,7 @@
 ---
 import Tag from './Tag.astro';
 import type { Project } from '../data/site';
+import { CARD_WIDTHS, pictureSize, responsive } from '../data/pictures';
 
 // One piece of work. On the home page it is a card in the work grid: picture, who it was for,
 // what it was, where to read it; its tags are left to the case study, to keep the grid light.
@@ -20,6 +21,11 @@ const linkLabel = project.linkLabel ?? 'View project';
 // A bracketed summary is the CMS's "still to fill in" marker; it stays in the CMS but is not shown.
 const summary = /^\[.*\]$/.test(project.summary.trim()) ? '' : project.summary;
 const Title = level === 2 ? 'h2' : 'h3';
+// A card's picture comes in smaller copies; a row's still is small already and only needs its size stated.
+const picture = project.thumb && !compact ? await responsive(project.thumb, CARD_WIDTHS) : undefined;
+const still = project.thumb && compact ? await pictureSize(project.thumb) : undefined;
+// How wide a card is drawn (home.css, the work grid): one, two, three, then five across.
+const cardSizes = '(max-width: 40rem) calc(100vw - 32px), (max-width: 72rem) 50vw, (max-width: 80rem) 31vw, 237px';
 ---
 
 {compact ? (
@@ -29,7 +35,7 @@ const Title = level === 2 ? 'h2' : 'h3';
       {project.blockText && <p class="figure">{project.blockText}</p>}
     </div>
     <div class="what">
-      {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
+      {project.thumb && <img class="media" {...still} src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
       <Title class="title headline-md">{project.title}</Title>
       {summary && <p class="summary">{summary}</p>}
     </div>
@@ -47,7 +53,7 @@ const Title = level === 2 ? 'h2' : 'h3';
   </article>
 ) : (
   <article class:list={['item card', { strip }]} data-reveal style={`--d: ${index * 0.08}s`}>
-    {project.thumb && <img class="media" src={project.thumb} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
+    {picture && <img class="media" {...picture} sizes={picture.srcset && cardSizes} alt={project.thumbAlt ?? ''} loading={lead ? 'eager' : 'lazy'} fetchpriority={lead ? 'high' : undefined} />}
     <p class="client body-sm muted">{project.client}{(project.cardRole || project.blockText) && <span> · {project.cardRole || project.blockText}</span>}</p>
     <Title class="title card-title">{project.title}</Title>
     {summary && <p class="summary body-sm">{summary}</p>}
@@ -75,7 +81,7 @@ const Title = level === 2 ? 'h2' : 'h3';
     padding-top: var(--space-sm);
     border-top: 1px solid var(--color-rule);
   }
-  .card .media { aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 0%; margin-bottom: var(--space-xs); }
+  .card .media { height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 0%; margin-bottom: var(--space-xs); }
   .card .client { margin-bottom: calc(-1 * var(--space-xs)); }
   .card-title {
     font-family: var(--font-display);
