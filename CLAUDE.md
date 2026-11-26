@@ -99,7 +99,7 @@ Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: exactly one
 ## Search and shared links
 
 - Every page but the 404 has a canonical address and Open Graph tags (`BaseLayout.astro`), built from `site` in `astro.config.mjs`, so a custom domain carries over to them, the sitemap and robots.txt.
-- A shared link shows the project's `thumb` (or `image`) on work pages, and `public/images/share.jpg` (1200 x 630: the portrait in black and white on claret, no type, so no webfont is baked into a picture) everywhere else. Remake it if the portrait changes.
+- A shared link shows the project's `thumb` (or `image`) on work pages, and `public/images/share-card.jpg` (1714 x 900: the portrait at its full 900px, in black and white on claret, no type, so no webfont is baked into a picture) everywhere else. Remake it if the portrait changes, under a new file name, because LinkedIn keeps its copy of a picture by address. A page with no description of its own (the home page) uses the hero's `intro` from `settings.json`; LinkedIn asks for at least 100 characters.
 - The 404 is `noindex` and out of the sitemap, and no nav link is marked on it.
 
 ## Motion
