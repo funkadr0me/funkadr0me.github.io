@@ -79,6 +79,11 @@ When a student didn't link their account, the old screen said "Akun Gagal Terhub
   <figcaption>The account-linking error, before and after, from Pijar's recommendation.</figcaption>
 </figure>
 
+<figure class="wide">
+  <img src="/images/work/telkom-tone-of-voice/pijar-live.jpg" alt="The Pijar website's home page: the headline Masa Depan Digital untuk Institusi yang Berdaya beside an illustration of teachers and students" loading="lazy" />
+  <figcaption>Pijar's website today.</figcaption>
+</figure>
+
 Recommendation by [Prilidanti Oktarizkia](https://www.linkedin.com/in/prilidanti-oktarizkia-516340129). Website copy by [Ranistia Hana Pratiwi](https://www.linkedin.com/in/ranistiahanapratiwi) and Prilidanti, with Pijar's marketing team. [Visit pijarsekolah.id](https://pijarsekolah.id/)
 
 ### INAProc
@@ -86,6 +91,11 @@ Recommendation by [Prilidanti Oktarizkia](https://www.linkedin.com/in/prilidanti
 INAProc is where the government buys: ministries, agencies, local governments, and the businesses that sell to them. Its old copy was a mouthful, full of jargon, and it kept users at arm's length. The new voice is "the professional who treats you with respect."
 
 It comes in three registers: official for policies and terms, everyday for most screens, and community for social posts and newsletters. The everyday one greets you on the portal: "Lihat, pahami, dan ikut berpartisipasi dalam pengadaan pemerintah" (See, understand and take part in government procurement).
+
+<figure class="wide">
+  <img src="/images/work/telkom-tone-of-voice/inaproc-live.jpg" alt="The INAProc portal's home page: a banner announcing the new look, then PORTAL INAPROC over a photo of the LKPP building, with the line Lihat, pahami, dan ikut berpartisipasi dalam pengadaan pemerintah melalui satu ekosistem INAPROC" loading="lazy" />
+  <figcaption>The line greets visitors on INAProc's new portal.</figcaption>
+</figure>
 
 <figure>
   <ol class="card principles">
@@ -135,6 +145,11 @@ In the recommendation, "Your status is back to active." becomes "Anda Kembali Da
 The dashboard still speaks English today, but it speaks in the new voice. Its messages say what happened, then what you can do next.
 
 <figure class="wide">
+  <img src="/images/work/telkom-tone-of-voice/oca-live.jpg" alt="The OCA Interaction inbox, with a You're out of Quota alert above a customer conversation" loading="lazy" />
+  <figcaption>OCA Interaction's inbox, with a quota alert above a customer conversation.</figcaption>
+</figure>
+
+<figure class="wide">
   <img src="/images/work/telkom-tone-of-voice/oca-messages.jpg" alt="Five messages from OCA Interaction: a You're Away banner with a Back to Active button, a You're out of Quota alert with Add Quota, a Contact Added Successfully toast, a report-ready notification, and a Switch to Away Mode dialog" loading="lazy" />
   <figcaption>Messages in OCA Interaction, from its product guide.</figcaption>
 </figure>
@@ -150,18 +165,3 @@ Some of the principles now also live as Markdown instructions for an AI design a
 ## Hear it slip
 
 When I joined, one guideline spoke for every product. Now each product we worked with has a voice of its own, and its product teams and managers can hear when it slips.
-
-<div class="shots even">
-  <figure style="--ratio: 1.6">
-    <img src="/images/work/telkom-tone-of-voice/pijar-live.jpg" alt="The Pijar website's home page: the headline Masa Depan Digital untuk Institusi yang Berdaya beside an illustration of teachers and students" loading="lazy" />
-    <figcaption>Pijar</figcaption>
-  </figure>
-  <figure style="--ratio: 1.513">
-    <img src="/images/work/telkom-tone-of-voice/inaproc-live.jpg" alt="The INAProc portal's home page: a banner announcing the new look, then PORTAL INAPROC over a photo of the LKPP building, with the line Lihat, pahami, dan ikut berpartisipasi dalam pengadaan pemerintah melalui satu ekosistem INAPROC" loading="lazy" />
-    <figcaption>INAProc</figcaption>
-  </figure>
-  <figure style="--ratio: 1.778">
-    <img src="/images/work/telkom-tone-of-voice/oca-live.jpg" alt="The OCA Interaction inbox, with a You're out of Quota alert above a customer conversation" loading="lazy" />
-    <figcaption>OCA</figcaption>
-  </figure>
-</div>
