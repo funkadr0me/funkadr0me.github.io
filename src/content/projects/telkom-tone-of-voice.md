@@ -1,7 +1,7 @@
 ---
 title: A voice for every product
 client: Telkom Indonesia
-summary: Telkom's products had outgrown one shared voice. I led the hub that found each one its own, together with the teams who build them.
+summary: Telkom's products had outgrown one shared voice. I led the hub that helped products find their own, together with the teams who build them.
 order: 4
 tone: claret
 role: Head and team lead, UX Writer Hub
@@ -55,7 +55,7 @@ Each product had its own writer from the hub, often a junior one, and I oversaw 
 
 ## Three products, three voices
 
-Here are three of them, each written by someone on my team.
+Someone on my team wrote each of these three.
 
 ### Pijar
 
@@ -145,11 +145,9 @@ Recommendation by [Aisyah Ardine](https://www.linkedin.com/in/aisyahardine), [Fi
 
 The voices live in our standardization repo, next to the hub's other standards. Writers go back to them as they work. When we audit a product's content, the rubric scores its copy against that product's own voice.
 
-Some of the principles now also live as Markdown instructions for an AI design agent, so it can apply them as it designs. The hope is that, down the line, whoever writes on a design, writer or not, can play with the words without worrying about the rules.
+Some of the principles now also live as Markdown instructions for an AI design agent, so it can apply them as it designs. The hope is that, down the line, whoever writes on a design, writer or not, can play with the words without worrying about the rules. The voices also tie the products' design standards together.
 
 ## Hear it slip
-
-The voices also tie the products' design standards together.
 
 When I joined, one guideline spoke for every product. Now each product we worked with has a voice of its own, and its product teams and managers can hear when it slips.
 
