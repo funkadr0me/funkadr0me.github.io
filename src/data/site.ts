@@ -107,8 +107,9 @@ export async function getProjects(): Promise<Project[]> {
       title: data.title,
       summary: data.summary,
       href: writeUp ? workUrl(entry.id) : (data.link ?? '#work'),
-      // With a write-up the row opens the case study; `linkLabel` then names the external link on that page.
-      linkLabel: writeUp ? 'Case study' : data.linkLabel,
+      // With a write-up the row opens the case study, so its link text is `cardLabel`; `linkLabel` then names
+      // the external link on that page.
+      linkLabel: writeUp ? (data.cardLabel ?? 'Case study') : data.linkLabel,
       secondLink: data.secondLink,
       secondLinkLabel: data.secondLinkLabel,
       hasWriteUp: writeUp,

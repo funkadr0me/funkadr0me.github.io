@@ -2,6 +2,7 @@
 title: A voice for every product
 client: Telkom Indonesia
 summary: Telkom's products had outgrown one shared voice. I led the hub that helped products find their own, together with the teams who build them.
+cardLabel: Read the Telkom voice case
 order: 1
 tone: claret
 role: Head and team lead, UX Writer Hub

@@ -2,6 +2,7 @@
 title: Careers website
 client: Bukalapak
 summary: Bukalapak’s careers site, written plain before the IPO. A personality quiz matched people to the values.
+cardLabel: Read the careers website case
 order: 3
 tone: oxford
 role: Product Content Strategist Manager (UX writing lead)
