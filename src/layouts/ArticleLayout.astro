@@ -10,12 +10,14 @@ interface Props {
   backLabel: string;
   externalLink?: string;
   externalLabel?: string;
+  image?: string;           // shown when the link is shared
+  imageAlt?: string;
 }
 
-const { title, kicker, description, backHref, backLabel, externalLink, externalLabel } = Astro.props;
+const { title, kicker, description, backHref, backLabel, externalLink, externalLabel, image, imageAlt } = Astro.props;
 ---
 
-<BaseLayout title={`${title} • Purna Anantha`} description={description}>
+<BaseLayout title={`${title} • Purna Anantha`} description={description} image={image} imageAlt={imageAlt}>
   <article class="container article">
     <header class="article-head">
       <a class="back u-draw body-sm" href={backHref}>← {backLabel}</a>

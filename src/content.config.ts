@@ -36,6 +36,7 @@ const projects = defineCollection({
     ),
     link: optionalText,                     // external link, used when there's no write-up
     linkLabel: optionalText,
+    cardLabel: optionalText,                // the home card's link text when there's a case study (else "Case study")
     secondLink: optionalText,               // an optional extra link on the row, e.g. an article about the work
     secondLinkLabel: optionalText,
     era: z.preprocess(blank, z.enum(['now', 'earlier']).catch('now').default('now')), // 'earlier' = on the advertising & scriptwriting page

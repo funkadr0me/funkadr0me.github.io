@@ -10,17 +10,27 @@
   ],
   "verbs": [
     "Shuffling",
+    "Designing",
     "Juggling",
+    "Mapping",
     "Trimming",
+    "Testing",
     "Tuning",
-    "Crafting"
+    "Shaping",
+    "Crafting",
+    "Making"
   ],
   "nouns": [
     "words",
+    "prompts",
     "tone",
+    "personas",
     "labels",
+    "flows",
     "scripts",
-    "stories"
+    "voices",
+    "stories",
+    "journeys"
   ],
   "headlineTail": "across platforms.",
   "intro": "I write and strategize for experiences on every medium (and lately, I lead). Today that’s the UX Writer Hub at Telkom Indonesia.",
@@ -29,7 +39,7 @@
   "portrait": "/images/about/portrait.jpg",
   "portraitAlt": "Purna smiling by an office window, in a hoodie with Elmo on it",
   "contactHeadline": "Give me a shout.",
-  "contactText": "Write to me about a full-time role, remote freelance work or a talk (or ask where to find the best fried rice in Jakarta).",
+  "contactText": "Write to me about a project, a collaboration or a talk (or ask where to find the best fried rice in Jakarta).",
   "emailUser": "purnadyka",
   "emailDomain": "gmail.com",
   "linkedin": "https://www.linkedin.com/in/pdanantha/"

@@ -2,7 +2,8 @@
 title: Year End Review 2018
 client: Mitra Bukalapak
 summary: A year-end recap for corner shop owners who joined Mitra Bukalapak, told as a neighborhood thanksgiving. I wrote the story, the words around the numbers, and the titles.
-order: 3
+cardLabel: Read the Year End Review case
+order: 5
 tone: teal
 role: Product Content Strategist (UX writer)
 cardRole: UX writer

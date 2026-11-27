@@ -1,0 +1,31 @@
+---
+// GitHub Pages serves this (/404.html) for any address with no page.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="Page not found • Purna Anantha" description="There is no page at this address." noindex>
+  <section class="container missing">
+    <p class="body-sm muted">Error 404</p>
+    <h1 class="headline-lg">This page isn’t here.</h1>
+    <p class="body-lg">The address may be old, or have a typo.</p>
+    <div class="actions">
+      <Button href="/#work">See the work</Button>
+      <Button href="/" variant="secondary">Go to the home page</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* One screen under the header, the message in the middle of it. */
+  .missing {
+    min-height: calc(100svh - var(--header-h));
+    padding-block: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-sm); }
+</style>

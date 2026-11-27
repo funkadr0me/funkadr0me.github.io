@@ -4,9 +4,10 @@
 interface Props {
   href: string;
   label: string;
+  arrow?: '↓' | '↑'; // ↑ for the last one, "Back to the top"
 }
 
-const { href, label } = Astro.props;
+const { href, label, arrow = '↓' } = Astro.props;
 ---
 
-<a class="cue" href={href}><span class="cue-text">{label}</span><span class="cue-arrow" aria-hidden="true">↓</span></a>
+<a class="cue" href={href}><span class="cue-text">{label}</span><span class="cue-arrow" aria-hidden="true">{arrow}</span></a>

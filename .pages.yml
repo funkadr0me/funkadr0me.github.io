@@ -138,6 +138,9 @@ content:
       - name: linkLabel
         label: Link text (optional)
         type: string
+      - name: cardLabel
+        label: Home card link text for a case study (name the page, e.g. "Read the careers website case")
+        type: string
       - name: secondLink
         label: Second link (optional, e.g. an article about this work)
         type: string

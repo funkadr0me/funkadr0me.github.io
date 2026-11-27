@@ -4,16 +4,28 @@ import '../styles/motion.css';
 import '../styles/home.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { settings } from '../data/site';
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;       // the picture a shared link shows (a path under public/); the share card when unset
+  imageAlt?: string;
+  noindex?: boolean;    // a page search engines should skip (the 404): no canonical address, no share tags
 }
 
 const {
   title = 'Purna Anantha • UX writer, content strategist, copywriter',
-  description = 'Writer, strategist, and team lead for top tech companies and advertising agencies.',
+  description = settings.intro, // the hero's intro (Pages CMS), so a shared link says what the home page says
+  image,
+  imageAlt,
+  noindex = false,
 } = Astro.props;
+
+// The page's one official address, and the picture as a full address: shared-link previews need both absolute.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const shareImage = new URL(image ?? '/images/share-card.jpg', Astro.site).href;
+const shareAlt = image ? imageAlt : 'Purna Anantha, smiling, in black and white on a claret background';
 ---
 
 <!doctype html>
@@ -22,6 +34,23 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="author" content="Purna Anantha" />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        <meta property="og:type" content={Astro.url.pathname.startsWith('/work/') || Astro.url.pathname.startsWith('/writing/') ? 'article' : 'website'} />
+        <meta property="og:site_name" content="Purna Anantha" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={shareImage} />
+        {shareAlt && <meta property="og:image:alt" content={shareAlt} />}
+        <meta name="twitter:card" content="summary_large_image" />
+      </>
+    )}
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/Novela-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -37,7 +66,7 @@ const {
     </script>
   </head>
   <body>
-    <Nav />
+    <Nav current={noindex ? '' : undefined} />{/* the 404 page belongs to no part of the site */}
     <main id="top">
       <slot />
     </main>
