@@ -42,6 +42,7 @@ export interface Settings {
   nouns: string[];
   headlineTail: string;
   intro: string;
+  description?: string;    // search results and shared links only (BaseLayout); the intro stands in when empty
   aboutLabel: string;
   about: string;
   portrait?: string;        // About band photo, shown in black and white
