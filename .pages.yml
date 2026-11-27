@@ -37,6 +37,9 @@ content:
       - name: intro
         label: Hero intro
         type: text
+      - name: description
+        label: Search and share description (shown under the link in Google and on shared LinkedIn cards; 100 to 160 characters)
+        type: text
       - name: aboutLabel
         label: About band — small label
         type: string
