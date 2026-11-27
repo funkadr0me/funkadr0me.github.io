@@ -7,6 +7,9 @@ order: 2
 tone: teal
 role: Conversation designer and UX writer
 cardRole: Conversation designer, UX writer
+timeline: From June 2025, live around August 17, 2025
+team: Designers, researchers, engineers, product owners and AI specialists
+outcome: 964 people used it in the first month
 tags:
 - label: Conversation design
   tone: oxford
@@ -34,7 +37,7 @@ When I joined the GenAI work in June 2025, it was a small research project. Then
   <figcaption>The launch banner: "Waspada! Data perusahaan bisa bocor di AI Chatbot eksternal" (Beware! Company data can leak through outside AI chatbots).</figcaption>
 </figure>
 
-I joined a team of designers, researchers, engineers, product owners and AI specialists, and came in to design the interface. Then I read what the model was saying.
+I joined a team of designers, researchers, engineers, product owners and AI specialists, and came in to write the interface. Then I read what the model was saying.
 
 ## Talk the walk
 

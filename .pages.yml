@@ -118,6 +118,15 @@ content:
       - name: cardRole
         label: Short role on the home card, a few words (e.g. UX writing lead)
         type: string
+      - name: timeline
+        label: Timeline, shown under your role (e.g. January to July 2019)
+        type: string
+      - name: team
+        label: Team by role, shown under your role (no names)
+        type: string
+      - name: outcome
+        label: Outcome in one line, shown under your role (leave blank if unsourced)
+        type: string
       - name: tags
         type: object
         list: true

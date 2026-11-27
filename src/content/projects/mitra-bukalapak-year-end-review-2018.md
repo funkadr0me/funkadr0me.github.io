@@ -7,6 +7,9 @@ order: 5
 tone: teal
 role: Product Content Strategist (UX writer)
 cardRole: UX writer
+timeline: End of 2018
+team: Product, designers, illustrators and the data team
+outcome: A fun, shareable way for Mitras to show off their year and keep the community happy
 tags:
 - label: Content strategy
   tone: oxford

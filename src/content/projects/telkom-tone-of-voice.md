@@ -7,6 +7,9 @@ order: 1
 tone: claret
 role: Head and team lead, UX Writer Hub
 cardRole: UX Writer Hub lead
+timeline: June 2024 to July 2025
+team: The hub's writers, with product, business and account teams
+outcome: Eight products with a strong, consistent voice across Telkom's digital ecosystem
 tags:
 - label: Content strategy
   tone: oxford

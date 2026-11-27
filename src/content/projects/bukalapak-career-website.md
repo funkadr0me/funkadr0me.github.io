@@ -7,6 +7,9 @@ order: 3
 tone: oxford
 role: Product Content Strategist Manager (UX writing lead)
 cardRole: UX writing lead
+timeline: Early 2021, live by April 2021
+team: CEO office oversight; designers, the human capital (HR) team, and brand and marketing
+outcome: A first look at the company's values for people thinking of joining
 tags:
 - label: Content strategy
   tone: oxford
