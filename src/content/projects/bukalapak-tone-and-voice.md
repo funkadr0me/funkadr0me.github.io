@@ -113,9 +113,9 @@ We said sorry when the fault was likely ours, or when the stakes were high, like
 
 The interviews also showed that designers often wrote their own error messages rather than wait for a writer. So I brought the principles into Bazaar, Bukalapak's design system, at the component level. When designers pick up a component, its copy framework comes along, so the voice travels even when no writer is in the room.
 
-## There's always a way
+## On the same page
 
-While we wrote, the creative team was building a new brand campaign: "Ada Aja Caranya" (There's always a way). We met every two weeks, and they used our principles to guide the campaign's voice. Senior stakeholders backed the voice too. It guided the product's design, and it took a bigger role in the in-app campaigns that followed.
+While we wrote, we also worked with the creative team. We met regularly, and they used our principles to guide their brand voice. Senior stakeholders backed the voice too. It guided the product's design, and it took a bigger role in the in-app campaigns that followed.
 
 Today, the tone and voice sits in Bukalapak's brand guideline, on the same page as the logo and the colors. The two voices that shared one screen in 2017 now share one page.
 
