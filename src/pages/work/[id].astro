@@ -57,7 +57,19 @@ const facts = [
 </ArticleLayout>
 
 <style>
-  .meta { display: flex; flex-direction: column; gap: var(--space-sm); }
+  /* The facts and tags come after the cover in the page, so a phone shows the picture sooner. On wider
+     screens they move up under the summary, as close to it as the lines of the header are to each other. */
+  .meta {
+    order: -1;
+    grid-column: text-start / wide-end;
+    margin-top: calc(var(--space-sm) - var(--space-md));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  @media (max-width: 40rem) {
+    .meta { order: 0; margin-top: 0; }
+  }
   /* Role, timeline, team and outcome: label beside its value, one hairline above the group. */
   .facts {
     margin: 0;

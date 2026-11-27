@@ -24,9 +24,9 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
       {kicker && <p class="body-sm muted" data-intro style="--intro-delay: 0s">{kicker}</p>}
       <h1 class="headline-lg" data-intro style="--intro-delay: 0.1s">{title}</h1>
       {description && <p class="body-lg lede" data-intro style="--intro-delay: 0.25s">{description}</p>}
-      <slot name="meta" />
     </header>
     <slot name="media" />
+    <slot name="meta" />
     <div class="prose" data-intro style="--intro-delay: 0.4s">
       <slot />
     </div>
@@ -53,6 +53,7 @@ const { title, kicker, description, backHref, backLabel, externalLink, externalL
   /* A list of rows (the advertising page) takes the whole band, like a wide picture. */
   .article > :global(.index) { grid-column: wide; }
   .article-head {
+    order: -2; /* first, ahead of a `meta` block that moves up over the picture (work/[id].astro) */
     grid-column: text-start / wide-end;
     display: flex;
     flex-direction: column;
