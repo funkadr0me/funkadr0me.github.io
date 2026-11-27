@@ -15,6 +15,13 @@ const { entry } = Astro.props;
 const { data } = entry;
 const { Content } = await render(entry);
 const coverSize = data.image ? await pictureSize(data.image) : undefined;
+// The facts under the title: role first, then when, with whom and what came of it. Blank ones are left out.
+const facts = [
+  ['Role', data.role],
+  ['Timeline', data.timeline],
+  ['Team', data.team],
+  ['Outcome', data.outcome],
+].filter((fact): fact is [string, string] => Boolean(fact[1]));
 ---
 
 <ArticleLayout
@@ -29,11 +36,15 @@ const coverSize = data.image ? await pictureSize(data.image) : undefined;
   imageAlt={data.thumb ? data.thumbAlt : data.imageAlt}
 >
   <div slot="meta" class="meta" data-intro style="--intro-delay: 0.3s">
-    {data.role && (
-      <p class="role-line">
-        <span class="role-label body-sm muted">Role</span>
-        <span class="role-name body-lg">{data.role}</span>
-      </p>
+    {facts.length > 0 && (
+      <dl class="facts">
+        {facts.map(([label, value]) => (
+          <div class="fact">
+            <dt class="body-sm muted">{label}</dt>
+            <dd class={label === 'Role' ? 'body-lg' : 'body-md'}>{value}</dd>
+          </div>
+        ))}
+      </dl>
     )}
     <div class="tags">
       {data.tags.map((tag) => <Tag tone={tag.tone}>{tag.label}</Tag>)}
@@ -47,13 +58,23 @@ const coverSize = data.image ? await pictureSize(data.image) : undefined;
 
 <style>
   .meta { display: flex; flex-direction: column; gap: var(--space-sm); }
-  .role-line {
+  /* Role, timeline, team and outcome: label beside its value, one hairline above the group. */
+  .facts {
     margin: 0;
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-sm);
+    display: grid;
+    gap: var(--space-xs);
     padding-top: var(--space-sm);
     border-top: 1px solid var(--tertiary);
+  }
+  .fact {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    column-gap: var(--space-sm);
+    align-items: baseline;
+  }
+  .fact dd { margin: 0; }
+  @media (max-width: 24rem) {
+    .fact { grid-template-columns: minmax(0, 1fr); }
   }
   .tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
   /* Shown whole, on the headline's left edge: covers range from wide screens to tall phone screens. */

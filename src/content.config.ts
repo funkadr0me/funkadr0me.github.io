@@ -30,6 +30,9 @@ const projects = defineCollection({
     blockText: optionalText,                // big text on the colour block
     role: optionalText,                     // e.g. "Design lead"; shown at the top of the case study
     cardRole: optionalText,                 // a few words, e.g. "UX writing lead"; shown after the client on the home card
+    timeline: optionalText,                 // facts at the top of the case study, under the role: when it ran
+    team: optionalText,                     // who it was made with, by role (no names)
+    outcome: optionalText,                  // one line on what came of it; sourced, or left blank
     tags: z.preprocess(
       blank,
       z.array(z.object({ label: z.string(), tone: z.preprocess(blank, tone.default('ink')) })).default([]),

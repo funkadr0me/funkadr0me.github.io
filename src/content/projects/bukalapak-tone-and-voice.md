@@ -7,6 +7,9 @@ order: 4
 tone: claret
 role: Product Content Strategist Manager (UX writing lead)
 cardRole: UX writing lead
+timeline: January to July 2019
+team: Nine writers (UX and creative), with design, research, product and marketing
+outcome: One voice for the app and the campaigns
 tags:
 - label: Content strategy
   tone: oxford

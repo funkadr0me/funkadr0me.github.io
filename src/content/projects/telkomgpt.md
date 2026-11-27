@@ -7,6 +7,9 @@ order: 2
 tone: teal
 role: Conversation designer and UX writer
 cardRole: Conversation designer, UX writer
+timeline: From June 2025, live around August 17, 2025
+team: Designers, researchers, engineers, product owners and AI specialists
+outcome: 964 people used it in the first month
 tags:
 - label: Conversation design
   tone: oxford
@@ -18,25 +21,25 @@ thumb: /images/work/telkomgpt/thumb.jpg
 thumbAlt: An ink-and-wash drawing of an open-plan office, where two smiling colleagues lean over a low cubicle partition and one points at a chat page on a laptop, while two others sit at the desk
 ---
 
-## Kiss and tell, or better not to?
+## Not everything in the pantry is shareable
 
 Have you ever pasted a work document into a public chatbot? Plenty of Telkom employees used one for daily work, without a second thought about where the data went.
 
 <figure style="max-width: 420px">
   <img src="/images/work/telkomgpt/ai-tools.jpg" alt="A survey table of AI tools Telkom employees used: ChatGPT 34.65 percent, Google Gemini 22.66, Microsoft Copilot 14.36, then Canva AI, others, Claude, Perplexity, DeepSeek and internal tools" loading="lazy" />
-  <figcaption>The public AI tools employees said they used, from the research survey. From <a href="https://alwanth.webflow.io/works/telkom-gen-ai">Alwan Thio Hartoyo's case study</a>.</figcaption>
+  <figcaption>The public AI tools employees said they used, from the research survey.</figcaption>
 </figure>
 
 When I joined the GenAI work in June 2025, it was a small research project. Then management moved it to the front: Telkom's own AI assistant, on a model hosted in-house, able to handle daily tasks and to draw on the company's latest documents. The message was data sovereignty: company data stays in the company.
 
 <figure style="max-width: 560px">
   <img src="/images/work/telkomgpt/waspada.jpg" alt="A red launch banner with a padlock and the words Waspada! Data perusahaan bisa bocor di AI Chatbot eksternal" loading="lazy" />
-  <figcaption>The launch banner: "Waspada! Data perusahaan bisa bocor di AI Chatbot eksternal" (Beware! Company data can leak through outside AI chatbots). From <a href="https://alwanth.webflow.io/works/telkom-gen-ai">Alwan Thio Hartoyo's case study</a>.</figcaption>
+  <figcaption>The launch banner: "Waspada! Data perusahaan bisa bocor di AI Chatbot eksternal" (Beware! Company data can leak through outside AI chatbots).</figcaption>
 </figure>
 
-I came in to design the interface. Then I read what the model was saying.
+I joined a team of designers, researchers, engineers, product owners and AI specialists, and came in to write the interface. Then I read what the model was saying.
 
-## Teaching our ABCs
+## Talk the walk
 
 The model was still raw. It carried the habits of the foundation model underneath, and its Bahasa Indonesia sounded robotic, as if translated from another language. (Think of the machine-translated seller chats you still find on marketplaces.)
 
@@ -57,19 +60,39 @@ I joined our researcher in interviewing Telkom employees about how they used Gen
   </figure>
 </div>
 
-The persona we landed on is a friendly Telkom colleague, the one at the next cubicle you can always ask. The interface mostly stays corporate, and the conversation stays casual. The assistant calls you "kamu" (the casual "you") and says "saya" (I). The interface says "kami" (we), because what it shows comes from more than the chat: the knowledge base, the documents, and the other tools behind it.
+The persona we landed on is a friendly Telkom colleague, the one at the next cubicle you can always ask.
 
-Then I wrote the system prompt for that colleague.
+## Behind the cubicle wall
+
+Then I wrote the system prompt for that colleague. What's in it stays inside the company, but its shape doesn't have to: the persona, the main instructions, the guardrails, and the guides for reaching the tools behind it.
+
+The persona even picks the pronouns. The interface mostly stays corporate, and the conversation stays casual.
+
+<figure>
+  <ol class="card principles">
+    <li><span class="card-name">The interface</span><span>"Kami" (we). What it shows comes from more than the chat: the knowledge base, the documents and the other tools behind it.</span></li>
+    <li><span class="card-name">The assistant</span><span>"Saya" (I) for itself, and "kamu" (the casual "you") for you. It's the colleague at the next cubicle.</span></li>
+  </ol>
+</figure>
 
 ## Prompt, test, repeat
 
 Our AI Engineer wrote Python scripts to drill every version of the system prompt. We checked whether the model followed it, answered consistently and made things up less.
 
+One round caught it making up recent events. The web search tool behind it was still being built, so the model filled the gap on its own. I added a guardrail: it tells you its knowledge only goes up to a certain date, so you may want to check the answer elsewhere.
+
+And when a source comes back empty, it says so instead of guessing.
+
+<figure>
+  <img src="/images/work/telkomgpt/wont-guess.jpg" alt="TelkomGPT answering the question Siapa juara Piala Dunia 2026? by saying the internet search returned nothing usable, so it won't answer from general knowledge or assumptions" loading="lazy" />
+  <figcaption>Asked who won the 2026 World Cup, it says the search came back empty and won't answer from general knowledge or assumptions.</figcaption>
+</figure>
+
 I wrote the reasons people could pick when they rated an answer. The most common beta complaint was about answer quality, and the fix was connecting the right sources. The persona was only the messenger.
 
 <figure>
   <img src="/images/work/telkomgpt/feedback.jpg" alt="A pie chart of thumbs feedback, 60 percent up and 40 percent down, beside a table of ratings with reasons such as Jawaban ambigu, Akurat, Rujukan lengkap, Tidak akurat, Sesuai data terbaru and Membantu" loading="lazy" />
-  <figcaption>Ratings from the first month, with the reasons people picked. From <a href="https://alwanth.webflow.io/works/telkom-gen-ai">Alwan Thio Hartoyo's case study</a>.</figcaption>
+  <figcaption>Ratings from the first month, with the reasons people picked.</figcaption>
 </figure>
 
 Each round of feedback, and each new feature, meant another pass at the prompt.
@@ -82,7 +105,7 @@ I wrote every word around the chat, too. The sign-in page calls people what they
 
 <figure>
   <img src="/images/work/telkomgpt/login.jpg" alt="The TelkomGPT sign-in dialog over the dimmed home page, with the line Telkomers, ayo buka potensimu! above a red button to sign in with a Telkom email" loading="lazy" />
-  <figcaption>The sign-in screen. Design by Alwan Thio Hartoyo. From <a href="https://alwanth.webflow.io/works/telkom-gen-ai">Alwan Thio Hartoyo's case study</a>.</figcaption>
+  <figcaption>The sign-in screen, designed by Alwan Thio Hartoyo.</figcaption>
 </figure>
 
 Reading internal documents takes time, and a silent wait feels longer. So while it works, the assistant tells you what it's doing, one step at a time: "Memahami permintaanmu" (Understanding your request), "Menganalisis kompleksitas pertanyaan" (Weighing how complex the question is), "Menghimpun sumber informasi" (Gathering sources). The idea: you see it getting there, so you wait. And until it's done, it asks you to hold on: "Tunggu sampai kami selesai menjawab, ya." (Hang on till we finish answering, okay?)
@@ -94,7 +117,7 @@ Reading internal documents takes time, and a silent wait feels longer. So while 
 
 ## Someone to rely on
 
-In its first month, 964 people used TelkomGPT, more than the roughly 830 people in the IT Digital directorate it launched for. People in regional offices tell me they use it. And as of November 2026, it still talks like that colleague.
+It went live around Indonesia's Independence Day, August 17, 2025. In its first month, 964 people used TelkomGPT, more than the roughly 830 people in the IT Digital directorate it launched for. People in regional offices tell me they use it. And as of November 2026, it still talks like that colleague.
 
 <div class="shots even">
   <figure style="--ratio: 1.778">
@@ -103,7 +126,7 @@ In its first month, 964 people used TelkomGPT, more than the roughly 830 people 
   </figure>
   <figure style="--ratio: 1.875">
     <img src="/images/work/telkomgpt/users.jpg" alt="A dashboard panel showing 964 unique users, with sessions split between new and returning users" loading="lazy" />
-    <figcaption>964 people in the first month. From <a href="https://alwanth.webflow.io/works/telkom-gen-ai">Alwan Thio Hartoyo's case study</a>.</figcaption>
+    <figcaption>964 people in the first month.</figcaption>
   </figure>
 </div>
 
