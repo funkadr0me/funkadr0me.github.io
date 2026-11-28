@@ -171,6 +171,8 @@ html.motion [data-wipe] {
   transform-origin: 50% 50%;
   backface-visibility: hidden;
 }
+/* The letter comes from data-ch (flip-headline.ts), so it isn't page text. */
+.flip-layer::before { content: attr(data-ch); }
 .flip-layer.top { clip-path: inset(-0.4em -0.4em 50% -0.4em); }
 .flip-layer.bottom { clip-path: inset(50% -0.4em -0.4em -0.4em); }
 /* The two flaps only show while the cell turns; they carry the paper so they cover the half behind them. */

@@ -37,9 +37,9 @@ const parts = (value: string) => value.split(' · ');
     <div class="hero-title">
       <h1 class="headline-display" aria-label={headline} data-flip={JSON.stringify({ verbs, nouns })}>
         <span class="flip-line" style="--i: 0">
-          <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true">{first.verb}</span></span>
+          <span class="flip-slot" data-flip-verb><span class="flip-word" aria-hidden="true">{first.verb}</span></span>{' '/* so the text reads "Shuffling words", not "Shufflingwords"; a flex line ignores it */}
           <span class="flip-slot" data-flip-noun><span class="flip-word" aria-hidden="true">{first.noun}</span></span>
-        </span>
+        </span>{' '}
         <span class="flip-rest" aria-hidden="true" style="--i: 1">{settings.headlineTail}</span>
       </h1>
       <p class="intro" data-intro style="--intro-delay: 0.75s">

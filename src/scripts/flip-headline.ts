@@ -44,7 +44,9 @@ export function initFlipHeadline() {
   const widthOf = (text: string) => {
     if (text === ' ') return 0; // a blank cell takes no room
     measurer.textContent = text;
-    return measurer.getBoundingClientRect().width;
+    const width = measurer.getBoundingClientRect().width;
+    measurer.textContent = ''; // left empty, so the headline's text is only its sentence
+    return width;
   };
   const wordWidth = (word: string) => [...word].reduce((sum, ch) => sum + widthOf(ch), 0);
   const widest = (words: string[]) => Math.max(...words.map(wordWidth));
@@ -54,13 +56,16 @@ export function initFlipHeadline() {
   // A cell is four layers, each showing half of a letter: the static top (the next letter), the static
   // bottom (the current one), the falling top flap (current) and the rising bottom flap (next).
   // Each word keeps as many cells as its wheel's longest word; the spare ones hold a blank.
+  // A layer draws its letter from data-ch through CSS (motion.css), not as text: four text copies of
+  // every letter made search engines read the headline as "SSSShhhhuuuu…". The word itself is kept
+  // once, as hidden plain text (`.flip-text`), so the headline's text is always the current sentence.
   const makeCell = (ch: string) => {
     const cell = document.createElement('span');
     cell.className = 'flip-cell';
     for (const kind of ['top', 'bottom', 'flap top', 'flap bottom']) {
       const layer = document.createElement('span');
       layer.className = `flip-layer ${kind}`;
-      layer.textContent = ch;
+      layer.dataset.ch = ch;
       cell.append(layer);
     }
     cell.dataset.ch = ch;
@@ -73,7 +78,10 @@ export function initFlipHeadline() {
   const build = (slot: HTMLElement, words: string[], first: string) => {
     const word = slot.querySelector<HTMLElement>('.flip-word')!;
     const count = Math.max(...words.map((w) => w.length));
-    word.replaceChildren(...Array.from({ length: count }, (_, i) => makeCell(first[i] ?? ' ')));
+    const text = document.createElement('span');
+    text.className = 'flip-text sr-only';
+    text.textContent = first;
+    word.replaceChildren(...Array.from({ length: count }, (_, i) => makeCell(first[i] ?? ' ')), text);
   };
   build(verbSlot, verbs, verbs[0]);
   build(nounSlot, nouns, nouns[0]);
@@ -91,16 +99,16 @@ export function initFlipHeadline() {
   async function flap(cell: HTMLElement, next: string) {
     const [top, bottom, fallingTop, risingBottom] = layersOf(cell);
     const current = cell.dataset.ch ?? ' ';
-    top.textContent = next;           // uncovered as the top flap falls
-    bottom.textContent = current;     // covered as the bottom flap lands
-    fallingTop.textContent = current;
-    risingBottom.textContent = next;
+    top.dataset.ch = next;            // uncovered as the top flap falls
+    bottom.dataset.ch = current;      // covered as the bottom flap lands
+    fallingTop.dataset.ch = current;
+    risingBottom.dataset.ch = next;
     cell.classList.add('flipping');
     await fallingTop.animate([{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-90deg)' }],
       { duration: FLAP_MS / 2, easing: FALL, fill: 'forwards' }).finished;
     await risingBottom.animate([{ transform: 'rotateX(90deg)' }, { transform: 'rotateX(0deg)' }],
       { duration: FLAP_MS / 2, easing: LAND, fill: 'forwards' }).finished;
-    bottom.textContent = next;
+    bottom.dataset.ch = next;
     cell.dataset.ch = next;
     sizeCell(cell, next);
     cell.classList.remove('flipping');
@@ -121,6 +129,7 @@ export function initFlipHeadline() {
 
   const turnWord = (slot: HTMLElement, word: string) =>
     Promise.all(cellsOf(slot).map((cell, i) => turnCell(cell, word[i] ?? ' ', i)));
+  const setText = (slot: HTMLElement, word: string) => { slot.querySelector('.flip-text')!.textContent = word; };
 
   // The headline always reads as one sentence; the visible words are aria-hidden, the two buttons are not.
   const sentence = (verb: string, noun: string) => `${verb} ${noun} ${tail}`;
@@ -132,6 +141,8 @@ export function initFlipHeadline() {
   async function change(verb: string, noun: string, turnVerb: boolean, turnNoun: boolean) {
     h1!.setAttribute('aria-label', sentence(verb, noun));
     labelHits(verb, noun);
+    setText(verbSlot!, verb); // the plain text says where both words are going, like the label
+    setText(nounSlot!, noun);
     if (turnVerb) await turnWord(verbSlot!, verb);
     if (turnVerb && turnNoun) await wait(NOUN_AFTER_MS);
     if (turnNoun) await turnWord(nounSlot!, noun);
