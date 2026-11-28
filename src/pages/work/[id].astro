@@ -34,6 +34,7 @@ const facts = [
   externalLabel={data.linkLabel ?? 'See it live'}
   image={data.thumb ?? data.image}
   imageAlt={data.thumb ? data.thumbAlt : data.imageAlt}
+  schema={{ type: 'Article', extra: { articleSection: 'Case study', ...(data.tags.length && { keywords: data.tags.map((tag) => tag.label).join(', ') }) } }}
 >
   <div slot="meta" class="meta" data-intro style="--intro-delay: 0.3s">
     {facts.length > 0 && (

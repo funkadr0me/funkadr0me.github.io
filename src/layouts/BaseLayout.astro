@@ -5,6 +5,7 @@ import '../styles/home.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { settings } from '../data/site';
+import { graph, type PageSchema } from '../data/schema';
 
 interface Props {
   title?: string;
@@ -12,6 +13,7 @@ interface Props {
   image?: string;       // the picture a shared link shows (a path under public/); the share card when unset
   imageAlt?: string;
   noindex?: boolean;    // a page search engines should skip (the 404): no canonical address, no share tags
+  schema?: PageSchema;  // what the page is, for structured data (data/schema.ts); a plain web page when unset
 }
 
 const {
@@ -20,12 +22,16 @@ const {
   image,
   imageAlt,
   noindex = false,
+  schema,
 } = Astro.props;
 
 // The page's one official address, and the picture as a full address: shared-link previews need both absolute.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const shareImage = new URL(image ?? '/images/share-card.jpg', Astro.site).href;
 const shareAlt = image ? imageAlt : 'Purna Anantha, smiling, in black and white on a claret background';
+// Structured data for search engines and AI assistants; `<` is escaped so no text can close the script early.
+const structured = noindex || !Astro.site ? undefined
+  : JSON.stringify(graph(Astro.site, { url: canonical, title, description, image: shareImage }, schema)).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -49,6 +55,7 @@ const shareAlt = image ? imageAlt : 'Purna Anantha, smiling, in black and white 
         <meta property="og:image" content={shareImage} />
         {shareAlt && <meta property="og:image:alt" content={shareAlt} />}
         <meta name="twitter:card" content="summary_large_image" />
+        {structured && <script type="application/ld+json" set:html={structured} />}
       </>
     )}
     <meta name="generator" content={Astro.generator} />

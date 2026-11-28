@@ -1,6 +1,7 @@
 ---
 // Shared layout for a project case study or a writing piece.
 import BaseLayout from './BaseLayout.astro';
+import type { PageSchema } from '../data/schema';
 
 interface Props {
   title: string;
@@ -12,12 +13,16 @@ interface Props {
   externalLabel?: string;
   image?: string;           // shown when the link is shared
   imageAlt?: string;
+  schema?: PageSchema;      // structured data; an article by Purna when unset
 }
 
 const { title, kicker, description, backHref, backLabel, externalLink, externalLabel, image, imageAlt } = Astro.props;
+// The page title without the name after it, for the article's headline.
+const schema: PageSchema = Astro.props.schema ?? { type: 'Article' };
+const pageSchema: PageSchema = { ...schema, extra: { ...(schema.type === 'Article' && { headline: title }), ...schema.extra } };
 ---
 
-<BaseLayout title={`${title} • Purna Anantha`} description={description} image={image} imageAlt={imageAlt}>
+<BaseLayout title={`${title} • Purna Anantha`} description={description} image={image} imageAlt={imageAlt} schema={pageSchema}>
   <article class="container article">
     <header class="article-head">
       <a class="back u-draw body-sm" href={backHref}>← {backLabel}</a>

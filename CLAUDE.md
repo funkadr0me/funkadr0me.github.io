@@ -79,6 +79,7 @@ src/styles/motion.css          all animation (one easing curve, durations at the
 src/scripts/motion.ts          scroll reveals, frosted nav past hero, starts the split-flap headline
 src/scripts/flip-headline.ts   the split-flap hero headline
 src/data/pictures.ts           picture sizes and the names of the smaller copies
+src/data/schema.ts             structured data (schema.org JSON-LD) for search engines and AI assistants
 src/pages/resized/[...file].ts makes those copies at build
 src/integrations/image-sizes.mjs adds width and height to pictures after the build
 prototypes/                    standalone HTML experiments — not part of the build
@@ -107,6 +108,7 @@ Specimen shape, brand kept (tokens, fonts, palette untouched). Hero: exactly one
 - Every page but the 404 has a canonical address and Open Graph tags (`BaseLayout.astro`), built from `site` in `astro.config.mjs`, so a custom domain carries over to them, the sitemap and robots.txt.
 - A shared link shows the project's `thumb` (or `image`) on work pages, and `public/images/share-card.jpg` (1714 x 900: the portrait at its full 900px, in black and white on claret, no type, so no webfont is baked into a picture) everywhere else. Remake it if the portrait changes, under a new file name, because LinkedIn keeps its copy of a picture by address. A page with no description of its own (the home page) uses `description` from `settings.json` ("Search and share description" in Pages CMS; the hero's `intro` stands in when it is empty); keep it between 100 characters (LinkedIn's minimum) and about 160 (what Google shows).
 - Titles people search for (Google Trends check, November 27, 2026): "UX writer" is clear but flat worldwide and falling in Indonesia; "content designer" is where the field is moving (the fastest-rising search among people who look up "UX writer"); "content strategist" reads as marketing to most searchers; "conversation designer" is small but rising; in Indonesia "copywriter" is the word people search. So the tab title is "Purna Anantha • UX writer, content designer, copywriter" (default in `BaseLayout.astro`), and the description names UX writer, content designer and conversation design for AI. Owner's call, November 27, 2026.
+- Structured data (schema.org JSON-LD, `src/data/schema.ts`, added November 28, 2026, after a crawl report flagged it as the one gap): BaseLayout puts one graph in every indexable page: the website, Purna as a Person (job and employer from the first row of `experience.json`; summary, skills, school and languages from `resume.json`; crafts from `roles`; LinkedIn; the portrait), and the page itself, passed as `schema` (home and resume `ProfilePage`, case studies and writing `Article` written by Purna, the advertising page a `CollectionPage` of works Purna contributed to). It is built from the content files and `site`, so CMS edits and the domain carry over. No email in it (the address stays split, see Content). Check it with validator.schema.org or Google's Rich Results Test.
 - The 404 is `noindex` and out of the sitemap, and no nav link is marked on it.
 
 ## Motion

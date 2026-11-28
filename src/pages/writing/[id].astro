@@ -23,6 +23,7 @@ const kicker = [data.source, dateLabel].filter(Boolean).join(' · ');
   backLabel="All writing"
   externalLink={data.link}
   externalLabel="Also published here"
+  schema={{ type: 'Article', extra: data.date && { datePublished: data.date.toISOString().slice(0, 10) } }}
 >
   <Content />
 </ArticleLayout>

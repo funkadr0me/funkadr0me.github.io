@@ -4,11 +4,14 @@
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { getProjects } from '../../data/site';
+import { ids } from '../../data/schema';
 
 const projects = await getProjects();
 const pieces = projects.filter((project) => project.era === 'earlier');
 // A shared link shows the picture of this page's own card on the home page.
 const card = projects.find((project) => project.href === '/work/advertising-and-scriptwriting/');
+// Structured data lists the six pieces as works Purna contributed to (data/schema.ts).
+const personId = ids(Astro.site!).person;
 ---
 
 <ArticleLayout
@@ -21,6 +24,10 @@ const card = projects.find((project) => project.href === '/work/advertising-and-
   externalLabel="More in the full archive"
   image={card?.thumb}
   imageAlt={card?.thumbAlt}
+  schema={{
+    type: 'CollectionPage',
+    extra: { hasPart: pieces.map((piece) => ({ '@type': 'CreativeWork', name: piece.title, ...(piece.summary && { description: piece.summary }), contributor: { '@id': personId } })) },
+  }}
 >
   <div slot="media" class="index">
     {pieces.map((project, i) => <ProjectCard project={project} index={i} lead={i === 0} compact level={2} />)}

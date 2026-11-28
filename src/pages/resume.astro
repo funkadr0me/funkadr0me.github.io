@@ -17,7 +17,7 @@ const linkedinText = settings.linkedin.replace(/^https?:\/\/(www\.)?/, '').repla
 const description = 'Resume of Purna Anantha, Head of UX Writer Hub at Telkom Indonesia: UX writing, content strategy and ten years of advertising copywriting and scriptwriting.';
 ---
 
-<BaseLayout title="Resume • Purna Anantha" description={description}>
+<BaseLayout title="Resume • Purna Anantha" description={description} schema={{ type: 'ProfilePage' }}>
   <div class="container resume">
     <header class="masthead">
       <h1 class="headline-lg">{resume.name}</h1>

@@ -31,7 +31,7 @@ const rolesSentence = roles.length > 1 ? `${roles.slice(0, -1).join(', ')} and $
 const parts = (value: string) => value.split(' · ');
 ---
 
-<BaseLayout>
+<BaseLayout schema={{ type: 'ProfilePage' }}>
   <!-- Hero -->
   <section class="container hero">
     <div class="hero-title">
